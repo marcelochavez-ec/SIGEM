@@ -1,3 +1,15 @@
+| **Membrete institucional** | **Sistema de Informacion para la Gestion de Establecimientos de Salud - SIGES** |
+|---|---|
+| **Proyecto** | Red de Proteccion Social |
+| **Institucion rectora** | Ministerio de Salud Publica del Ecuador |
+| **Cooperante** | Banco Mundial |
+| **Consultor Especialista en Proteccion Social** | Marcelo Chavez |
+| **Correo electronico** | marcelo_chavez_ec@outlook.com |
+| **Movil** | 098 333 2687 |
+| **Repositorio** | `marcelochavez-ec/SIGES` |
+| **Version documental** | 1.0 |
+| **Fecha de actualizacion** | Octubre 2026 |
+
 # SIGES
 
 **Sistema de Informacion para la Gestion de Establecimientos de Salud**
@@ -407,4 +419,3 @@ El repositorio contiene:
 5. Interfaz institucional responsive.
 6. Dashboard de reportes de monitoreo.
 7. Documentacion tecnica por modulo.
-
