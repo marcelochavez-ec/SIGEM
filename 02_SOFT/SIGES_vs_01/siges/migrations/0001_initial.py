@@ -114,14 +114,15 @@ BEGIN
         ALTER TABLE siges_formulario ADD CONSTRAINT ck_siges_formulario_estado
         CHECK (estado IN ('BORRADOR', 'ENVIADO', 'VALIDADO', 'ANULADO'));
     END IF;
-    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am04_no_negativo') THEN
-        ALTER TABLE respuesta_s02 ADD CONSTRAINT ck_respuesta_s02_am04_no_negativo CHECK (s02_am04 >= 0);
-    END IF;
     IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am04_unidad') THEN
         ALTER TABLE respuesta_s02 ADD CONSTRAINT ck_respuesta_s02_am04_unidad CHECK (s02_am04_unidad IN ('Horas', 'Minutos'));
     END IF;
-    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am04_minutos') THEN
-        ALTER TABLE respuesta_s02 ADD CONSTRAINT ck_respuesta_s02_am04_minutos CHECK (s02_am04_unidad = 'Horas' OR s02_am04 < 60);
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am04_rango_unidad') THEN
+        ALTER TABLE respuesta_s02 ADD CONSTRAINT ck_respuesta_s02_am04_rango_unidad
+        CHECK (
+            (s02_am04_unidad = 'Horas' AND s02_am04 >= 1)
+            OR (s02_am04_unidad = 'Minutos' AND s02_am04 >= 1 AND s02_am04 <= 59)
+        );
     END IF;
 END
 $$;
@@ -306,15 +307,11 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name="respuestas02",
-            constraint=models.CheckConstraint(condition=models.Q(("s02_am04__gte", 0)), name="ck_respuesta_s02_am04_no_negativo"),
-        ),
-        migrations.AddConstraint(
-            model_name="respuestas02",
             constraint=models.CheckConstraint(condition=models.Q(("s02_am04_unidad__in", ["Horas", "Minutos"])), name="ck_respuesta_s02_am04_unidad"),
         ),
         migrations.AddConstraint(
             model_name="respuestas02",
-            constraint=models.CheckConstraint(condition=(models.Q(("s02_am04_unidad", "Horas")) | models.Q(("s02_am04__lt", 60))), name="ck_respuesta_s02_am04_minutos"),
+            constraint=models.CheckConstraint(condition=(models.Q(s02_am04_unidad="Horas", s02_am04__gte=1) | models.Q(s02_am04_unidad="Minutos", s02_am04__gte=1, s02_am04__lte=59)), name="ck_respuesta_s02_am04_rango_unidad"),
         ),
             ],
         ),

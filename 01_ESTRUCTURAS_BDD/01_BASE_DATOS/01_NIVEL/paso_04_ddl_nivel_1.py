@@ -161,10 +161,9 @@ CREATE TABLE IF NOT EXISTS {esquema}.respuesta_s02 (
         ON DELETE RESTRICT,
     CONSTRAINT ck_respuesta_s02_am01_frontera CHECK (UPPER(TRIM(s02_am01)) IN ('SI', 'SÍ', 'NO')),
     CONSTRAINT ck_respuesta_s02_am04_unidad CHECK (UPPER(TRIM(s02_am04_unidad)) IN ('HORAS', 'MINUTOS')),
-    CONSTRAINT ck_respuesta_s02_am04_no_negativo CHECK (s02_am04 >= 0),
-    CONSTRAINT ck_respuesta_s02_am04_minutos CHECK (
-        UPPER(TRIM(s02_am04_unidad)) <> 'MINUTOS'
-        OR s02_am04 <= 59
+    CONSTRAINT ck_respuesta_s02_am04_rango_unidad CHECK (
+        (UPPER(TRIM(s02_am04_unidad)) = 'HORAS' AND s02_am04 >= 1)
+        OR (UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS' AND s02_am04 >= 1 AND s02_am04 <= 59)
     ),
     CONSTRAINT ck_respuesta_s02_am05_categoria CHECK (UPPER(TRIM(s02_am05)) IN ('URBANO', 'RURAL'))
 );
@@ -186,14 +185,15 @@ BEGIN
         CHECK (UPPER(TRIM(s02_am04_unidad)) IN ('HORAS', 'MINUTOS')) NOT VALID;
     END IF;
 
-    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am04_minutos') THEN
-        ALTER TABLE {esquema}.respuesta_s02
-        ADD CONSTRAINT ck_respuesta_s02_am04_minutos
-        CHECK (
-            UPPER(TRIM(s02_am04_unidad)) <> 'MINUTOS'
-            OR s02_am04 <= 59
-        ) NOT VALID;
-    END IF;
+    ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am04_no_negativo;
+    ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am04_minutos;
+    ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am04_rango_unidad;
+    ALTER TABLE {esquema}.respuesta_s02
+    ADD CONSTRAINT ck_respuesta_s02_am04_rango_unidad
+    CHECK (
+        (UPPER(TRIM(s02_am04_unidad)) = 'HORAS' AND s02_am04 >= 1)
+        OR (UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS' AND s02_am04 >= 1 AND s02_am04 <= 59)
+    ) NOT VALID;
 
     IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am05_categoria') THEN
         ALTER TABLE {esquema}.respuesta_s02

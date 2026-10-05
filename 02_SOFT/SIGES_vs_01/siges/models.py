@@ -4,6 +4,8 @@
 # Email: marcelo_chavez_ec@outlook.com
 # ============================================================
 
+from decimal import Decimal
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -394,17 +396,18 @@ class RespuestaS02(models.Model):
     class Meta:
         db_table = "respuesta_s02"
         constraints = [
-            # La base de datos impide tiempos negativos.
-            models.CheckConstraint(condition=Q(s02_am04__gte=0), name="ck_respuesta_s02_am04_no_negativo"),
             # La base de datos limita las unidades funcionales disponibles.
             models.CheckConstraint(
                 condition=Q(s02_am04_unidad__in=["Horas", "Minutos"]),
                 name="ck_respuesta_s02_am04_unidad",
             ),
-            # Si el usuario captura minutos, el valor debe quedar por debajo de 60.
+            # El tiempo debe ser positivo y respetar el rango definido por unidad.
             models.CheckConstraint(
-                condition=Q(s02_am04_unidad="Horas") | Q(s02_am04__lt=60),
-                name="ck_respuesta_s02_am04_minutos",
+                condition=(
+                    Q(s02_am04_unidad="Horas", s02_am04__gte=1)
+                    | Q(s02_am04_unidad="Minutos", s02_am04__gte=1, s02_am04__lte=59)
+                ),
+                name="ck_respuesta_s02_am04_rango_unidad",
             ),
         ]
         verbose_name = "Respuesta S02"
@@ -432,9 +435,17 @@ class RespuestaS02(models.Model):
                     f"y no a {codigo_variable}."
                 )
 
-        # Si la unidad es minutos, el valor debe ser menor a 60.
-        if self.s02_am04_unidad == "Minutos" and self.s02_am04 is not None and self.s02_am04 >= 60:
-            errores["s02_am04"] = "Cuando la unidad es minutos, ingrese un valor menor a 60."
+        if self.s02_am04_unidad == "Horas" and self.s02_am04 is not None and self.s02_am04 < Decimal("1.00"):
+            # Horas no admite cero ni valores menores a una hora.
+            errores["s02_am04"] = "Cuando la unidad es horas, ingrese un valor mayor o igual a 1."
+
+        if (
+            self.s02_am04_unidad == "Minutos"
+            and self.s02_am04 is not None
+            and not (Decimal("1.00") <= self.s02_am04 <= Decimal("59.00"))
+        ):
+            # Minutos queda limitado a 1..59 para mantener consistencia temporal.
+            errores["s02_am04"] = "Cuando la unidad es minutos, ingrese un valor entre 1 y 59."
 
         if errores:
             # ValidationError permite asociar errores al campo correspondiente.

@@ -4,6 +4,8 @@
 # Email: marcelo_chavez_ec@outlook.com
 # ============================================================
 
+from decimal import Decimal
+
 from django import forms
 
 from .models import EstablecimientoIngresado, FormularioOpcion
@@ -212,14 +214,14 @@ class S02AccesoMovilizacionForm(BaseSigesForm):
         empty_label="Seleccione...",
         help_text="Registre con que frecuencia existe transporte publico hacia el establecimiento.",
     )
-    # Campo numerico en horas; min_value impide valores negativos.
+    # Campo numerico de tiempo; la regla funcional exige valores positivos.
     s02_am04 = forms.DecimalField(
         label="Tiempo hasta el Establecimiento de Salud",
-        min_value=0,
+        min_value=Decimal("1.00"),
         max_digits=6,
         decimal_places=2,
-        help_text="Ingrese el tiempo de traslado segun la unidad seleccionada.",
-        widget=forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+        help_text="Ingrese un valor positivo con maximo dos decimales segun la unidad seleccionada.",
+        widget=forms.NumberInput(attrs={"step": "0.01", "min": "1"}),
     )
     # Unidad del tiempo para diferenciar horas y minutos en la validacion.
     s02_am04_unidad = forms.ChoiceField(
@@ -271,7 +273,7 @@ class S02AccesoMovilizacionForm(BaseSigesForm):
         self.fields["s02_am04"].widget.attrs.update(
             {
                 "data-tiempo-traslado": "valor",
-                "placeholder": "Ejemplo: 0.5, 1.2 o 45",
+                "placeholder": "Ejemplo: 1.65 horas o 45.5 minutos",
             }
         )
         # La unidad controla el estado visual del campo numerico de tiempo.
@@ -287,7 +289,10 @@ class S02AccesoMovilizacionForm(BaseSigesForm):
         tiempo = cleaned_data.get("s02_am04")
         # Se lee la unidad controlada desde catalogo.
         unidad = cleaned_data.get("s02_am04_unidad")
-        # Minutos no debe llegar a 60, porque 60 minutos ya corresponde a 1 hora.
-        if tiempo is not None and unidad == "Minutos" and tiempo >= 60:
-            self.add_error("s02_am04", "Cuando la unidad es minutos, ingrese un valor menor a 60.")
+        if tiempo is not None and unidad == "Horas" and tiempo < Decimal("1.00"):
+            # Horas debe ser positivo y no admite cero.
+            self.add_error("s02_am04", "Cuando la unidad es horas, ingrese un valor mayor o igual a 1.")
+        if tiempo is not None and unidad == "Minutos" and not (Decimal("1.00") <= tiempo <= Decimal("59.00")):
+            # Minutos debe quedar entre 1 y 59 para no duplicar una hora completa.
+            self.add_error("s02_am04", "Cuando la unidad es minutos, ingrese un valor entre 1 y 59.")
         return cleaned_data

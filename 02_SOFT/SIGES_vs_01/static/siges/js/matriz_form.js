@@ -15,11 +15,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Activa el campo tiempo solo cuando existe una unidad seleccionada.
     const actualizarEstadoTiempo = () => {
         // Se comprueba si alguna opción de unidad está marcada.
-        const tieneUnidad = Array.from(unidades).some((radio) => radio.checked);
+        const unidadSeleccionada = Array.from(unidades).find((radio) => radio.checked);
+        // La existencia de una unidad marcada habilita la captura del tiempo.
+        const tieneUnidad = Boolean(unidadSeleccionada);
         // El campo queda bloqueado hasta que el usuario elija Horas o Minutos.
         campoTiempo.disabled = !tieneUnidad;
-        // El texto de ayuda visual refuerza el orden de captura.
-        campoTiempo.placeholder = tieneUnidad ? "Ingrese el tiempo de traslado" : "Seleccione primero Horas o Minutos";
+        // La regla general exige valores positivos desde 1.
+        campoTiempo.min = "1";
+        // Las horas no tienen maximo funcional en el formulario.
+        campoTiempo.removeAttribute("max");
+
+        if (unidadSeleccionada && unidadSeleccionada.value === "Minutos") {
+            // Minutos se limita a 59 porque 60 minutos equivale a 1 hora.
+            campoTiempo.max = "59";
+            // El ejemplo visible orienta al usuario hacia minutos decimales validos.
+            campoTiempo.placeholder = "Ejemplo: 15, 30.5 o 59";
+        } else if (unidadSeleccionada && unidadSeleccionada.value === "Horas") {
+            // Horas permite decimales positivos a partir de 1.
+            campoTiempo.placeholder = "Ejemplo: 1, 1.65 o 2.36";
+        } else {
+            // El texto de ayuda visual refuerza el orden de captura.
+            campoTiempo.placeholder = "Seleccione primero Horas o Minutos";
+        }
     };
 
     // Cada cambio de unidad actualiza inmediatamente el estado del input.

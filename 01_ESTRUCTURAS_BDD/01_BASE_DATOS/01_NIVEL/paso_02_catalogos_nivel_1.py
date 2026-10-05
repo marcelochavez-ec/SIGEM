@@ -239,9 +239,9 @@ VARIABLES = [
         "obligatorio": True,
         "orden": 4,
         "validacion_json": {
-            "min": 0,
+            "min": 1,
             "precision": 2,
-            "regla_unidad": "Horas permite valores reales mayores o iguales a cero; Minutos permite valores reales entre cero y cincuenta y nueve.",
+            "regla_unidad": "Horas permite valores reales mayores o iguales a uno; Minutos permite valores reales entre uno y cincuenta y nueve.",
         },
         "opciones": [],
     },
@@ -297,11 +297,11 @@ VARIABLES = [
 VALIDACIONES = [
     ("s01_dg01", "fuente_institucional", "El unicodigo debe existir en la fuente institucional."),
     ("s02_am01", "catalogo_dicotomico", "Frontera debe registrarse con una opcion controlada: Si o No."),
-    ("s02_am04", "rango_minimo", "El tiempo hasta el establecimiento de salud no puede ser negativo."),
+    ("s02_am04", "rango_minimo", "El tiempo hasta el establecimiento de salud debe ser mayor o igual a uno."),
     (
         "s02_am04",
         "rango_por_unidad",
-        "Si la unidad es Horas, el valor puede ser decimal mayor o igual a cero; si la unidad es Minutos, el valor debe estar entre cero y cincuenta y nueve.",
+        "Si la unidad es Horas, el valor puede ser decimal mayor o igual a uno; si la unidad es Minutos, el valor debe estar entre uno y cincuenta y nueve.",
     ),
     ("s02_am04_unidad", "catalogo_unidad_tiempo", "La unidad del tiempo de traslado debe ser Horas o Minutos."),
     ("s02_am05", "catalogo_urbano_rural", "La categoria de accesibilidad debe ser Urbano o Rural."),

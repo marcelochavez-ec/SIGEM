@@ -20,6 +20,9 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 8. `static/siges/css/01_componentes.css`
 9. `static/siges/css/03_responsive.css`
 10. `01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/paso_03_niveles_atencion.py`
+11. `01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/paso_02_catalogos_nivel_1.py`
+12. `01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/paso_04_ddl_nivel_1.py`
+13. `siges/migrations/0004_actualiza_rango_tiempo_s02.py`
 
 ## 4. Flujo de usuario
 
@@ -89,6 +92,8 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 31. El detalle de la matriz ya no usa un contenedor visual grande alrededor de toda la página.
 32. El detalle muestra la información cargada en tablas cuadriculadas por resumen, Datos Generales y Acceso y Movilización.
 33. El identificador de la matriz se muestra como `ID de formulario` dentro de la tabla de identificación y no como un número suelto debajo del título.
+34. Al ingresar a una nueva matriz desde `Nuevo registro`, el formulario inicia limpio y descarta borradores temporales anteriores.
+35. El campo de tiempo de traslado cambia sus atributos visibles segun la unidad: horas sin maximo operativo y minutos con maximo `59`.
 
 ## 8. Lógica server
 
@@ -106,7 +111,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 12. `S01DatosGeneralesForm` valida que el unicódigo exista dentro del nivel de atención seleccionado.
 13. `buscar_establecimientos` recibe `nivel_atencion` y filtra `siges.vm_establecimientos_ingresados`.
 14. `S02AccesoMovilizacionForm` carga `s02_am01`, `s02_am04_unidad` y `s02_am05` desde `FormularioOpcion`, pero guarda la etiqueta porque esas columnas son texto controlado.
-15. `S02AccesoMovilizacionForm.clean()` valida que si la unidad es `Minutos`, el tiempo sea menor a 60.
+15. `S02AccesoMovilizacionForm.clean()` valida el rango por unidad: `Horas` mayor o igual a 1 y `Minutos` entre 1 y 59.
 16. `guardar_matriz_siges` persiste `s02_am04_unidad` junto con el resto de respuestas S02.
 17. `datos_iniciales` precarga `s02_am04_unidad` al modificar una matriz existente.
 18. `matriz_form.html` renderiza S02 con estructura específica para agrupar preguntas relacionadas.
@@ -114,12 +119,15 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 20. `matriz_form.html` renderiza S01 con el selector `nivel_atencion` separado del resto de campos para reforzar el flujo de captura.
 21. `S01DatosGeneralesForm` define `help_text` por campo para entregar descripciones al template sin escribir textos sueltos en la vista.
 22. `detalle_matriz` entrega al template la cabecera de la matriz y las respuestas S01/S02 para renderizarlas por secciones en una estructura tabular.
+23. `nueva_matriz` elimina el borrador de sesión de una matriz nueva cuando se inicia una captura desde S01 sin continuar un flujo existente.
+24. `@never_cache` evita que el navegador conserve versiones antiguas del formulario nuevo o de edición.
+25. `0004_actualiza_rango_tiempo_s02` actualiza restricciones físicas en bases ya migradas sin modificar datos existentes.
 
 ## 9. Reglas de negocio
 
 1. No se puede avanzar a S02 sin completar S01.
 2. El unicódigo debe existir en la fuente institucional.
-3. El tiempo hasta el Establecimiento de Salud no puede ser negativo.
+3. El tiempo hasta el Establecimiento de Salud debe ser positivo y mayor o igual a 1.
 4. Las opciones S02 deben pertenecer a su variable correspondiente.
 5. Para modificar desde el listado se debe seleccionar exactamente una matriz.
 6. Para eliminar se debe seleccionar al menos una matriz.
@@ -130,7 +138,8 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 11. `Frontera` solo admite `Si` o `No`.
 12. `Categoria de accesibilidad` solo admite `Urbano` o `Rural`.
 13. La unidad del tiempo solo admite `Horas` o `Minutos`.
-14. Si la unidad seleccionada es `Minutos`, el valor debe ser menor a 60; si son horas, se admiten valores decimales mayores o iguales a cero.
+14. Si la unidad seleccionada es `Horas`, el valor debe ser mayor o igual a 1; si la unidad es `Minutos`, el valor debe estar entre 1 y 59.
+15. La validación se aplica en formulario Django, modelo Django, migración correctiva y DDL del nivel 1.
 
 ## 10. Validaciones realizadas
 
@@ -144,16 +153,21 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 8. `python -m py_compile` valido `forms.py`, `models.py`, `services.py`, `views.py` y `admin.py`.
 9. `python manage.py check` no reporto errores.
 10. `S02AccesoMovilizacionForm` cargo opciones reales: `Frontera` con `Si/No`, unidad con `Horas/Minutos`, categoría con `Urbano/Rural`, medio con 3 opciones, frecuencia con 4 opciones y tipo de vía con 3 opciones.
-11. La validación funcional bloqueo `60` minutos y acepto `59` minutos.
+11. La validación funcional bloquea `0` horas, `0` minutos y `60` minutos, y acepta `1.65` horas y `59` minutos.
 12. El renderizado de `/matriz/nueva/?paso=s02` respondio HTTP 200, mostro la unidad de tiempo y ya no mostro el texto `Distrito`.
 13. `/`, `/establecimientos/`, `/matriz/nueva/?paso=s01` y `/static/siges/js/matriz_form.js` respondieron HTTP 200 con servidor temporal en `127.0.0.1:8041`.
 14. El renderizado de S02 contiene los bloques `Ubicacion fronteriza`, `Movilizacion y transporte`, `Tiempo de traslado` y `Accesibilidad y via`.
-15. La validación acepto `1.25` horas como valor decimal no negativo.
+15. La validación acepto `1.25` horas como valor decimal positivo.
 16. El renderizado de `/matriz/nueva/?paso=s01` respondio HTTP 200 sin el contenedor `content-panel unfold-card`.
 17. El HTML de S01 muestra `Nivel de atencion del establecimiento de salud` antes de `Buscar establecimiento por unicodigo o nombre`.
 18. El HTML de S01 contiene el bloque `level-selector-card` y el paso activo `step-s01 active`.
 19. `python manage.py check` no reportó errores después del rediseño tabular del detalle.
 20. La plantilla `matriz_detalle.html` ya no contiene el contenedor `content-panel unfold-card` como envolvente principal.
+21. Las pruebas automatizadas verifican que `0` horas sea inválido, `1.65` horas sea válido, `59` minutos sea válido, `59.5` minutos sea inválido y `60` minutos sea inválido.
+22. `python manage.py test siges` ejecutó 6 pruebas correctamente.
+23. `python manage.py migrate siges` aplicó `0004_actualiza_rango_tiempo_s02` correctamente.
+24. La consulta a PostgreSQL confirmó `ck_respuesta_s02_am04_rango_unidad` con horas `>= 1` y minutos entre `1` y `59`.
+25. La prueba de sesión confirmó que `/matriz/nueva/?paso=s01` elimina el borrador temporal de una nueva matriz.
 
 ## 11. Cambios realizados
 
@@ -193,5 +207,8 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 34. Se retiró el contenedor visual grande del detalle de matriz.
 35. Se eliminó el número de formulario mostrado de forma suelta debajo del título.
 36. Se rediseñó el detalle con tablas cuadriculadas por sección para mejorar lectura, trazabilidad y revisión de la información cargada.
+37. Se actualizó la regla de tiempo de traslado en frontend, formulario, modelo, migración y scripts de estructura de base de datos.
+38. Se agregó limpieza del borrador temporal de nueva matriz para evitar que reaparezcan datos de capturas anteriores.
+39. Se actualizó el versionamiento de `matriz_form.js` para forzar la descarga de la regla nueva en navegador.
 
 

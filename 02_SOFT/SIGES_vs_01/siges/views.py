@@ -13,6 +13,7 @@ from django.db.models.functions import TruncDate
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.views.decorators.cache import never_cache
 
 from .forms import S01DatosGeneralesForm, S02AccesoMovilizacionForm
 from .models import FormularioSeccion, RespuestaS01
@@ -96,6 +97,16 @@ def clave_borrador(request, pk=None):
     sufijo = str(pk) if pk else "nuevo"
     # La clave queda aislada por formulario para no mezclar capturas.
     return f"siges_matriz_local_{sufijo}"
+
+
+def limpiar_borrador_matriz_nueva(request):
+    """Elimina datos temporales de una matriz nueva cuando inicia una captura limpia."""
+    # La clave sin pk corresponde unicamente al flujo de nueva matriz.
+    session_key = clave_borrador(request)
+    # pop borra el borrador si existe y no falla si la sesion esta limpia.
+    request.session.pop(session_key, None)
+    # Se marca la sesion como modificada para que Django persista el cambio.
+    request.session.modified = True
 
 
 def datos_iniciales(instancia):
@@ -299,11 +310,16 @@ def manual_usuario(request):
     return render(request, "siges/manual_usuario.html", {"active_page": "manual"})
 
 
+@never_cache
 def nueva_matriz(request):
     """Inicia el wizard para crear una matriz nueva."""
+    # Al ingresar desde "Nuevo registro" se descartan capturas temporales anteriores.
+    if request.method == "GET" and request.GET.get("paso", "s01") == "s01" and request.GET.get("continuar") != "1":
+        limpiar_borrador_matriz_nueva(request)
     return matriz_wizard(request)
 
 
+@never_cache
 def editar_matriz(request, pk):
     """Inicia el wizard sobre una matriz existente."""
     # Se obtiene la matriz o se responde 404 si el identificador no existe.
@@ -382,6 +398,10 @@ def matriz_wizard(request, instancia=None):
 
     # URL base para construir enlaces S01/S02 en el stepper.
     destino_base = reverse("siges:editar_matriz", args=[instancia.pk]) if instancia else reverse("siges:nueva_matriz")
+    # Si el usuario vuelve desde S02 a S01 dentro del mismo flujo nuevo, se conserva el borrador.
+    url_s01 = f"{destino_base}?paso=s01"
+    if not instancia and "s01" in borrador:
+        url_s01 = f"{url_s01}&continuar=1"
     return render(
         request,
         "siges/matriz_form.html",
@@ -391,7 +411,7 @@ def matriz_wizard(request, instancia=None):
             "paso": paso,
             "pasos": pasos_visibles,
             "paso_actual": pasos_visibles[paso],
-            "url_s01": f"{destino_base}?paso=s01",
+            "url_s01": url_s01,
             "url_s02": f"{destino_base}?paso=s02",
             # S02 se habilita si ya hay S01 en sesion o si se edita una matriz existente.
             "s02_habilitada": "s01" in borrador or bool(instancia),

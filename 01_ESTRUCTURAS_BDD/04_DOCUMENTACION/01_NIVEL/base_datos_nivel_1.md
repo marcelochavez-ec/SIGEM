@@ -117,8 +117,8 @@ Esta regla protege registros reales. Para una reconstrucción total desde cero, 
 6. S01 y S02 se relacionan con la cabecera mediante `id_formulario`.
 7. Cada formulario tiene una respuesta S01 y una respuesta S02.
 8. Las opciones de S02 se validan contra la variable que les corresponde.
-9. El tiempo de traslado no admite valores negativos.
-10. Si la unidad es `Minutos`, el valor máximo permitido es `59`.
+9. El tiempo de traslado en `Horas` admite valores reales positivos mayores o iguales a `1`, con máximo dos decimales.
+10. El tiempo de traslado en `Minutos` admite valores reales positivos entre `1` y `59`, con máximo dos decimales.
 11. La categoría de accesibilidad admite `Urbano` o `Rural`.
 12. Frontera admite `Si`, `Sí` o `No`.
 
