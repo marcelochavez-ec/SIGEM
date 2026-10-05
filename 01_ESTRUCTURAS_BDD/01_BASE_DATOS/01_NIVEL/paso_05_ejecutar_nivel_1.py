@@ -12,13 +12,13 @@ import json
 from sqlalchemy import text
 
 try:
-    from .catalogos_nivel_1 import SECCIONES, VALIDACIONES, VARIABLES
-    from .configuracion import crear_engine, obtener_configuracion
-    from .ddl_nivel_1 import ddl_nivel_1
+    from .paso_01_configuracion import crear_engine, obtener_configuracion
+    from .paso_02_catalogos_nivel_1 import SECCIONES, VALIDACIONES, VARIABLES
+    from .paso_04_ddl_nivel_1 import ddl_nivel_1
 except ImportError:
-    from catalogos_nivel_1 import SECCIONES, VALIDACIONES, VARIABLES
-    from configuracion import crear_engine, obtener_configuracion
-    from ddl_nivel_1 import ddl_nivel_1
+    from paso_01_configuracion import crear_engine, obtener_configuracion
+    from paso_02_catalogos_nivel_1 import SECCIONES, VALIDACIONES, VARIABLES
+    from paso_04_ddl_nivel_1 import ddl_nivel_1
 
 
 TABLAS_ESPERADAS = {
@@ -113,6 +113,31 @@ TIPOS_ESPERADOS = {
     ("siges_formulario", "id_formulario"): "integer",
     ("respuesta_s01", "id_formulario"): "integer",
     ("respuesta_s02", "id_formulario"): "integer",
+}
+
+VISTAS_ESPERADAS = {"vw_catalogo_formulario_nivel_1"}
+
+FUNCIONES_ESPERADAS = {
+    "fn_actualizar_fecha_actualizacion",
+    "fn_actualizar_actualizado_en",
+    "fn_validar_respuesta_s02_opciones",
+}
+
+TRIGGERS_ESPERADOS = {
+    "trg_siges_formulario_actualizacion",
+    "trg_respuesta_s01_actualizado_en",
+    "trg_respuesta_s02_actualizado_en",
+    "trg_validar_respuesta_s02_opciones",
+}
+
+INDICES_ESPERADOS = {
+    "ix_formulario_variable_id_seccion",
+    "ix_formulario_opcion_id_variable",
+    "ix_siges_formulario_unicodigo",
+    "ix_siges_formulario_nivel_atencion",
+    "ix_siges_formulario_estado",
+    "ix_respuesta_s01_id_formulario",
+    "ix_respuesta_s02_id_formulario",
 }
 
 
@@ -421,6 +446,58 @@ def verificar_estructura(conn, esquema: str) -> dict[str, object]:
             """
         )
     ).mappings().one()
+    vistas = {
+        fila[0]
+        for fila in conn.execute(
+            text(
+                """
+                SELECT table_name
+                FROM information_schema.views
+                WHERE table_schema = :esquema;
+                """
+            ),
+            {"esquema": esquema},
+        )
+    }
+    funciones = {
+        fila[0]
+        for fila in conn.execute(
+            text(
+                """
+                SELECT routine_name
+                FROM information_schema.routines
+                WHERE routine_schema = :esquema;
+                """
+            ),
+            {"esquema": esquema},
+        )
+    }
+    triggers = {
+        fila[0]
+        for fila in conn.execute(
+            text(
+                """
+                SELECT trigger_name
+                FROM information_schema.triggers
+                WHERE trigger_schema = :esquema;
+                """
+            ),
+            {"esquema": esquema},
+        )
+    }
+    indices = {
+        fila[0]
+        for fila in conn.execute(
+            text(
+                """
+                SELECT indexname
+                FROM pg_indexes
+                WHERE schemaname = :esquema;
+                """
+            ),
+            {"esquema": esquema},
+        )
+    }
     tipos_incorrectos = {
         f"{tabla}.{columna}": {"esperado": esperado, "actual": tipos_por_columna.get((tabla, columna))}
         for (tabla, columna), esperado in TIPOS_ESPERADOS.items()
@@ -432,6 +509,10 @@ def verificar_estructura(conn, esquema: str) -> dict[str, object]:
         "columnas_faltantes": faltantes,
         "columnas_sobrantes": sobrantes,
         "tipos_incorrectos": tipos_incorrectos,
+        "vistas_faltantes": sorted(VISTAS_ESPERADAS - vistas),
+        "funciones_faltantes": sorted(FUNCIONES_ESPERADAS - funciones),
+        "triggers_faltantes": sorted(TRIGGERS_ESPERADOS - triggers),
+        "indices_faltantes": sorted(INDICES_ESPERADOS - indices),
         "conteos": dict(conteos),
     }
 
@@ -470,6 +551,10 @@ def crear_estructura_nivel_1() -> dict[str, object]:
     print(f"  Columnas faltantes  : {verificacion['columnas_faltantes']}")
     print(f"  Columnas adicionales: {verificacion['columnas_sobrantes']}")
     print(f"  Tipos incorrectos   : {verificacion['tipos_incorrectos']}")
+    print(f"  Vistas faltantes    : {verificacion['vistas_faltantes']}")
+    print(f"  Funciones faltantes : {verificacion['funciones_faltantes']}")
+    print(f"  Triggers faltantes  : {verificacion['triggers_faltantes']}")
+    print(f"  Indices faltantes   : {verificacion['indices_faltantes']}")
     print(f"  Conteos             : {verificacion['conteos']}")
     print("=" * 72)
 

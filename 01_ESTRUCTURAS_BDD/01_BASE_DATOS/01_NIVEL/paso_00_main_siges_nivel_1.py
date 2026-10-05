@@ -7,9 +7,9 @@ separado para que el usuario tenga un punto claro de arranque.
 from __future__ import annotations
 
 try:
-    from .ejecutar_nivel_1 import crear_estructura_nivel_1
+    from .paso_05_ejecutar_nivel_1 import crear_estructura_nivel_1
 except ImportError:
-    from ejecutar_nivel_1 import crear_estructura_nivel_1
+    from paso_05_ejecutar_nivel_1 import crear_estructura_nivel_1
 
 
 def main() -> None:

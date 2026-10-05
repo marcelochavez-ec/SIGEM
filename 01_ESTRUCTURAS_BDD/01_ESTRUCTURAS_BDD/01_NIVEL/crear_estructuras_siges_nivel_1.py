@@ -1,4 +1,4 @@
-"""Compatibilidad para ejecutar la construccion CGS nivel 1 desde la ruta antigua."""
+"""Compatibilidad para ejecutar la construcción SIGES nivel 1 desde la ruta antigua."""
 
 from __future__ import annotations
 
@@ -12,9 +12,8 @@ RUTA_MODULO_NIVEL_1 = RAIZ_REPOSITORIO / "01_ESTRUCTURAS_BDD" / "01_BASE_DATOS" 
 if str(RUTA_MODULO_NIVEL_1) not in sys.path:
     sys.path.insert(0, str(RUTA_MODULO_NIVEL_1))
 
-from main_cgs_nivel_1 import main
+from paso_00_main_siges_nivel_1 import main
 
 
 if __name__ == "__main__":
     main()
-

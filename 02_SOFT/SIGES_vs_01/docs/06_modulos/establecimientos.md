@@ -19,7 +19,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 7. `static/siges/js/establecimientos.js`
 8. `static/siges/css/01_componentes.css`
 9. `static/siges/css/03_responsive.css`
-10. `01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/niveles_atencion.py`
+10. `01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/paso_03_niveles_atencion.py`
 
 ## 4. Flujo de usuario
 
@@ -170,7 +170,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 17. Se simplifico el estilo global de botones primarios para usar color institucional plano, sin degradado lateral ni efecto visual recargado.
 18. Se agregó selector de nivel de atención en S01 y filtro de búsqueda por nivel.
 19. Se agregó almacenamiento de `nivel_atencion` en `siges.siges_formulario`.
-20. Se creó el catálogo controlado `niveles_atencion.py` para documentar I, II y III nivel.
+20. Se creó el catálogo controlado `paso_03_niveles_atencion.py` para documentar I, II y III nivel.
 21. Se actualizó S02 para que `Frontera` y `Categoria de accesibilidad` sean opciones controladas desde catálogo.
 22. Se agregó `s02_am04_unidad` en modelo, formulario, servicio, precarga de edición, admin y detalle.
 23. Se cambio la etiqueta de tiempo a `Tiempo hasta el Establecimiento de Salud`.

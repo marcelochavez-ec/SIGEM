@@ -104,12 +104,12 @@ SIGES_vs_SEPT2026/
 ├── 01_ESTRUCTURAS_BDD/
 │   ├── 01_BASE_DATOS/
 │   │   └── 01_NIVEL/
-│   │       ├── catalogos_nivel_1.py
-│   │       ├── configuracion.py
-│   │       ├── ddl_nivel_1.py
-│   │       ├── ejecutar_nivel_1.py
-│   │       ├── main_siges_nivel_1.py
-│   │       └── niveles_atencion.py
+│   │       ├── paso_00_main_siges_nivel_1.py
+│   │       ├── paso_01_configuracion.py
+│   │       ├── paso_02_catalogos_nivel_1.py
+│   │       ├── paso_03_niveles_atencion.py
+│   │       ├── paso_04_ddl_nivel_1.py
+│   │       └── paso_05_ejecutar_nivel_1.py
 │   ├── 02_DATA_FUENTE/
 │   ├── 04_DOCUMENTACION/
 │   └── 05_ARQUITECTURAS/
@@ -323,7 +323,7 @@ Ejecución principal:
 
 ```bash
 cd 01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL
-python main_siges_nivel_1.py
+python paso_00_main_siges_nivel_1.py
 ```
 
 Este proceso:
