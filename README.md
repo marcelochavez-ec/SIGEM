@@ -9,7 +9,7 @@
 | **Repositorio** | `marcelochavez-ec/SIGES` |
 | **Versión documental** | 1.0 |
 | **Versión del software** | 0.1 |
-| **Fecha de actualizacion** | Octubre 2026 |
+| **Fecha de actualizacion** | octubre 2026 |
 
 # SIGES
 
