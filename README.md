@@ -1,4 +1,4 @@
-| **Membrete institucional** | **Sistema de Informacion para la Gestion de Establecimientos de Salud - SIGES** |
+| **Producto** | **Sistema de Información para la Gestión de Establecimientos de Salud - SIGES** |
 |---|---|
 | **Proyecto** | Red de Proteccion Social |
 | **Institucion rectora** | Ministerio de Salud Publica del Ecuador |
@@ -7,7 +7,8 @@
 | **Correo electronico** | marcelo_chavez_ec@outlook.com |
 | **Movil** | 098 333 2687 |
 | **Repositorio** | `marcelochavez-ec/SIGES` |
-| **Version documental** | 1.0 |
+| **Versión documental** | 1.0 |
+| **Versión del software** | 0.1 |
 | **Fecha de actualizacion** | Octubre 2026 |
 
 # SIGES
