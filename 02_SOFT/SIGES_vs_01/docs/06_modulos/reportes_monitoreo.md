@@ -1,6 +1,6 @@
-# Modulo Reporte de Monitoreo
+# Módulo Reporte de Monitoreo
 
-## 1. Nombre del modulo
+## 1. Nombre del módulo
 
 Reporte de monitoreo SIGES.
 
@@ -11,7 +11,7 @@ Reporte de monitoreo SIGES.
 3. Mostrar lectura territorial por Direcciones Provinciales.
 4. Visualizar estado de carga y carga por fecha.
 
-## 3. Ubicacion de archivos modificados o creados
+## 3. Ubicación de archivos modificados o creados
 
 1. `siges/views.py`
 2. `siges/urls.py`
@@ -33,7 +33,7 @@ Reporte de monitoreo SIGES.
 7. El usuario puede pasar el mouse sobre barras, puntos o sectores para ver tooltip.
 8. El usuario puede hacer clic en KPIs o graficos para abrir un popup explicativo.
 
-## 5. Entradas del modulo
+## 5. Entradas del módulo
 
 1. Peticion HTTP GET a `/reportes-monitoreo/`.
 2. Tabla `siges.siges_formulario`.
@@ -42,15 +42,15 @@ Reporte de monitoreo SIGES.
 5. Campo `version` de la cabecera para identificar formularios versionados.
 6. Campos `fecha_registro` y `fecha_actualizacion` de la cabecera.
 
-## 6. Salidas del modulo
+## 6. Salidas del módulo
 
 1. Tarjeta de matrices registradas.
 2. Tarjeta de Direcciones Provinciales cargadas.
 3. Tarjeta de archivos finales cargados.
 4. Tarjeta de modificaciones registradas.
-5. Grafico de barras por Direcciones Provinciales.
-6. Grafico dona por estado de carga: almacenados, modificados y versionados.
-7. Grafico de linea por fecha de carga.
+5. Gráfico de barras por Direcciones Provinciales.
+6. Gráfico dona por estado de carga: almacenados, modificados y versionados.
+7. Gráfico de línea por fecha de carga.
 8. Popups y tooltips de lectura interactiva.
 
 ## 7. Fuentes de datos utilizadas
@@ -68,20 +68,20 @@ Reporte de monitoreo SIGES.
 6. Las series territoriales excluyen valores nulos o vacios.
 7. El dashboard no muestra cantones, parroquias ni estado del predio porque no son indicadores prioritarios del panel ejecutivo.
 
-## 9. Logica UI
+## 9. Lógica UI
 
-1. El menu lateral incorpora la opcion `Reporte de monitoreo`.
-2. El panel principal evita un contenedor global; cada KPI y cada grafico conserva su propia tarjeta visual.
-3. Las metricas principales se muestran como tarjetas KPI.
-4. El grafico territorial se titula `Por Direcciones Provinciales`.
-5. El grafico territorial alinea las etiquetas a la izquierda y permite saltos de linea para Direcciones Provinciales largas.
-6. El grafico temporal se titula `Carga por fecha`.
+1. El menu lateral incorpora la opción `Reporte de monitoreo`.
+2. El panel principal evita un contenedor global; cada KPI y cada gráfico conserva su propia tarjeta visual.
+3. Las métricas principales se muestran como tarjetas KPI.
+4. El gráfico territorial se titula `Por Direcciones Provinciales`.
+5. El gráfico territorial alinea las etiquetas a la izquierda y permite saltos de línea para Direcciones Provinciales largas.
+6. El gráfico temporal se titula `Carga por fecha`.
 7. Los graficos se dibujan en canvas para evitar dependencias externas.
 8. Los graficos tienen tooltip al pasar el mouse y popup al hacer clic.
-9. El tooltip se reposiciona hacia la izquierda cuando el punto consultado esta cerca del borde derecho de la pantalla.
+9. El tooltip se reposiciona hacia la izquierda cuando el punto consultado está cerca del borde derecho de la pantalla.
 10. La capa responsive reorganiza el dashboard a una columna en pantallas pequenas.
 
-## 10. Logica server
+## 10. Lógica server
 
 1. `obtener_series_reportes_monitoreo` concentra las consultas ORM.
 2. `serie_respuesta` agrupa dinamicamente un campo de `RespuestaS01`.
@@ -89,7 +89,7 @@ Reporte de monitoreo SIGES.
 4. `reportes_monitoreo` renderiza el template y entrega los datos en formato Python/JSON.
 5. La vista no modifica base de datos.
 
-## 11. Consultas SQL o logica ETL relevante
+## 11. Consultas SQL o lógica ETL relevante
 
 1. No se escribe SQL manual.
 2. El ORM genera agregaciones `COUNT`, `COUNT DISTINCT` y agrupaciones por campo.
@@ -114,29 +114,29 @@ Reporte de monitoreo SIGES.
 
 1. Ejecutada: validar ruta `/reportes-monitoreo/`.
 2. Ejecutada: validar `manage.py check`.
-3. Ejecutada: verificar estructura de metricas, Direcciones Provinciales, estado de carga y fechas.
+3. Ejecutada: verificar estructura de métricas, Direcciones Provinciales, estado de carga y fechas.
 4. Sugerida: confirmar que las cifras coincidan con consultas directas a PostgreSQL.
 
 ## 15. Riesgos, supuestos y consideraciones de rendimiento
 
 1. Si existen registros sin S01, no apareceran en las series territoriales.
-2. La metrica de modificaciones depende de que `fecha_actualizacion` refleje cambios reales de formulario.
+2. La métrica de modificaciones depende de qué `fecha_actualizacion` refleje cambios reales de formulario.
 3. Los graficos son informativos y no reemplazan reportes estadisticos auditados.
 
 ## 16. Cambios realizados en esta tarea
 
-1. Se creo el modulo `Reporte de monitoreo`.
-2. Se agrego ruta Django dedicada.
-3. Se agrego opcion lateral de navegacion.
-4. Se implemento dashboard con KPIs ejecutivos y tres graficos principales.
-5. Se agrego JavaScript propio para graficos interactivos, tooltips y popups.
-6. Se agrego CSS responsive para el dashboard.
+1. Se creó el módulo `Reporte de monitoreo`.
+2. Se agregó ruta Django dedicada.
+3. Se agregó opción lateral de navegación.
+4. Se implementó dashboard con KPIs ejecutivos y tres graficos principales.
+5. Se agregó JavaScript propio para graficos interactivos, tooltips y popups.
+6. Se agregó CSS responsive para el dashboard.
 7. Se retiraron rankings de cantones, parroquias y estado del predio.
 8. Se elimino el contenedor visual general del dashboard para que queden solo las tarjetas necesarias.
 9. Se ajustaron las etiquetas del eje territorial para que no se corten.
 10. Se cambio la dona a `Estado de Carga` con almacenados, modificados y versionados.
 11. Se ajustaron los titulos visibles a `Reporte de monitoreo`, `Por Direcciones Provinciales` y `Carga por fecha`.
-12. Se corrigio el posicionamiento del tooltip para evitar que salga fuera de la pantalla.
+12. Se corrigió el posicionamiento del tooltip para evitar que salga fuera de la pantalla.
 
 ## 17. Pendientes o recomendaciones futuras
 

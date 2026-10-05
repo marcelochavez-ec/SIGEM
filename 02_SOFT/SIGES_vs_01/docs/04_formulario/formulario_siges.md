@@ -2,18 +2,18 @@
 
 ## Flujo implementado
 
-1. El usuario ingresa a la pagina principal.
+1. El usuario ingresa a la página principal.
 2. El usuario crea una nueva matriz.
-3. La Seccion 01 permite buscar un establecimiento real.
+3. La Sección 01 permite buscar un establecimiento real.
 4. El buscador consulta `siges.vm_establecimientos_ingresados`.
 5. Al seleccionar un `uni_codigo`, se autocompletan los campos institucionales.
-6. La Seccion 01 valida el unicodigo contra PostgreSQL.
-7. La Seccion 01 se conserva en sesion hasta completar S02.
-8. La Seccion 02 valida los campos de acceso y movilizacion.
+6. La Sección 01 valida el unicódigo contra PostgreSQL.
+7. La Sección 01 se conserva en sesión hasta completar S02.
+8. La Sección 02 valida los campos de acceso y movilización.
 9. Al guardar S02, el aplicativo persiste cabecera, S01 y S02.
 10. El usuario puede regresar a S01 desde S02 y editar una matriz guardada.
 
-## Seccion 01
+## Sección 01
 
 Los datos institucionales provienen de `vm_establecimientos_ingresados`.
 
@@ -31,22 +31,22 @@ Los datos institucionales provienen de `vm_establecimientos_ingresados`.
 12. `s01_dg12`: `tlf_movil`.
 13. `s01_dg13`: `ced_ident_rep_legal`.
 
-## Seccion 02
+## Sección 02
 
-La Seccion 02 registra acceso y movilizacion.
+La Sección 02 registra acceso y movilización.
 
 1. Frontera.
-2. Medio de movilizacion.
-3. Frecuencia del transporte publico.
+2. Medio de movilización.
+3. Frecuencia del transporte público.
 4. Tiempo hasta el Establecimiento de Salud.
-5. Categoria de accesibilidad.
-6. Tipo de via.
+5. Categoría de accesibilidad.
+6. Tipo de vía.
 
 ## Validaciones
 
-1. S01 no avanza si el unicodigo no existe en PostgreSQL.
-2. S01 no permite continuar sin responsable, movil y cedula.
-3. S02 exige catalogos validos para los campos desplegables.
+1. S01 no avanza si el unicódigo no existe en PostgreSQL.
+2. S01 no permite continuar sin responsable, móvil y cedula.
+3. S02 exige catálogos validos para los campos desplegables.
 4. S02 exige que el tiempo sea mayor o igual a cero.
 
 

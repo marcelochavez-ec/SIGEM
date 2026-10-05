@@ -1,6 +1,6 @@
-# Modulo Manual de Usuario
+# Módulo Manual de Usuario
 
-## 1. Nombre del modulo
+## 1. Nombre del módulo
 
 Manual de usuario.
 
@@ -8,7 +8,7 @@ Manual de usuario.
 
 Reservar la pantalla donde posteriormente se publicara la guia funcional del sistema.
 
-## 3. Ubicacion de archivos
+## 3. Ubicación de archivos
 
 1. `templates/siges/manual_usuario.html`
 2. `siges/views.py`
@@ -19,7 +19,7 @@ Reservar la pantalla donde posteriormente se publicara la guia funcional del sis
 
 1. El usuario ingresa a `/manual/`.
 2. La vista muestra el estado `En construccion`.
-3. El usuario comprende que la documentacion funcional sera publicada despues.
+3. El usuario comprende que la documentación funcional sera publicada despues.
 
 ## 5. Entradas
 
@@ -30,13 +30,13 @@ Reservar la pantalla donde posteriormente se publicara la guia funcional del sis
 
 1. Pantalla institucional de manual en construccion.
 
-## 7. Logica UI
+## 7. Lógica UI
 
 1. El panel principal usa `balanced-page-panel`.
 2. El bloque interno `construction-box` reduce el alto para evitar espacio vertical excesivo.
-3. El componente responde a pantallas desktop, tablet y movil.
+3. El componente responde a pantallas desktop, tablet y móvil.
 
-## 8. Logica server
+## 8. Lógica server
 
 1. La vista `manual_usuario` no consulta base de datos.
 2. La vista solo renderiza el template.

@@ -1,4 +1,4 @@
-# Ejecucion
+# Ejecución
 
 ## Comando principal
 
@@ -29,7 +29,7 @@ http://IP_SERVIDOR:8036
 `deploy_siges.py` realiza solamente:
 
 1. Verificacion de existencia de `manage.py`.
-2. Validacion Django mediante `manage.py check`.
+2. Validación Django mediante `manage.py check`.
 3. Levantamiento del servidor WSGI Waitress en `0.0.0.0:8036`.
 4. Reinicio automatico cuando cambian archivos en `templates/`, `static/`, `img/`, `siges/` o `config_siges/`.
 
@@ -39,7 +39,7 @@ No realiza migraciones, no crea usuarios, no instala dependencias y no modifica 
 
 El aplicativo utiliza `waitress` para evitar el warning propio de `manage.py runserver`.
 
-La configuracion local de Waitress queda parametrizada para evitar saturacion de cola durante la carga simultanea de HTML, CSS, JavaScript e imagenes:
+La configuración local de Waitress queda parametrizada para evitar saturacion de cola durante la carga simultanea de HTML, CSS, JavaScript e imagenes:
 
 1. `SIGES_WAITRESS_THREADS`: hilos WSGI. Valor por defecto: `16`.
 2. `SIGES_WAITRESS_CONNECTION_LIMIT`: conexiones concurrentes. Valor por defecto: `200`.
@@ -61,7 +61,7 @@ pip install -r requirements.txt
 
 ## Autoreload
 
-El autoreload esta activo por defecto. Al guardar cambios en templates HTML, CSS, JS, imagenes o codigo Python del aplicativo, el servidor se reinicia automaticamente.
+El autoreload esta activo por defecto. Al guardar cambios en templates HTML, CSS, JS, imagenes o código Python del aplicativo, el servidor se reinicia automaticamente.
 
 Si se necesita desactivarlo temporalmente:
 

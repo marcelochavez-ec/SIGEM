@@ -29,6 +29,8 @@ Thumbs.db
 # Herramientas locales de asistencia/desarrollo
 .local_tools/
 .workspace/
+03_IA/
+**/03_IA/
 AGENT*.md
 AGENTE*.md
 **/AGENT*.md

@@ -7,8 +7,8 @@ Esta carpeta contiene la capa de estructuras de base de datos del proyecto SIGES
 1. `01_BASE_DATOS`: scripts Python modulares para crear estructuras por nivel de establecimientos.
 2. `01_ESTRUCTURAS_BDD`: rutas historicas o de compatibilidad para ejecuciones existentes.
 3. `02_DATA_FUENTE`: archivos fuente usados como insumo tecnico o documental.
-4. `03_CONFIGURACIONES`: configuraciones locales de conexion. Los archivos sensibles no deben versionarse.
-5. `04_DOCUMENTACION`: documentacion tecnica por nivel.
+4. `03_CONFIGURACIONES`: configuraciones locales de conexión. Los archivos sensibles no deben versionarse.
+5. `04_DOCUMENTACION`: documentación técnica por nivel.
 6. `05_ARQUITECTURAS`: modelos visuales y archivos de arquitectura.
 
 ## Nivel 1
@@ -25,7 +25,7 @@ Tambien se conserva la ruta anterior:
 python 01_ESTRUCTURAS_BDD\01_ESTRUCTURAS_BDD\01_NIVEL\crear_estructuras_siges_nivel_1.py
 ```
 
-La documentacion tecnica esta en:
+La documentación técnica esta en:
 
 ```text
 04_DOCUMENTACION/01_NIVEL/base_datos_nivel_1.md

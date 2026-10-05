@@ -1,45 +1,45 @@
 | **Producto** | **Sistema de Información para la Gestión de Establecimientos de Salud - SIGES** |
 |---|---|
-| **Proyecto** | Red de Proteccion Social |
-| **Institucion rectora** | Ministerio de Salud Publica del Ecuador |
+| **Proyecto** | Red de Protección Social |
+| **Institución rectora** | Ministerio de Salud Pública del Ecuador |
 | **Cooperante** | Banco Mundial |
-| **Consultor Especialista en Proteccion Social** | Marcelo Chavez |
-| **Correo electronico** | marcelo_chavez_ec@outlook.com |
-| **Movil** | 098 333 2687 |
+| **Consultor Especialista en Protección Social** | Marcelo Chávez |
+| **Correo electrónico** | marcelo_chavez_ec@outlook.com |
+| **Móvil** | 098 333 2687 |
 | **Repositorio** | `marcelochavez-ec/SIGES` |
 | **Versión documental** | 1.0 |
 | **Versión del software** | 0.1 |
-| **Fecha de actualizacion** | octubre 2026 |
+| **Fecha de actualización** | Octubre 2026 |
 
 # SIGES
 
-**Sistema de Informacion para la Gestion de Establecimientos de Salud**
+**Sistema de Información para la Gestión de Establecimientos de Salud**
 
-Proyecto institucional para estructurar, registrar, consultar y monitorear informacion de establecimientos de salud del MSP, con una arquitectura basada en PostgreSQL, Django, Django Unfold, Bootstrap, HTML, CSS y JavaScript.
+Proyecto institucional para estructurar, registrar, consultar y monitorear información de establecimientos de salud del MSP, con una arquitectura basada en PostgreSQL, Django, Django Unfold, Bootstrap, HTML, CSS y JavaScript.
 
-## 1. Identificacion del proyecto
+## 1. Identificación del proyecto
 
 | Campo | Detalle |
 |---|---|
 | Nombre del aplicativo | SIGES |
-| Nombre completo | Sistema de Informacion para la Gestion de Establecimientos de Salud |
-| Institucion | Ministerio de Salud Publica del Ecuador |
-| Proyecto | Red de Proteccion Social |
+| Nombre completo | Sistema de Información para la Gestión de Establecimientos de Salud |
+| Institución | Ministerio de Salud Pública del Ecuador |
+| Proyecto | Red de Protección Social |
 | Cooperante | Banco Mundial |
-| Creador y consultor | Marcelo Chavez |
-| Rol | Consultor Especialista en Proteccion Social |
+| Creador y consultor | Marcelo Chávez |
+| Rol | Consultor Especialista en Protección Social |
 | Base de datos objetivo | PostgreSQL institucional |
 | Schema funcional | `siges` |
 | Aplicativo web | Django + Django Unfold |
 
-## 2. De que trata SIGES
+## 2. De qué trata SIGES
 
-SIGES permite registrar matrices de informacion asociadas a establecimientos de salud, iniciando con dos secciones funcionales:
+SIGES permite registrar matrices de información asociadas a establecimientos de salud, iniciando con dos secciones funcionales:
 
-1. **Datos Generales**: identifica el establecimiento mediante nivel de atencion, unicodigo y datos institucionales autocompletados.
-2. **Acceso y Movilizacion**: registra condiciones de frontera, movilizacion, transporte publico, tiempo de traslado, accesibilidad territorial y tipo de via.
+1. **Datos Generales**: identifica el establecimiento mediante nivel de atención, unicódigo y datos institucionales autocompletados.
+2. **Acceso y Movilización**: registra condiciones de frontera, movilización, transporte público, tiempo de traslado, accesibilidad territorial y tipo de vía.
 
-El sistema esta disenado para crecer por niveles de atencion y por nuevas secciones del formulario, manteniendo separadas la capa de base de datos, la capa del aplicativo Django, los recursos visuales, los scripts de inicializacion y la documentacion tecnica.
+El sistema está diseñado para crecer por niveles de atención y por nuevas secciones del formulario, manteniendo separadas la capa de base de datos, la capa del aplicativo Django, los recursos visuales, los scripts de inicialización y la documentación técnica.
 
 ## 3. Vista general de arquitectura
 
@@ -91,7 +91,7 @@ sequenceDiagram
     Usuario->>Web: Selecciona establecimiento
     Web->>Fuente: Consulta datos institucionales
     Fuente-->>Web: Autocompleta Datos Generales
-    Usuario->>Web: Completa Acceso y Movilizacion
+    Usuario->>Web: Completa Acceso y Movilización
     Web->>DB: Guarda cabecera, S01 y S02
     DB-->>Web: Confirma registro
     Web-->>Usuario: Muestra detalle de matriz SIGES
@@ -135,16 +135,16 @@ SIGES_vs_SEPT2026/
 └── README.md
 ```
 
-## 7. Componentes tecnicos
+## 7. Componentes técnicos
 
 | Componente | Uso |
 |---|---|
 | Python | Lenguaje principal del backend y scripts de base de datos |
 | Django | Framework web del aplicativo SIGES |
-| Django Unfold | Interfaz administrativa y componentes visuales de administracion |
+| Django Unfold | Interfaz administrativa y componentes visuales de administración |
 | PostgreSQL | Base institucional de almacenamiento |
 | psycopg | Conector Python/PostgreSQL |
-| WhiteNoise | Servicio de archivos estaticos en ejecucion simple |
+| WhiteNoise | Servicio de archivos estáticos en ejecución simple |
 | Waitress | Servidor WSGI para levantar el aplicativo local o en servidor |
 | HTML/CSS/JS | Templates, estilos institucionales y comportamiento del frontend |
 | Mermaid | Diagramas renderizables en GitHub dentro de Markdown |
@@ -163,18 +163,18 @@ Tablas principales del primer alcance:
 |---|---|
 | `siges_formulario` | Cabecera de cada matriz registrada |
 | `respuesta_s01` | Datos Generales del establecimiento |
-| `respuesta_s02` | Acceso y Movilizacion |
-| `formulario_seccion` | Catalogo de secciones del formulario |
-| `formulario_variable` | Catalogo de variables/preguntas |
+| `respuesta_s02` | Acceso y Movilización |
+| `formulario_seccion` | Catálogo de secciones del formulario |
+| `formulario_variable` | Catálogo de variables/preguntas |
 | `formulario_opcion` | Opciones de respuesta para preguntas cerradas |
-| `formulario_validacion` | Reglas de validacion documentables |
+| `formulario_validacion` | Reglas de validación documentables |
 | `vm_establecimientos_ingresados` | Fuente institucional para buscar y autocompletar establecimientos |
 
 ## 9. Variables de entorno requeridas
 
 Las credenciales no se versionan. Deben configurarse como variables del ambiente Conda:
 
-| Variable | Descripcion |
+| Variable | Descripción |
 |---|---|
 | `SIGES_DB_NAME` | Nombre de la base PostgreSQL |
 | `SIGES_DB_USER` | Usuario PostgreSQL |
@@ -209,7 +209,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 10.3. Configurar variables de conexion
+### 10.3. Configurar variables de conexión
 
 ```powershell
 conda env config vars set SIGES_DB_NAME=productos_bm
@@ -230,7 +230,7 @@ conda activate msp_01
 python manage.py check
 ```
 
-### 10.5. Cargar catalogos del aplicativo
+### 10.5. Cargar catálogos del aplicativo
 
 ```powershell
 python manage.py cargar_catalogos_siges
@@ -311,7 +311,7 @@ Abrir desde la red autorizada:
 http://IP_DEL_SERVIDOR:8036/
 ```
 
-## 12. Creacion de estructuras de base de datos
+## 12. Creación de estructuras de base de datos
 
 Los scripts de estructura se encuentran en:
 
@@ -319,7 +319,7 @@ Los scripts de estructura se encuentran en:
 01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/
 ```
 
-Ejecucion principal:
+Ejecución principal:
 
 ```bash
 cd 01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL
@@ -328,10 +328,10 @@ python main_siges_nivel_1.py
 
 Este proceso:
 
-1. Lee la configuracion de conexion.
+1. Lee la configuración de conexión.
 2. Crea o actualiza tablas del schema `siges`.
 3. Carga secciones, variables, opciones y validaciones.
-4. Mantiene la ejecucion idempotente para evitar duplicados de catalogo.
+4. Mantiene la ejecución idempotente para evitar duplicados de catálogo.
 
 ## 13. Flujo del formulario
 
@@ -342,13 +342,13 @@ flowchart TD
     C --> D[Seleccionar nivel de atencion]
     D --> E[Buscar unicodigo o nombre]
     E --> F[Autocompletar Datos Generales]
-    F --> G[Continuar a Acceso y Movilizacion]
-    G --> H[Registrar frontera, transporte, tiempo, accesibilidad y via]
+    F --> G[Continuar a Acceso y Movilización]
+    G --> H[Registrar frontera, transporte, tiempo, accesibilidad y vía]
     H --> I[Guardar matriz]
     I --> J[Detalle de matriz registrada]
 ```
 
-## 14. Comandos utiles
+## 14. Comandos útiles
 
 Desde `02_SOFT/SIGES_vs_01`:
 
@@ -360,9 +360,9 @@ python manage.py createsuperuser
 python deploy_siges.py
 ```
 
-## 15. Documentacion tecnica
+## 15. Documentación técnica
 
-La documentacion se mantiene dentro del repositorio:
+La documentación se mantiene dentro del repositorio:
 
 ```text
 02_SOFT/SIGES_vs_01/docs/
@@ -374,11 +374,17 @@ Principales documentos:
 | Documento | Contenido |
 |---|---|
 | `docs/01_arquitectura/arquitectura.md` | Arquitectura del aplicativo |
-| `docs/02_base_datos/base_datos.md` | Base de datos y relacion con Django |
+| `docs/02_base_datos/base_datos.md` | Base de datos y relación con Django |
 | `docs/04_formulario/formulario_siges.md` | Flujo del formulario |
-| `docs/06_modulos/establecimientos.md` | Modulo de establecimientos |
+| `docs/06_modulos/establecimientos.md` | Módulo de establecimientos |
 | `docs/06_modulos/reportes_monitoreo.md` | Dashboard de monitoreo |
 | `01_ESTRUCTURAS_BDD/04_DOCUMENTACION/01_NIVEL/base_datos_nivel_1.md` | Capa de base de datos nivel 1 |
+
+### Norma ortográfica institucional
+
+La documentación técnica, funcional, de base de datos, backend y frontend debe escribirse en español técnico claro y con las tildes que correspondan según cada palabra. Esta regla aplica a README, documentos Markdown, comentarios, docstrings, etiquetas visibles, textos de ayuda, títulos, mensajes de interfaz y documentación de módulos.
+
+Los identificadores técnicos se mantienen exactamente como fueron definidos cuando una tilde pueda romper una referencia, por ejemplo nombres de variables, columnas, rutas, comandos, claves de configuración, migraciones o campos de base de datos como `unicodigo`, `nivel_atencion` o `fecha_actualizacion`.
 
 ## 16. Consideraciones de seguridad
 
@@ -388,7 +394,7 @@ Principales documentos:
 4. Configurar `DJANGO_ALLOWED_HOSTS` con los hosts reales de despliegue.
 5. Controlar el puerto `8036` mediante firewall solo en servidores autorizados.
 
-## 17. Pruebas minimas sugeridas
+## 17. Pruebas mínimas sugeridas
 
 Antes de publicar o mover a otro servidor:
 
@@ -403,11 +409,11 @@ Validar en navegador:
 1. `/`
 2. `/establecimientos/`
 3. `/matriz/nueva/?paso=s01`
-4. Creacion de una matriz de prueba.
-5. Edicion de una matriz existente.
-6. Visualizacion del detalle.
-7. Acceso al modulo de roles y usuarios.
-8. Acceso al modulo de reportes de monitoreo.
+4. Creación de una matriz de prueba.
+5. Edición de una matriz existente.
+6. Visualización del detalle.
+7. Acceso al módulo de roles y usuarios.
+8. Acceso al módulo de reportes de monitoreo.
 
 ## 18. Estado actual
 
@@ -416,7 +422,7 @@ El repositorio contiene:
 1. Scripts de base de datos para el primer nivel.
 2. Aplicativo Django SIGES funcional.
 3. Formularios S01 y S02.
-4. Catalogos y validaciones del formulario.
+4. Catálogos y validaciones del formulario.
 5. Interfaz institucional responsive.
 6. Dashboard de reportes de monitoreo.
-7. Documentacion tecnica por modulo.
+7. Documentación técnica por módulo.

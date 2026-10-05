@@ -1,21 +1,21 @@
-# Lectura Tecnica Del Codigo
+# Lectura Técnica Del Código
 
 ## 1. Proposito
 
-Este documento explica como leer el codigo del aplicativo SIGES sin mezclar responsabilidades. Sirve como base para auditoria tecnica, mantenimiento y posterior construccion de informes en Quarto.
+Este documento explica como leer el código del aplicativo SIGES sin mezclar responsabilidades. Sirve como base para auditoria técnica, mantenimiento y posterior construccion de informes en Quarto.
 
-## 2. Criterio de documentacion
+## 2. Criterio de documentación
 
-1. El codigo fuente mantiene comentarios utiles y docstrings tecnicos.
-2. La explicacion detallada queda en Markdown para evitar ensuciar archivos Python, HTML, CSS o JavaScript.
-3. Cuando se requiera documentacion linea por linea, se debe ampliar esta carpeta `docs/08_codigo/`.
+1. El código fuente mantiene comentarios útiles y docstrings técnicos.
+2. La explicación detallada queda en Markdown para evitar ensuciar archivos Python, HTML, CSS o JavaScript.
+3. Cuando se requiera documentación línea por línea, se debe ampliar esta carpeta `docs/08_codigo/`.
 4. Los templates quedan reservados para estructura HTML y textos editables.
 
-## 3. Separacion por capas
+## 3. Separación por capas
 
-| Capa | Ubicacion | Responsabilidad |
+| Capa | Ubicación | Responsabilidad |
 |---|---|---|
-| Configuracion | `config_siges/` | Inicializar Django, base de datos, templates, estaticos y apps. |
+| Configuración | `config_siges/` | Inicializar Django, base de datos, templates, estáticos y apps. |
 | Modelo | `siges/models.py` | Representar tablas, relaciones, restricciones y fuente institucional. |
 | Formulario | `siges/forms.py` | Definir campos, widgets y validaciones. |
 | Vista/controlador | `siges/views.py` | Coordinar peticion, formulario, servicio, template y respuesta. |
@@ -23,21 +23,21 @@ Este documento explica como leer el codigo del aplicativo SIGES sin mezclar resp
 | Rutas | `siges/urls.py` | Exponer endpoints HTML y JSON. |
 | HTML | `templates/` | Estructura visual y textos editables. |
 | CSS | `static/siges/css/` | Apariencia, layout y responsive. |
-| JavaScript | `static/siges/js/` | Interaccion del navegador y autocompletado. |
-| Documentacion | `docs/` | Explicacion tecnica y funcional versionable. |
+| JavaScript | `static/siges/js/` | Interacción del navegador y autocompletado. |
+| Documentación | `docs/` | Explicación técnica y funcional versionable. |
 
 ## 4. Archivos CSS
 
-1. `app.css`: archivo indice; importa el resto de hojas de estilo.
+1. `app.css`: archivo índice; importa el resto de hojas de estilo.
 2. `00_base.css`: variables, tipografia, body, header, sidebar y layout general.
 3. `01_componentes.css`: paneles, hero, tarjetas, formularios, tablas, stepper, detalle y componentes visuales.
 4. `02_footer.css`: footer institucional, columnas, contacto, copyright y sello.
-5. `03_responsive.css`: breakpoints para escritorio, tablet, movil y pantallas angostas.
+5. `03_responsive.css`: breakpoints para escritorio, tablet, móvil y pantallas angostas.
 
 ## 5. Archivos JavaScript
 
 1. `establecimientos.js`: controla el buscador de establecimientos.
-2. Escucha cambios en el campo de busqueda.
+2. Escucha cambios en el campo de búsqueda.
 3. Consulta `/api/establecimientos/buscar/`.
 4. Renderiza resultados como botones.
 5. Consulta `/api/establecimientos/<unicodigo>/`.
@@ -59,10 +59,10 @@ Este documento explica como leer el codigo del aplicativo SIGES sin mezclar resp
 
 1. Si se cambia texto visible, modificar templates.
 2. Si se cambia apariencia, modificar CSS.
-3. Si se cambia interaccion de navegador, modificar JavaScript.
-4. Si se cambia validacion, modificar forms.
+3. Si se cambia interacción de navegador, modificar JavaScript.
+4. Si se cambia validación, modificar forms.
 5. Si se cambia consulta o guardado reutilizable, modificar services.
-6. Si se cambia flujo de pagina, modificar views.
+6. Si se cambia flujo de página, modificar views.
 7. Si se cambia estructura de datos, modificar models y documentar base de datos.
 
 
