@@ -86,6 +86,9 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 28. El bloque de nivel de atención se destaca visualmente con fondo turquesa suave.
 29. Cuando S01 esta activo, el paso `Datos Generales` se resalta con color amarillo pastel.
 30. S01 muestra textos de ayuda debajo de las etiquetas para explicar nivel, unicódigo, institución, cantón, parroquia, dirección, responsable y demás campos principales.
+31. El detalle de la matriz ya no usa un contenedor visual grande alrededor de toda la página.
+32. El detalle muestra la información cargada en tablas cuadriculadas por resumen, Datos Generales y Acceso y Movilización.
+33. El identificador de la matriz se muestra como `ID de formulario` dentro de la tabla de identificación y no como un número suelto debajo del título.
 
 ## 8. Lógica server
 
@@ -110,6 +113,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 19. `static/siges/js/matriz_form.js` controla la habilitacion del tiempo segun la unidad seleccionada, sin incluir JavaScript dentro del template.
 20. `matriz_form.html` renderiza S01 con el selector `nivel_atencion` separado del resto de campos para reforzar el flujo de captura.
 21. `S01DatosGeneralesForm` define `help_text` por campo para entregar descripciones al template sin escribir textos sueltos en la vista.
+22. `detalle_matriz` entrega al template la cabecera de la matriz y las respuestas S01/S02 para renderizarlas por secciones en una estructura tabular.
 
 ## 9. Reglas de negocio
 
@@ -148,6 +152,8 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 16. El renderizado de `/matriz/nueva/?paso=s01` respondio HTTP 200 sin el contenedor `content-panel unfold-card`.
 17. El HTML de S01 muestra `Nivel de atencion del establecimiento de salud` antes de `Buscar establecimiento por unicodigo o nombre`.
 18. El HTML de S01 contiene el bloque `level-selector-card` y el paso activo `step-s01 active`.
+19. `python manage.py check` no reportó errores después del rediseño tabular del detalle.
+20. La plantilla `matriz_detalle.html` ya no contiene el contenedor `content-panel unfold-card` como envolvente principal.
 
 ## 11. Cambios realizados
 
@@ -184,5 +190,8 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 31. Se reorganizó S01 para que el nivel de atención sea el primer control operativo.
 32. Se agregaron descripciones `help_text` a los campos S01.
 33. Se agregó color amarillo pastel al paso activo de Datos Generales y fondo turquesa al selector de nivel.
+34. Se retiró el contenedor visual grande del detalle de matriz.
+35. Se eliminó el número de formulario mostrado de forma suelta debajo del título.
+36. Se rediseñó el detalle con tablas cuadriculadas por sección para mejorar lectura, trazabilidad y revisión de la información cargada.
 
 

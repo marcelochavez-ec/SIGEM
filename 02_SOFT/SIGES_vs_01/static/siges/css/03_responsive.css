@@ -174,7 +174,16 @@ svg {
     min-width: 720px;
 }
 
+.detail-section {
+    max-width: 100%;
+}
+
+.detail-table {
+    min-width: 760px;
+}
+
 .detail-grid strong,
+.detail-table td,
 .lookup-item,
 .footer-column p,
 .footer-contact p {
