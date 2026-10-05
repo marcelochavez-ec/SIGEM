@@ -1,0 +1,121 @@
+.siges-footer {
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 4px 4px, rgba(0, 234, 255, .08) 1px, transparent 1.4px) 0 0 / 14px 14px,
+        linear-gradient(100deg, #053765 0%, #014775 58%, #053966 100%),
+        var(--siges-blue-950);
+}
+
+.footer-primary {
+    display: grid;
+    grid-template-columns: 1.55fr 1.08fr 1.36fr 1.58fr .5fr;
+    gap: 24px;
+    align-items: center;
+    min-height: 104px;
+    padding: 4px 34px 6px;
+    border-bottom: 1px solid rgba(0, 234, 255, .7);
+}
+
+.footer-ministry {
+    font-size: .96rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.footer-column {
+    min-height: 96px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, .55);
+}
+
+.footer-column h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, .24);
+    color: #ffffff;
+    font-size: .86rem;
+    font-weight: 800;
+}
+
+.footer-column h3 span,
+.footer-bottom span span {
+    color: #00f4ff;
+}
+
+.footer-column h3 span {
+    font-size: 1.08rem;
+}
+
+.footer-column p {
+    position: relative;
+    margin: 0;
+    padding: 3px 0 3px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+    font-size: .72rem;
+    line-height: 1.25;
+}
+
+.footer-column p::before {
+    content: ">";
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    color: #00f4ff;
+    font-weight: 900;
+}
+
+.footer-contact p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-left: 0;
+    border-bottom: 0;
+    font-size: .7rem;
+}
+
+.footer-contact p::before {
+    content: none;
+}
+
+.footer-contact p span {
+    flex: 0 0 auto;
+    color: #00f4ff;
+    font-size: .82rem;
+}
+
+.footer-seal {
+    justify-self: end;
+    width: 96px;
+    max-width: 100%;
+    opacity: .18;
+    filter: grayscale(1) brightness(1.8);
+}
+
+.footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    min-height: 24px;
+    padding: 0 32px;
+    font-size: .7rem;
+}
+
+.footer-bottom > span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-bottom .material-symbols-outlined {
+    font-size: .86rem;
+}
+
+.footer-bottom > span:last-child {
+    justify-content: flex-end;
+}
+
+

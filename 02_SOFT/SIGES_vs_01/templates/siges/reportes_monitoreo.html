@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="reports-dashboard">
+    <header class="reports-heading">
+        <div>
+            <span class="records-eyebrow">Inicio / Reporte de monitoreo</span>
+            <h1>Reporte de monitoreo</h1>
+            <p>Lectura ejecutiva de matrices registradas, Dirección Provincial, estado de carga y evolución por fecha.</p>
+        </div>
+        <span class="material-symbols-outlined">monitoring</span>
+    </header>
+
+    <div class="reports-kpi-grid">
+        <article class="reports-kpi-card blue" data-report-popup="Matrices registradas|Total de formularios guardados en SIGES.">
+            <span class="material-symbols-outlined">assignment</span>
+            <small>Matrices registradas</small>
+            <strong>{{ datos.metricas.total_matrices }}</strong>
+        </article>
+        <article class="reports-kpi-card green" data-report-popup="Direcciones Provinciales cargadas|Total de Direcciones Provinciales distintas registradas en Datos Generales.">
+            <span class="material-symbols-outlined">map</span>
+            <small>Direcciones Provinciales cargadas</small>
+            <strong>{{ datos.metricas.total_direcciones }}</strong>
+        </article>
+        <article class="reports-kpi-card teal" data-report-popup="Archivos finales cargados|Matrices con estado ENVIADO o VALIDADO.">
+            <span class="material-symbols-outlined">task_alt</span>
+            <small>Archivos finales cargados</small>
+            <strong>{{ datos.metricas.archivos_finales }}</strong>
+        </article>
+        <article class="reports-kpi-card amber" data-report-popup="Modificaciones registradas|Matrices cuya fecha de actualización es posterior a la fecha de registro.">
+            <span class="material-symbols-outlined">edit_note</span>
+            <small>Modificaciones registradas</small>
+            <strong>{{ datos.metricas.modificaciones }}</strong>
+        </article>
+    </div>
+
+    <div class="reports-story-grid">
+        <article class="report-card report-card-wide">
+            <div class="report-card-header">
+                <div>
+                    <h2>Por Direcciones Provinciales</h2>
+                    <p>Distribución de matrices registradas según la Dirección Provincial declarada.</p>
+                </div>
+                <span class="material-symbols-outlined">bar_chart</span>
+            </div>
+            <canvas id="chartProvincias" class="report-chart" height="230"></canvas>
+        </article>
+
+        <article class="report-card">
+            <div class="report-card-header">
+                <div>
+                    <h2>Estado de Carga</h2>
+                    <p>Comparativo de matrices almacenadas, modificadas y versionadas.</p>
+                </div>
+                <span class="material-symbols-outlined">donut_large</span>
+            </div>
+            <canvas id="chartEstados" class="report-chart" height="230"></canvas>
+        </article>
+
+        <article class="report-card report-card-full">
+            <div class="report-card-header">
+                <div>
+                    <h2>Carga por fecha</h2>
+                    <p>Cantidad de matrices cargadas según fecha de registro.</p>
+                </div>
+                <span class="material-symbols-outlined">show_chart</span>
+            </div>
+            <canvas id="chartAvance" class="report-chart" height="230"></canvas>
+        </article>
+    </div>
+</section>
+
+<div class="report-popup" data-report-popup-panel hidden>
+    <div class="report-popup-dialog">
+        <button type="button" class="report-popup-close" data-report-popup-close aria-label="Cerrar">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h2 data-report-popup-title></h2>
+        <p data-report-popup-body></p>
+    </div>
+</div>
+
+{{ datos_json|json_script:"reportes-monitoreo-data" }}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'siges/js/reportes_monitoreo.js' %}?v=20261004d"></script>
+{% endblock %}
+

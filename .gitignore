@@ -12,6 +12,7 @@ media/
 .env
 *.env
 01_ESTRUCTURAS_BDD_EPNAS/03_configuraciones/
+01_ESTRUCTURAS_BDD/03_CONFIGURACIONES/config.yml
 
 # Temporales de Office y sistema
 ~$*
@@ -24,6 +25,15 @@ Thumbs.db
 .Rhistory
 .RData
 .Rproj.user/
+
+# Herramientas locales de asistencia/desarrollo
+.local_tools/
+.workspace/
+AGENT*.md
+AGENTE*.md
+**/AGENT*.md
+**/AGENTE*.md
+02_SOFT/test_01/
 
 # Respaldos locales de repositorios anidados
 .nested_git_backups/

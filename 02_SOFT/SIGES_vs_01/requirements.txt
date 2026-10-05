@@ -1,0 +1,5 @@
+Django==6.1.1
+django-unfold==0.108.0
+psycopg[binary]>=3.2,<4.0
+whitenoise>=6.8,<7.0
+waitress>=3.0,<4.0

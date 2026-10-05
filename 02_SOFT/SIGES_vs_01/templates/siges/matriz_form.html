@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="matrix-page">
+<div class="breadcrumb"><a href="{% url 'siges:inicio' %}">Inicio</a><span>/</span><a href="{% url 'siges:establecimientos' %}">Establecimientos</a><span>/</span><strong>{{ paso_actual.nombre }}</strong></div>
+<div class="page-heading">
+    <div>
+        <h1>{{ titulo }}</h1>
+        <p class="muted">{{ paso_actual.nombre }}</p>
+    </div>
+</div>
+
+<nav class="stepper unfold-steps" aria-label="Secciones de la matriz">
+    <a class="step step-s01 {% if paso == 's01' %}active{% endif %}" href="{{ url_s01 }}">
+        <span>1</span>
+        <strong>{{ pasos.s01.nombre }}</strong>
+        <small>Paso inicial de identificación del establecimiento</small>
+    </a>
+    {% if s02_habilitada %}
+    <a class="step step-s02 {% if paso == 's02' %}active{% endif %}" href="{{ url_s02 }}">
+        <span>2</span>
+        <strong>{{ pasos.s02.nombre }}</strong>
+        <small>Condiciones de acceso del establecimiento</small>
+    </a>
+    {% else %}
+    <div class="step step-s02 disabled">
+        <span>2</span>
+        <strong>{{ pasos.s02.nombre }}</strong>
+        <small>Complete {{ pasos.s01.nombre }} para continuar</small>
+    </div>
+    {% endif %}
+</nav>
+
+<form method="post" class="form-stack">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="error-box">{{ form.non_field_errors }}</div>{% endif %}
+
+    <section class="form-card form-card-plain">
+        <h2>{{ paso_actual.nombre }}</h2>
+        {% if paso == 's01' %}
+        <section class="level-selector-card">
+            <div class="form-subsection-heading">
+                <h3>Filtro principal del establecimiento</h3>
+                <p>Seleccione primero el nivel de atención para buscar únicamente establecimientos compatibles.</p>
+            </div>
+            <div class="field">
+                <label for="{{ form.nivel_atencion.id_for_label }}">{{ form.nivel_atencion.label }}{% if form.nivel_atencion.field.required %}<span class="required"> *</span>{% endif %}</label>
+                {% if form.nivel_atencion.help_text %}<small class="field-help">{{ form.nivel_atencion.help_text }}</small>{% endif %}
+                {{ form.nivel_atencion }}
+                {% for error in form.nivel_atencion.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+        </section>
+        <div class="lookup-box" data-establecimientos-widget>
+            <label for="establecimiento-busqueda">Buscar establecimiento por unicódigo o nombre</label>
+            <small class="field-help">Busque el establecimiento dentro del nivel de atención seleccionado para autocompletar sus datos generales.</small>
+            <div class="lookup-search-row">
+                <input id="establecimiento-busqueda" class="form-control" type="search" placeholder="Ejemplo: 043002 o parte del nombre">
+                <button class="btn primary" type="button" data-establecimientos-boton>Buscar</button>
+            </div>
+            <div class="lookup-results" data-establecimientos-resultados></div>
+        </div>
+        {% endif %}
+        {% if paso == 's02' %}
+        <div class="form-sections-grid">
+            <section class="form-subsection">
+                <div class="form-subsection-heading">
+                    <h3>Ubicación fronteriza</h3>
+                    <p>Identificación territorial básica del establecimiento.</p>
+                </div>
+                <div class="field">
+                    <label for="{{ form.s02_am01.id_for_label }}">{{ form.s02_am01.label }}{% if form.s02_am01.field.required %}<span class="required"> *</span>{% endif %}</label>
+                    {% if form.s02_am01.help_text %}<small class="field-help">{{ form.s02_am01.help_text }}</small>{% endif %}
+                    {{ form.s02_am01 }}
+                    {% for error in form.s02_am01.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+            </section>
+
+            <section class="form-subsection">
+                <div class="form-subsection-heading">
+                    <h3>Movilización y transporte</h3>
+                    <p>Condiciones operativas para llegar al establecimiento.</p>
+                </div>
+                <div class="subsection-grid">
+                    <div class="field">
+                        <label for="{{ form.s02_am02.id_for_label }}">{{ form.s02_am02.label }}{% if form.s02_am02.field.required %}<span class="required"> *</span>{% endif %}</label>
+                        {% if form.s02_am02.help_text %}<small class="field-help">{{ form.s02_am02.help_text }}</small>{% endif %}
+                        {{ form.s02_am02 }}
+                        {% for error in form.s02_am02.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.s02_am03.id_for_label }}">{{ form.s02_am03.label }}{% if form.s02_am03.field.required %}<span class="required"> *</span>{% endif %}</label>
+                        {% if form.s02_am03.help_text %}<small class="field-help">{{ form.s02_am03.help_text }}</small>{% endif %}
+                        {{ form.s02_am03 }}
+                        {% for error in form.s02_am03.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-subsection span-2" data-tiempo-traslado="grupo">
+                <div class="form-subsection-heading">
+                    <h3>Tiempo de traslado</h3>
+                    <p>Seleccione la unidad y registre el tiempo hasta el establecimiento.</p>
+                </div>
+                <div class="time-grid">
+                    <div class="field">
+                        <label for="{{ form.s02_am04_unidad.id_for_label }}">{{ form.s02_am04_unidad.label }}{% if form.s02_am04_unidad.field.required %}<span class="required"> *</span>{% endif %}</label>
+                        {% if form.s02_am04_unidad.help_text %}<small class="field-help">{{ form.s02_am04_unidad.help_text }}</small>{% endif %}
+                        {{ form.s02_am04_unidad }}
+                        {% for error in form.s02_am04_unidad.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.s02_am04.id_for_label }}">{{ form.s02_am04.label }}{% if form.s02_am04.field.required %}<span class="required"> *</span>{% endif %}</label>
+                        {% if form.s02_am04.help_text %}<small class="field-help">{{ form.s02_am04.help_text }}</small>{% endif %}
+                        {{ form.s02_am04 }}
+                        {% for error in form.s02_am04.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-subsection span-2">
+                <div class="form-subsection-heading">
+                    <h3>Accesibilidad y vía</h3>
+                    <p>Clasificación territorial y condición principal de acceso.</p>
+                </div>
+                <div class="subsection-grid">
+                    <div class="field">
+                        <label for="{{ form.s02_am05.id_for_label }}">{{ form.s02_am05.label }}{% if form.s02_am05.field.required %}<span class="required"> *</span>{% endif %}</label>
+                        {% if form.s02_am05.help_text %}<small class="field-help">{{ form.s02_am05.help_text }}</small>{% endif %}
+                        {{ form.s02_am05 }}
+                        {% for error in form.s02_am05.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.s02_am06.id_for_label }}">{{ form.s02_am06.label }}{% if form.s02_am06.field.required %}<span class="required"> *</span>{% endif %}</label>
+                        {% if form.s02_am06.help_text %}<small class="field-help">{{ form.s02_am06.help_text }}</small>{% endif %}
+                        {{ form.s02_am06 }}
+                        {% for error in form.s02_am06.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                    </div>
+                </div>
+            </section>
+        </div>
+        {% else %}
+        <div class="form-grid">
+            {% for field in form %}
+            {% if field.name != 'nivel_atencion' %}
+            <div class="field {% if field.name == 's01_dg08' or field.name == 's01_dg11' %}span-2{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span class="required"> *</span>{% endif %}</label>
+                {% if field.help_text %}<small class="field-help">{{ field.help_text }}</small>{% endif %}
+                {{ field }}
+                {% for error in field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="actions">
+            <a class="btn secondary" href="{% url 'siges:establecimientos' %}">Cancelar</a>
+            {% if paso == 's02' %}
+            <a class="btn secondary" href="{{ url_s01 }}">Volver a {{ pasos.s01.nombre }}</a>
+            <button class="btn primary" type="submit">Guardar matriz</button>
+            {% else %}
+            <button class="btn primary" type="submit">Continuar a {{ pasos.s02.nombre }}</button>
+            {% endif %}
+        </div>
+    </section>
+</form>
+</section>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+{% if paso == 's01' %}
+<script src="{% static 'siges/js/establecimientos.js' %}?v=20261004c"></script>
+{% endif %}
+{% if paso == 's02' %}
+<script src="{% static 'siges/js/matriz_form.js' %}?v=20261005a"></script>
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-panel unfold-card">
+    <div class="breadcrumb"><a href="{% url 'siges:inicio' %}">Inicio</a><span>/</span><strong>Establecimientos de Salud</strong></div>
+    <div class="page-title">
+        <h1>Establecimientos de Salud</h1>
+        <p>Gestión de registros de establecimientos de salud</p>
+    </div>
+
+    <section class="module-grid module-grid-actions">
+        <a class="module-card green compact unfold-card" href="{% url 'siges:nueva_matriz' %}?paso=s01">
+            <div class="module-art"><span class="material-symbols-outlined">local_hospital</span></div>
+            <h2>Nuevo Registro</h2>
+            <p>Ingrese un nuevo establecimiento de salud.</p>
+            <span class="module-action"><span class="material-symbols-outlined">arrow_forward</span></span>
+        </a>
+        <a class="module-card blue compact unfold-card" href="#registros">
+            <div class="module-art"><span class="material-symbols-outlined">edit_document</span></div>
+            <h2>Modificación</h2>
+            <p>Actualice la información de un establecimiento existente.</p>
+            <span class="module-action"><span class="material-symbols-outlined">arrow_forward</span></span>
+        </a>
+        <a class="module-card red compact unfold-card" href="#registros">
+            <div class="module-art"><span class="material-symbols-outlined">delete</span></div>
+            <h2>Eliminación</h2>
+            <p>Eliminación de formularios de forma completa según el establecimiento de salud que corresponda.</p>
+            <span class="module-action"><span class="material-symbols-outlined">arrow_forward</span></span>
+        </a>
+    </section>
+
+</section>
+
+<section id="registros" class="content-panel records-panel unfold-card">
+    <div class="records-hero">
+        <div>
+            <span class="records-eyebrow">Consulta y gestión</span>
+            <h2>Registros de establecimientos de salud</h2>
+            <p>Busque una matriz por unicódigo, revise su estado y gestione el registro correspondiente.</p>
+        </div>
+        <a class="btn primary" href="{% url 'siges:nueva_matriz' %}?paso=s01">
+            <span class="material-symbols-outlined">add</span>
+            Nuevo registro
+        </a>
+    </div>
+
+    <form method="get" class="records-search-card">
+        <div class="field">
+            <label for="q">Búsqueda general por unicódigo</label>
+            <input class="form-control unfold-input" id="q" name="q" value="{{ busqueda }}" placeholder="Ejemplo: 043">
+        </div>
+        <div class="field">
+            <label for="unicodigo">Unicódigo exacto</label>
+            <input class="form-control unfold-input" id="unicodigo" name="unicodigo" value="{{ unicodigo_seleccionado }}" placeholder="Ejemplo: 043020">
+        </div>
+        <div class="records-search-actions">
+            <button class="btn primary" type="submit">
+                <span class="material-symbols-outlined">search</span>
+                Buscar
+            </button>
+            <a class="btn secondary" href="{% url 'siges:establecimientos' %}">Limpiar</a>
+        </div>
+    </form>
+
+    <form method="post" class="records-form">
+        {% csrf_token %}
+        <div class="records-selection-bar">
+            <div>
+                <strong>Gestión de selección</strong>
+                <p>Seleccione un registro para modificar o uno o varios registros para eliminar.</p>
+            </div>
+            <div class="actions">
+                <button class="btn secondary" name="accion" value="editar" type="submit">
+                    <span class="material-symbols-outlined">edit</span>
+                    Modificar
+                </button>
+                <button class="btn danger" name="accion" value="eliminar" type="submit" onclick="return confirm('¿Desea eliminar los registros seleccionados? Esta acción no se puede deshacer.');">
+                    <span class="material-symbols-outlined">delete</span>
+                    Eliminar
+                </button>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th class="select-col"><input type="checkbox" aria-label="Seleccionar todos" onclick="document.querySelectorAll('[name=seleccionados]').forEach(item => item.checked = this.checked);"></th>
+                        <th>Matriz</th>
+                        <th>Unicódigo</th>
+                        <th>Estado</th>
+                        <th>Fecha de registro</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in formularios %}
+                    <tr>
+                        <td class="select-col"><input type="checkbox" name="seleccionados" value="{{ item.pk }}" aria-label="Seleccionar {{ item.unicodigo }}"></td>
+                        <td><span class="matrix-id">{{ item.id_formulario }}</span></td>
+                        <td><strong class="matrix-code">{{ item.unicodigo }}</strong></td>
+                        <td><span class="badge">{{ item.estado }}</span></td>
+                        <td>{{ item.fecha_registro|date:"Y-m-d H:i" }}</td>
+                        <td class="row-actions">
+                            <a class="table-action view" href="{% url 'siges:detalle_matriz' item.pk %}">
+                                <span class="material-symbols-outlined">visibility</span>
+                                Ver
+                            </a>
+                            <a class="table-action edit" href="{% url 'siges:editar_matriz' item.pk %}?paso=s01">
+                                <span class="material-symbols-outlined">edit</span>
+                                Modificar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="empty-records">Aún no existen matrices registradas para los criterios seleccionados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+</section>
+{% endblock %}
+

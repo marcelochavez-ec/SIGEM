@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="home-hero unfold-card">
+    <div class="hero-copy">
+        <p>Plataforma tecnológica desarrollada por:</p>
+        <h1>Dirección Nacional de Estadística y Análisis de la Información del Sistema Nacional de Salud</h1>
+    </div>
+    {% load static %}
+        <div class="hero-visual">
+            <img class="facility-photo" src="{% static 'establecimiento_salud.jpg' %}" alt="">
+            <div class="hero-hex-group">
+                <a class="hero-hex hex-main" href="{% url 'siges:establecimientos' %}" aria-label="Abrir Monitoreo de Establecimientos de Salud">
+                    <span class="material-symbols-outlined">local_hospital</span>
+                    <strong><span class="hex-line-nowrap">Niveles de atención</span><br>I, II y III de los Establecimientos<br>de Salud<br>Red MSP</strong>
+                </a>
+
+                <a class="hero-hex hex-blue" href="{% url 'siges:roles_usuarios' %}" aria-label="Abrir Administración de Roles y Usuarios">
+                    <span class="material-symbols-outlined">groups</span>
+                    <strong>Administración de roles<br>y usuarios</strong>
+                </a>
+
+                <a class="hero-hex hex-green" href="https://analiticadesalud.msp.gob.ec/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Sistema de Analítica en Salud">
+                    <span class="material-symbols-outlined">ads_click</span>
+                    <strong>KPIs y estadísticas<br>en el Sistema<br>Analítica en<br>Salud</strong>
+                </a>
+            </div>
+        </div>
+</section>
+
+<section class="module-grid">
+    <a class="module-card green unfold-card" href="{% url 'siges:establecimientos' %}">
+        <div class="module-art"><span class="material-symbols-outlined">local_hospital</span></div>
+        <h2>Monitoreo de Establecimientos de Salud</h2>
+        <p>Consulta de la red de establecimientos de salud.</p>
+        <span class="module-action"><span class="material-symbols-outlined">arrow_forward</span></span>
+    </a>
+    <a class="module-card purple unfold-card" href="{% url 'siges:roles_usuarios' %}">
+        <div class="module-art"><span class="material-symbols-outlined">groups</span></div>
+        <h2>Administración de Roles y Usuarios</h2>
+        <p>Creación, modificación y desactivación de cuentas, perfiles y permisos.</p>
+        <span class="module-action"><span class="material-symbols-outlined">arrow_forward</span></span>
+    </a>
+    <a class="module-card amber unfold-card" href="{% url 'siges:manual_usuario' %}">
+        <div class="module-art"><span class="material-symbols-outlined">menu_book</span></div>
+        <h2>Manual de Usuario</h2>
+        <p>Documento guía para el llenado correcto de la información.</p>
+        <span class="module-action"><span class="material-symbols-outlined">arrow_forward</span></span>
+    </a>
+</section>
+
+<div class="info-strip">
+    <span class="material-symbols-outlined">info</span>
+    <p>SIGES contribuye al fortalecimiento del Sistema Nacional de Salud mediante información oportuna, confiable y segura.</p>
+</div>
+{% endblock %}
+

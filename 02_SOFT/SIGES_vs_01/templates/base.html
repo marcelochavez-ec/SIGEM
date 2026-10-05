@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIGES</title>
+    <link rel="icon" type="image/png" href="{% static 'msp_favicon.png' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'msp_favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'msp_favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'unfold/fonts/inter/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'unfold/fonts/material-symbols/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'unfold/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'siges/css/app.css' %}?v=20260928c">
+</head>
+<body class="siges-app unfold-app">
+    <header class="siges-topbar">
+        <div class="siges-brand">
+            <img class="siges-logo" src="{% static 'logo_msp.png' %}" alt="Ministerio de Salud Publica">
+            <span class="siges-divider" aria-hidden="true"></span>
+            <div class="siges-title">
+                <span>Bienvenido(a) al</span>
+                <strong>SIGES</strong>
+                <small>Sistema de Información para la Gestión de Establecimientos de Salud</small>
+            </div>
+        </div>
+    </header>
+
+    <div class="siges-shell">
+        <aside class="siges-sidebar" aria-label="Navegacion principal">
+            <nav class="siges-menu">
+                <a class="siges-menu-item {% if active_page == 'inicio' %}active{% endif %}" href="{% url 'siges:inicio' %}">
+                    <span class="material-symbols-outlined">home</span>
+                    <strong>Inicio</strong>
+                </a>
+                <a class="siges-menu-item {% if active_page == 'establecimientos' %}active{% endif %}" href="{% url 'siges:establecimientos' %}">
+                    <span class="material-symbols-outlined">local_hospital</span>
+                    <strong>Establecimientos</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+                <a class="siges-menu-item {% if active_page == 'roles' %}active{% endif %}" href="{% url 'siges:roles_usuarios' %}">
+                    <span class="material-symbols-outlined">group</span>
+                    <strong>Roles y usuarios</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+                <a class="siges-menu-item {% if active_page == 'reportes' %}active{% endif %}" href="{% url 'siges:reportes_monitoreo' %}">
+                    <span class="material-symbols-outlined">monitoring</span>
+                    <strong>Reporte de monitoreo</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+                <a class="siges-menu-item {% if active_page == 'manual' %}active{% endif %}" href="{% url 'siges:manual_usuario' %}">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    <strong>Manual de usuario</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="siges-main unfold-main">
+            {% if messages %}
+                {% for message in messages %}<div class="siges-alert">{{ message }}</div>{% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="siges-footer">
+        <div class="footer-primary">
+            <div class="footer-ministry">Ministerio de Salud Pública del Ecuador</div>
+            <div class="footer-column">
+                <h3><span class="material-symbols-outlined">desktop_windows</span>Tecnología</h3>
+                <p>Python</p>
+                <p>Django</p>
+                <p>Bootstrap</p>
+            </div>
+            <div class="footer-column">
+                <h3><span class="material-symbols-outlined">description</span>Recursos</h3>
+                <p>Sincronización con PRAS y RDACAA</p>
+                <p>Interoperabilidad</p>
+                <p>Informes de monitoreo y control</p>
+            </div>
+            <div class="footer-column footer-contact">
+                <h3><span class="material-symbols-outlined">support_agent</span>Contacto</h3>
+                <p><span class="material-symbols-outlined">mail</span>info@msp.gob.ec</p>
+                <p><span class="material-symbols-outlined">call</span>+593 2 381 4400</p>
+                <p><span class="material-symbols-outlined">location_on</span>Av. Quitumbe Ñan y Amaru Ñan, Quito, Ecuador</p>
+            </div>
+            <img class="footer-seal" src="{% static 'escudo.png' %}" alt="República del Ecuador">
+        </div>
+        <div class="footer-bottom">
+            <span><span class="material-symbols-outlined">lock</span>Este sitio es seguro. Todos los derechos reservados.</span>
+            <span>&copy; Copyright MSP 2026</span>
+            <span>Versión 1.0</span>
+        </div>
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+

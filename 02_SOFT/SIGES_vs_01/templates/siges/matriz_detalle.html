@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-panel unfold-card">
+<div class="breadcrumb"><a href="{% url 'siges:inicio' %}">Inicio</a><span>/</span><a href="{% url 'siges:establecimientos' %}">Establecimientos</a><span>/</span><strong>Detalle</strong></div>
+<div class="page-heading">
+    <div>
+        <h1>Matriz del Establecimiento de Salud</h1>
+        <p class="muted mono">{{ registro.id_formulario }}</p>
+    </div>
+    <a class="btn primary" href="{% url 'siges:editar_matriz' registro.pk %}">Editar</a>
+</div>
+
+<section class="card detail-grid unfold-card">
+    <div><span>Unicódigo</span><strong>{{ registro.unicodigo }}</strong></div>
+    <div><span>Nivel de atención</span><strong>{{ registro.nivel_atencion }}</strong></div>
+    <div><span>Estado</span><strong>{{ registro.estado }}</strong></div>
+    <div><span>Fecha</span><strong>{{ registro.fecha_registro|date:"Y-m-d H:i" }}</strong></div>
+</section>
+
+{% if respuesta_s01 %}
+<section class="card unfold-card">
+    <h2>{{ nombre_s01 }}</h2>
+    <div class="detail-grid">
+        <div><span>Unicódigo</span><strong>{{ respuesta_s01.s01_dg01 }}</strong></div>
+        <div><span>Establecimiento</span><strong>{{ respuesta_s01.s01_dg02 }}</strong></div>
+        <div><span>Tipología</span><strong>{{ respuesta_s01.s01_dg03 }}</strong></div>
+        <div><span>Institución</span><strong>{{ respuesta_s01.s01_dg04 }}</strong></div>
+        <div><span>Dirección Provincial</span><strong>{{ respuesta_s01.s01_dg05 }}</strong></div>
+        <div><span>Cantón</span><strong>{{ respuesta_s01.s01_dg06 }}</strong></div>
+        <div><span>Parroquia</span><strong>{{ respuesta_s01.s01_dg07 }}</strong></div>
+        <div><span>Dirección</span><strong>{{ respuesta_s01.s01_dg08 }}</strong></div>
+        <div><span>Permiso</span><strong>{{ respuesta_s01.s01_dg09 }}</strong></div>
+        <div><span>Estado predio</span><strong>{{ respuesta_s01.s01_dg10 }}</strong></div>
+        <div><span>Responsable</span><strong>{{ respuesta_s01.s01_dg11 }}</strong></div>
+        <div><span>Móvil</span><strong>{{ respuesta_s01.s01_dg12 }}</strong></div>
+        <div><span>Cédula</span><strong>{{ respuesta_s01.s01_dg13 }}</strong></div>
+    </div>
+</section>
+{% endif %}
+
+{% if respuesta_s02 %}
+<section class="card unfold-card">
+    <h2>{{ nombre_s02 }}</h2>
+    <div class="detail-grid">
+        <div><span>Frontera</span><strong>{{ respuesta_s02.s02_am01 }}</strong></div>
+        <div><span>Medio de movilización</span><strong>{{ respuesta_s02.s02_am02.descripcion }}</strong></div>
+        <div><span>Frecuencia transporte público</span><strong>{{ respuesta_s02.s02_am03.descripcion }}</strong></div>
+        <div><span>Tiempo hasta el Establecimiento de Salud</span><strong>{{ respuesta_s02.s02_am04 }} {{ respuesta_s02.s02_am04_unidad }}</strong></div>
+        <div><span>Categoría accesibilidad</span><strong>{{ respuesta_s02.s02_am05 }}</strong></div>
+        <div><span>Tipo de vía</span><strong>{{ respuesta_s02.s02_am06.descripcion }}</strong></div>
+    </div>
+</section>
+{% endif %}
+</section>
+{% endblock %}
+

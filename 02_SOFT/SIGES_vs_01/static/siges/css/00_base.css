@@ -1,0 +1,188 @@
+:root {
+    --siges-blue-950: #032f5f;
+    --siges-blue-900: #063b78;
+    --siges-blue-700: #006fd6;
+    --siges-cyan: #04b8e8;
+    --siges-navy: #050a8a;
+    --siges-text: #0b177f;
+    --siges-muted: #5570a2;
+    --siges-line: #bfe7ff;
+    --siges-soft: #eefaff;
+    --siges-panel: #ffffff;
+    --siges-green: #00a943;
+    --siges-purple: #7d10ef;
+    --siges-amber: #ff9700;
+    --siges-red: #ff1414;
+    --unfold-primary: var(--siges-blue-700);
+    --unfold-primary-dark: var(--siges-blue-950);
+    --unfold-surface: var(--siges-panel);
+    --unfold-border: var(--siges-line);
+    --unfold-radius: 8px;
+    --unfold-shadow: 0 10px 26px rgba(0, 101, 170, .12);
+}
+
+* { box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body.siges-app {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--siges-text);
+    background:
+        linear-gradient(90deg, rgba(226, 248, 255, .92) 0 15%, rgba(255, 255, 255, .7) 15% 100%),
+        #f5fcff;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, Arial, sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+a { color: inherit; }
+
+.material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+.siges-topbar {
+    min-height: 88px;
+    padding: 0 30px;
+    background:
+        linear-gradient(135deg, rgba(0, 42, 107, .96) 0%, rgba(0, 92, 171, .96) 48%, rgba(0, 174, 219, .94) 100%),
+        var(--siges-blue-900);
+    color: #ffffff;
+}
+
+.siges-brand {
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.siges-logo {
+    width: 365px;
+    max-width: 34vw;
+    height: 60px;
+    object-fit: contain;
+    object-position: left center;
+    filter: brightness(0) invert(1);
+}
+
+.siges-divider {
+    width: 2px;
+    height: 58px;
+    background: rgba(255, 255, 255, .86);
+}
+
+.siges-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.siges-title span {
+    font-size: clamp(.86rem, 1.02vw, 1.05rem);
+    line-height: 1.05;
+}
+
+.siges-title strong {
+    font-size: clamp(1.45rem, 1.9vw, 1.95rem);
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 0;
+}
+
+.siges-title small {
+    font-size: clamp(.78rem, .92vw, .94rem);
+    letter-spacing: .02em;
+    color: #ffffff;
+}
+
+.siges-shell {
+    display: grid;
+    grid-template-columns: 285px minmax(0, 1fr);
+    min-height: calc(100vh - 88px - 172px);
+}
+
+.siges-sidebar {
+    background:
+        linear-gradient(180deg, rgba(232, 249, 255, .94), rgba(255, 255, 255, .84)),
+        #effbff;
+    border-right: 1px solid #cdefff;
+    box-shadow: inset -16px 0 28px rgba(0, 111, 214, .05);
+    padding: 24px 10px 28px 8px;
+}
+
+.siges-menu {
+    display: grid;
+    gap: 10px;
+}
+
+.siges-menu-item {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 24px;
+    align-items: center;
+    min-height: 62px;
+    padding: 0 12px;
+    border-radius: 8px;
+    color: #001dd6;
+    text-decoration: none;
+    font-size: .98rem;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, Arial, sans-serif;
+    font-weight: 700;
+    transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+
+.siges-menu-item strong {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.siges-menu-item > .material-symbols-outlined:first-child {
+    color: #758aad;
+    font-size: 2.05rem;
+}
+
+.siges-menu-item em {
+    color: #001dff;
+    font-style: normal;
+    font-size: 1.55rem;
+}
+
+.siges-menu-item.active,
+.siges-menu-item:hover {
+    background: #dff4ff;
+    color: #0017e8;
+    box-shadow: inset 0 0 0 1px #c9edff;
+}
+
+.siges-menu-item.active > .material-symbols-outlined:first-child,
+.siges-menu-item:hover > .material-symbols-outlined:first-child {
+    color: #0785ff;
+}
+
+.siges-main {
+    width: 100%;
+    padding: 16px 28px 20px 26px;
+}
+
+.siges-alert {
+    margin: 0 0 16px;
+    padding: 13px 16px;
+    border: 1px solid #9bddff;
+    border-radius: 8px;
+    color: #034b87;
+    background: #e5f7ff;
+}
+
+
