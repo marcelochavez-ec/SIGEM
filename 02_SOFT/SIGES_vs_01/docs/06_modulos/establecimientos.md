@@ -42,7 +42,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 
 1. Filtros `q` y `unicodigo` en la pantalla de registros.
 2. Campos `s01_dg01` a `s01_dg13`.
-3. Campos `s02_am01` a `s02_am06`, incluyendo `s02_am04_unidad` para diferenciar horas y minutos.
+3. Campos `s02_am01` a `s02_am06`, incluyendo `s02_am04_unidad`, `s02_am04_horas` y `s02_am04_minutos`.
 4. Catálogos de `FormularioOpcion`.
 5. Fuente `siges.vm_establecimientos_ingresados`.
 6. Selección de registros mediante checkbox en el listado.
@@ -94,6 +94,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 33. El identificador de la matriz se muestra como `ID de formulario` dentro de la tabla de identificación y no como un número suelto debajo del título.
 34. Al ingresar a una nueva matriz desde `Nuevo registro`, el formulario inicia limpio y descarta borradores temporales anteriores.
 35. El campo de tiempo de traslado cambia sus atributos visibles segun la unidad: horas sin maximo operativo y minutos con maximo `59`.
+36. Cuando el usuario selecciona `Minutos`, el campo numerico usa pasos enteros para impedir captura decimal desde el navegador.
 
 ## 8. Lógica server
 
@@ -112,7 +113,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 13. `buscar_establecimientos` recibe `nivel_atencion` y filtra `siges.vm_establecimientos_ingresados`.
 14. `S02AccesoMovilizacionForm` carga `s02_am01`, `s02_am04_unidad` y `s02_am05` desde `FormularioOpcion`, pero guarda la etiqueta porque esas columnas son texto controlado.
 15. `S02AccesoMovilizacionForm.clean()` valida el rango por unidad: `Horas` mayor o igual a 1 y `Minutos` entre 1 y 59.
-16. `guardar_matriz_siges` persiste `s02_am04_unidad` junto con el resto de respuestas S02.
+16. `guardar_matriz_siges` persiste `s02_am04_unidad` y normaliza el resultado en `s02_am04_horas` y `s02_am04_minutos`.
 17. `datos_iniciales` precarga `s02_am04_unidad` al modificar una matriz existente.
 18. `matriz_form.html` renderiza S02 con estructura específica para agrupar preguntas relacionadas.
 19. `static/siges/js/matriz_form.js` controla la habilitacion del tiempo segun la unidad seleccionada, sin incluir JavaScript dentro del template.
@@ -164,10 +165,11 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 19. `python manage.py check` no reportó errores después del rediseño tabular del detalle.
 20. La plantilla `matriz_detalle.html` ya no contiene el contenedor `content-panel unfold-card` como envolvente principal.
 21. Las pruebas automatizadas verifican que `0` horas sea inválido, `1.65` horas sea válido, `59` minutos sea válido, `59.5` minutos sea inválido y `60` minutos sea inválido.
-22. `python manage.py test siges` ejecutó 6 pruebas correctamente.
-23. `python manage.py migrate siges` aplicó `0004_actualiza_rango_tiempo_s02` correctamente.
-24. La consulta a PostgreSQL confirmó `ck_respuesta_s02_am04_rango_unidad` con horas `>= 1` y minutos entre `1` y `59`.
-25. La prueba de sesión confirmó que `/matriz/nueva/?paso=s01` elimina el borrador temporal de una nueva matriz.
+22. Las pruebas automatizadas verifican que `2.5` horas se normaliza como `2` horas y `30` minutos, `2.6` horas como `2` horas y `36` minutos, y `45` minutos como `0` horas y `45` minutos.
+23. `python manage.py test siges` ejecutó 8 pruebas correctamente.
+24. `python manage.py migrate siges` aplicó `0004_actualiza_rango_tiempo_s02` correctamente.
+25. La consulta a PostgreSQL confirmó `ck_respuesta_s02_am04_rango_unidad` con horas `>= 1` y minutos enteros entre `1` y `59`.
+26. La prueba de sesión confirmó que `/matriz/nueva/?paso=s01` elimina el borrador temporal de una nueva matriz.
 
 ## 11. Cambios realizados
 
@@ -210,5 +212,7 @@ Permitir el acceso a la creación, búsqueda, modificación y eliminación de ma
 37. Se actualizó la regla de tiempo de traslado en frontend, formulario, modelo, migración y scripts de estructura de base de datos.
 38. Se agregó limpieza del borrador temporal de nueva matriz para evitar que reaparezcan datos de capturas anteriores.
 39. Se actualizó el versionamiento de `matriz_form.js` para forzar la descarga de la regla nueva en navegador.
+40. Se agregaron columnas normalizadas `s02_am04_horas` y `s02_am04_minutos`.
+41. Se agregó conversión automática de horas decimales a horas y minutos enteros antes de guardar en base.
 
 

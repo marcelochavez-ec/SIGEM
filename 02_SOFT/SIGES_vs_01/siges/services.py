@@ -8,6 +8,7 @@ from django.db import transaction
 
 from .forms import datos_s01_desde_establecimiento
 from .forms import NIVELES_ATENCION_PERMITIDOS
+from .forms import normalizar_tiempo_traslado
 from .models import EstablecimientoIngresado, RespuestaS01, RespuestaS02
 from .models import SigesFormulario
 
@@ -123,6 +124,12 @@ def guardar_matriz_siges(*, cleaned_data, usuario, instancia=None):
         },
     )
 
+    # El tiempo capturado se transforma a horas y minutos operativos.
+    horas_traslado, minutos_traslado = normalizar_tiempo_traslado(
+        cleaned_data["s02_am04"],
+        cleaned_data["s02_am04_unidad"],
+    )
+
     # update_or_create permite guardar o reemplazar la respuesta S02 de la misma matriz.
     respuesta_s02, _ = RespuestaS02.objects.update_or_create(
         formulario=instancia,
@@ -133,6 +140,8 @@ def guardar_matriz_siges(*, cleaned_data, usuario, instancia=None):
             "s02_am03": cleaned_data["s02_am03"],
             "s02_am04": cleaned_data["s02_am04"],
             "s02_am04_unidad": cleaned_data["s02_am04_unidad"],
+            "s02_am04_horas": horas_traslado,
+            "s02_am04_minutos": minutos_traslado,
             "s02_am05": cleaned_data["s02_am05"],
             "s02_am06": cleaned_data["s02_am06"],
         },

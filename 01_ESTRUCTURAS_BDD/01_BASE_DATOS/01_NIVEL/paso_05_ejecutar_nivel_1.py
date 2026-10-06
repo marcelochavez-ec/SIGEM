@@ -101,6 +101,8 @@ COLUMNAS_ESPERADAS = {
         "s02_am03",
         "s02_am04",
         "s02_am04_unidad",
+        "s02_am04_horas",
+        "s02_am04_minutos",
         "s02_am05",
         "s02_am06",
         "creado_en",

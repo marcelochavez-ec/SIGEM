@@ -102,7 +102,8 @@ SIGES 01 - Aplicativo web Django para matriz SIGES.
 
 1. S01 debe estar completa antes de pasar a S02.
 2. `s01_dg01` se usa como `unicodigo` de cabecera.
-3. `s02_am04` debe ser decimal positivo: si la unidad es `Horas`, debe ser mayor o igual a `1`; si la unidad es `Minutos`, debe estar entre `1` y `59`.
+3. `s02_am04` debe ser decimal positivo: si la unidad es `Horas`, debe ser mayor o igual a `1`; si la unidad es `Minutos`, debe ser entero entre `1` y `59`.
+4. `s02_am04_horas` y `s02_am04_minutos` guardan el resultado normalizado para consultas y reportes.
 4. Las opciones de `s02_am02`, `s02_am03` y `s02_am06` deben pertenecer a su variable.
 5. No se usa SQLite.
 6. No se versionan credenciales reales.

@@ -35,7 +35,9 @@ formulario_opcion (1) <─────── (N) respuesta_s02.s02_am06
 
 1. S01 se guarda como texto porque la definición entregada contiene campos descriptivos sin catálogos cerrados.
 2. S02 usa catálogos solo donde existen opciones previamente definidas: medio de movilización, frecuencia y tipo de vía.
-3. `s02_am04` es numerico decimal y no permite valores negativos.
+3. `s02_am04` conserva el valor capturado y se normaliza en `s02_am04_horas` y `s02_am04_minutos`.
+4. Si la unidad es `Horas`, la parte entera se almacena como horas y la fraccion se convierte a minutos enteros.
+5. Si la unidad es `Minutos`, solo se admiten enteros entre `1` y `59`.
 4. El modelo opera sobre PostgreSQL `productos_bm`, schema `SIGES`, usando el ambiente Conda `msp_01`.
 
 ## Diagrama lógico Draw.io S01/S02

@@ -134,6 +134,8 @@ CREATE TABLE IF NOT EXISTS {esquema}.respuesta_s02 (
     s02_am03 BIGINT NOT NULL,
     s02_am04 NUMERIC(6,2) NOT NULL,
     s02_am04_unidad VARCHAR(10) NOT NULL DEFAULT 'Horas',
+    s02_am04_horas INTEGER NOT NULL DEFAULT 0,
+    s02_am04_minutos INTEGER NOT NULL DEFAULT 0,
     s02_am05 VARCHAR(150) NOT NULL,
     s02_am06 BIGINT NOT NULL,
     creado_en TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -163,13 +165,57 @@ CREATE TABLE IF NOT EXISTS {esquema}.respuesta_s02 (
     CONSTRAINT ck_respuesta_s02_am04_unidad CHECK (UPPER(TRIM(s02_am04_unidad)) IN ('HORAS', 'MINUTOS')),
     CONSTRAINT ck_respuesta_s02_am04_rango_unidad CHECK (
         (UPPER(TRIM(s02_am04_unidad)) = 'HORAS' AND s02_am04 >= 1)
-        OR (UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS' AND s02_am04 >= 1 AND s02_am04 <= 59)
+        OR (
+            UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS'
+            AND s02_am04 >= 1
+            AND s02_am04 <= 59
+            AND s02_am04 = FLOOR(s02_am04)
+        )
+    ),
+    CONSTRAINT ck_respuesta_s02_am04_horas_minutos CHECK (
+        s02_am04_horas >= 0
+        AND s02_am04_minutos >= 0
+        AND s02_am04_minutos <= 59
     ),
     CONSTRAINT ck_respuesta_s02_am05_categoria CHECK (UPPER(TRIM(s02_am05)) IN ('URBANO', 'RURAL'))
 );
 
 ALTER TABLE {esquema}.respuesta_s02
     ADD COLUMN IF NOT EXISTS s02_am04_unidad VARCHAR(10) NOT NULL DEFAULT 'Horas';
+
+ALTER TABLE {esquema}.respuesta_s02
+    ADD COLUMN IF NOT EXISTS s02_am04_horas INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE {esquema}.respuesta_s02
+    ADD COLUMN IF NOT EXISTS s02_am04_minutos INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am04_rango_unidad;
+ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am05_categoria;
+
+UPDATE {esquema}.respuesta_s02
+SET
+    s02_am04_horas = CASE
+        WHEN UPPER(TRIM(s02_am04_unidad)) = 'HORAS'
+            THEN FLOOR(s02_am04)::INTEGER
+                + CASE
+                    WHEN ROUND((s02_am04 - FLOOR(s02_am04)) * 60) = 60 THEN 1
+                    ELSE 0
+                  END
+        ELSE 0
+    END,
+    s02_am04_minutos = CASE
+        WHEN UPPER(TRIM(s02_am04_unidad)) = 'HORAS'
+            THEN CASE
+                WHEN ROUND((s02_am04 - FLOOR(s02_am04)) * 60) = 60 THEN 0
+                ELSE ROUND((s02_am04 - FLOOR(s02_am04)) * 60)::INTEGER
+            END
+        WHEN UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS'
+             AND s02_am04 = FLOOR(s02_am04)
+             AND s02_am04 BETWEEN 1 AND 59
+            THEN s02_am04::INTEGER
+        ELSE s02_am04_minutos
+    END
+WHERE s02_am04 IS NOT NULL;
 
 DO $$
 BEGIN
@@ -192,7 +238,21 @@ BEGIN
     ADD CONSTRAINT ck_respuesta_s02_am04_rango_unidad
     CHECK (
         (UPPER(TRIM(s02_am04_unidad)) = 'HORAS' AND s02_am04 >= 1)
-        OR (UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS' AND s02_am04 >= 1 AND s02_am04 <= 59)
+        OR (
+            UPPER(TRIM(s02_am04_unidad)) = 'MINUTOS'
+            AND s02_am04 >= 1
+            AND s02_am04 <= 59
+            AND s02_am04 = FLOOR(s02_am04)
+        )
+    ) NOT VALID;
+
+    ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am04_horas_minutos;
+    ALTER TABLE {esquema}.respuesta_s02
+    ADD CONSTRAINT ck_respuesta_s02_am04_horas_minutos
+    CHECK (
+        s02_am04_horas >= 0
+        AND s02_am04_minutos >= 0
+        AND s02_am04_minutos <= 59
     ) NOT VALID;
 
     IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am05_categoria') THEN

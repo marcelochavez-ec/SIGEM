@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS respuesta_s02 (
     s02_am03 bigint NOT NULL REFERENCES formulario_opcion(id_opcion) ON DELETE RESTRICT,
     s02_am04 numeric(6, 2) NOT NULL,
     s02_am04_unidad varchar(10) NOT NULL DEFAULT 'Horas',
+    s02_am04_horas integer NOT NULL DEFAULT 0,
+    s02_am04_minutos integer NOT NULL DEFAULT 0,
     s02_am05 varchar(150) NOT NULL,
     s02_am06 bigint NOT NULL REFERENCES formulario_opcion(id_opcion) ON DELETE RESTRICT,
     creado_en timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -121,8 +123,17 @@ BEGIN
         ALTER TABLE respuesta_s02 ADD CONSTRAINT ck_respuesta_s02_am04_rango_unidad
         CHECK (
             (s02_am04_unidad = 'Horas' AND s02_am04 >= 1)
-            OR (s02_am04_unidad = 'Minutos' AND s02_am04 >= 1 AND s02_am04 <= 59)
+            OR (
+                s02_am04_unidad = 'Minutos'
+                AND s02_am04 >= 1
+                AND s02_am04 <= 59
+                AND s02_am04 = FLOOR(s02_am04)
+            )
         );
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'ck_respuesta_s02_am04_horas_minutos') THEN
+        ALTER TABLE respuesta_s02 ADD CONSTRAINT ck_respuesta_s02_am04_horas_minutos
+        CHECK (s02_am04_horas >= 0 AND s02_am04_minutos >= 0 AND s02_am04_minutos <= 59);
     END IF;
 END
 $$;
@@ -267,6 +278,8 @@ class Migration(migrations.Migration):
                 ("s02_am01", models.CharField(choices=[("Si", "Si"), ("No", "No")], max_length=150, verbose_name="Frontera")),
                 ("s02_am04", models.DecimalField(decimal_places=2, max_digits=6, verbose_name="Tiempo hasta el Establecimiento de Salud")),
                 ("s02_am04_unidad", models.CharField(choices=[("Horas", "Horas"), ("Minutos", "Minutos")], default="Horas", max_length=10, verbose_name="Unidad del tiempo de traslado")),
+                ("s02_am04_horas", models.PositiveIntegerField(default=0, verbose_name="Horas de traslado")),
+                ("s02_am04_minutos", models.PositiveIntegerField(default=0, verbose_name="Minutos de traslado")),
                 ("s02_am05", models.CharField(choices=[("Urbano", "Urbano"), ("Rural", "Rural")], max_length=150, verbose_name="Categoria de accesibilidad")),
                 ("creado_en", models.DateTimeField(auto_now_add=True)),
                 ("actualizado_en", models.DateTimeField(auto_now=True)),
@@ -312,6 +325,10 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="respuestas02",
             constraint=models.CheckConstraint(condition=(models.Q(s02_am04_unidad="Horas", s02_am04__gte=1) | models.Q(s02_am04_unidad="Minutos", s02_am04__gte=1, s02_am04__lte=59)), name="ck_respuesta_s02_am04_rango_unidad"),
+        ),
+        migrations.AddConstraint(
+            model_name="respuestas02",
+            constraint=models.CheckConstraint(condition=models.Q(s02_am04_horas__gte=0, s02_am04_minutos__gte=0, s02_am04_minutos__lte=59), name="ck_respuesta_s02_am04_horas_minutos"),
         ),
             ],
         ),

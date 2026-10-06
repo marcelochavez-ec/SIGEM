@@ -178,7 +178,16 @@ class RespuestaS01Admin(ModelAdmin):
 class RespuestaS02Admin(ModelAdmin):
     """Administra respuestas S02 de forma directa."""
 
-    list_display = ("id_respuesta_s02", "formulario", "s02_am01", "s02_am04", "s02_am04_unidad", "actualizado_en")
+    list_display = (
+        "id_respuesta_s02",
+        "formulario",
+        "s02_am01",
+        "s02_am04",
+        "s02_am04_unidad",
+        "s02_am04_horas",
+        "s02_am04_minutos",
+        "actualizado_en",
+    )
     search_fields = ("formulario__id_formulario", "formulario__unicodigo", "s02_am01", "s02_am05")
     list_fullwidth = True
     autocomplete_fields = ("formulario", "s02_am02", "s02_am03", "s02_am06")
@@ -186,7 +195,19 @@ class RespuestaS02Admin(ModelAdmin):
         ("Formulario", {"fields": ("formulario",)}),
         (
             "Acceso y movilidad",
-            {"fields": ("s02_am01", "s02_am02", "s02_am03", "s02_am04", "s02_am04_unidad", "s02_am05", "s02_am06")},
+            {
+                "fields": (
+                    "s02_am01",
+                    "s02_am02",
+                    "s02_am03",
+                    "s02_am04",
+                    "s02_am04_unidad",
+                    "s02_am04_horas",
+                    "s02_am04_minutos",
+                    "s02_am05",
+                    "s02_am06",
+                )
+            },
         ),
     )
 

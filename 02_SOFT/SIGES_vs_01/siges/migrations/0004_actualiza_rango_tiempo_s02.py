@@ -22,7 +22,12 @@ class Migration(migrations.Migration):
             ADD CONSTRAINT ck_respuesta_s02_am04_rango_unidad
             CHECK (
                 (s02_am04_unidad = 'Horas' AND s02_am04 >= 1)
-                OR (s02_am04_unidad = 'Minutos' AND s02_am04 >= 1 AND s02_am04 <= 59)
+                OR (
+                    s02_am04_unidad = 'Minutos'
+                    AND s02_am04 >= 1
+                    AND s02_am04 <= 59
+                    AND s02_am04 = FLOOR(s02_am04)
+                )
             ) NOT VALID;
             """,
             # No se define reversa para evitar restaurar una regla funcional obsoleta.

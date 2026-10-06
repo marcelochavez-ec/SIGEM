@@ -20,7 +20,8 @@ Reporte de monitoreo SIGES.
 5. `static/siges/css/01_componentes.css`
 6. `static/siges/css/03_responsive.css`
 7. `static/siges/js/reportes_monitoreo.js`
-8. `docs/06_modulos/reportes_monitoreo.md`
+8. `static/siges/vendor/echarts/echarts.min.js`
+9. `docs/06_modulos/reportes_monitoreo.md`
 
 ## 4. Flujo general paso a paso
 
@@ -29,7 +30,7 @@ Reporte de monitoreo SIGES.
 3. La vista `reportes_monitoreo` ejecuta `obtener_series_reportes_monitoreo`.
 4. La vista consulta registros de `SigesFormulario` y `RespuestaS01`.
 5. El template muestra tarjetas KPI y graficos principales sin un contenedor visual general que sature la interfaz.
-6. El JavaScript lee el JSON generado por Django y dibuja graficos interactivos en canvas.
+6. El JavaScript lee el JSON generado por Django y dibuja graficos interactivos con Apache ECharts.
 7. El usuario puede pasar el mouse sobre barras, puntos o sectores para ver tooltip.
 8. El usuario puede hacer clic en KPIs o graficos para abrir un popup explicativo.
 
@@ -76,9 +77,9 @@ Reporte de monitoreo SIGES.
 4. El gráfico territorial se titula `Por Direcciones Provinciales`.
 5. El gráfico territorial alinea las etiquetas a la izquierda y permite saltos de línea para Direcciones Provinciales largas.
 6. El gráfico temporal se titula `Carga por fecha`.
-7. Los graficos se dibujan en canvas para evitar dependencias externas.
-8. Los graficos tienen tooltip al pasar el mouse y popup al hacer clic.
-9. El tooltip se reposiciona hacia la izquierda cuando el punto consultado está cerca del borde derecho de la pantalla.
+7. Los graficos se dibujan con Apache ECharts usando una librería estática local del aplicativo.
+8. Los graficos tienen tooltip nativo de ECharts al pasar el mouse y popup institucional al hacer clic.
+9. El tooltip de la serie temporal se reposiciona hacia la izquierda cuando el punto consultado está cerca del borde derecho de la pantalla.
 10. La capa responsive reorganiza el dashboard a una columna en pantallas pequenas.
 
 ## 10. Lógica server
@@ -101,21 +102,25 @@ Reporte de monitoreo SIGES.
 2. Templates Django.
 3. CSS local del aplicativo.
 4. JavaScript nativo del navegador.
-5. Canvas HTML5.
+5. Apache ECharts `6.1.0` como dependencia estática local.
 
 ## 13. Validaciones realizadas
 
 1. `python manage.py check`.
 2. Verificacion de sintaxis JavaScript con `node --check`.
-3. Verificacion de datos generados por `obtener_series_reportes_monitoreo`.
-4. Verificacion de carga del enlace lateral.
+3. Verificacion de renderizado del template con datos de prueba para confirmar la carga de `echarts.min.js`.
+4. Verificacion de que el template usa contenedores ECharts y ya no conserva elementos `<canvas>`.
+5. Ejecucion de la batería `python manage.py test siges --noinput`.
 
 ## 14. Pruebas sugeridas o ejecutadas
 
-1. Ejecutada: validar ruta `/reportes-monitoreo/`.
+1. Ejecutada: renderizar `templates/siges/reportes_monitoreo.html` con datos simulados.
 2. Ejecutada: validar `manage.py check`.
 3. Ejecutada: verificar estructura de métricas, Direcciones Provinciales, estado de carga y fechas.
-4. Sugerida: confirmar que las cifras coincidan con consultas directas a PostgreSQL.
+4. Ejecutada: validar sintaxis de `static/siges/js/reportes_monitoreo.js`.
+5. Ejecutada: correr pruebas automatizadas del aplicativo SIGES.
+6. Sugerida: confirmar que las cifras coincidan con consultas directas a PostgreSQL.
+7. Pendiente técnica: la validación visual con Playwright no se ejecutó porque el entorno Windows no dispone de `npx` instalado.
 
 ## 15. Riesgos, supuestos y consideraciones de rendimiento
 
@@ -137,6 +142,8 @@ Reporte de monitoreo SIGES.
 10. Se cambio la dona a `Estado de Carga` con almacenados, modificados y versionados.
 11. Se ajustaron los titulos visibles a `Reporte de monitoreo`, `Por Direcciones Provinciales` y `Carga por fecha`.
 12. Se corrigió el posicionamiento del tooltip para evitar que salga fuera de la pantalla.
+13. Se migraron los tres graficos principales a Apache ECharts.
+14. Se agregó `echarts.min.js` como recurso local para evitar dependencia de internet en ejecución.
 
 ## 17. Pendientes o recomendaciones futuras
 

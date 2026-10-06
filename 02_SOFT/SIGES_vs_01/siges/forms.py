@@ -5,6 +5,7 @@
 # ============================================================
 
 from decimal import Decimal
+from decimal import ROUND_HALF_UP
 
 from django import forms
 
@@ -292,7 +293,31 @@ class S02AccesoMovilizacionForm(BaseSigesForm):
         if tiempo is not None and unidad == "Horas" and tiempo < Decimal("1.00"):
             # Horas debe ser positivo y no admite cero.
             self.add_error("s02_am04", "Cuando la unidad es horas, ingrese un valor mayor o igual a 1.")
+        if tiempo is not None and unidad == "Minutos" and tiempo != tiempo.to_integral_value():
+            # Minutos se captura como entero para almacenarlo sin decimales.
+            self.add_error("s02_am04", "Cuando la unidad es minutos, ingrese solo valores enteros.")
         if tiempo is not None and unidad == "Minutos" and not (Decimal("1.00") <= tiempo <= Decimal("59.00")):
             # Minutos debe quedar entre 1 y 59 para no duplicar una hora completa.
             self.add_error("s02_am04", "Cuando la unidad es minutos, ingrese un valor entre 1 y 59.")
         return cleaned_data
+
+
+def normalizar_tiempo_traslado(tiempo, unidad):
+    """Convierte el tiempo capturado en horas enteras y minutos enteros."""
+    # Decimal evita errores de precision al separar la fraccion de horas.
+    tiempo_decimal = Decimal(tiempo)
+    # Si el usuario captura minutos, horas queda en cero y minutos usa el entero validado.
+    if unidad == "Minutos":
+        return 0, int(tiempo_decimal)
+
+    # La parte entera representa las horas completas.
+    horas = int(tiempo_decimal)
+    # La fraccion de hora se convierte a minutos.
+    fraccion_hora = tiempo_decimal - Decimal(horas)
+    # Se redondea al minuto entero mas cercano para no almacenar decimales.
+    minutos = int((fraccion_hora * Decimal("60")).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+    # Si el redondeo llega a 60, se incrementa una hora y los minutos vuelven a cero.
+    if minutos == 60:
+        horas += 1
+        minutos = 0
+    return horas, minutos

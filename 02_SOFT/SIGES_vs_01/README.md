@@ -111,7 +111,9 @@ La configuración Django tambien lee las variables persistidas en `C:\ProgramDat
 3. `s02_am03`: Frecuencia del transporte público.
 4. `s02_am04`: Tiempo hasta el Establecimiento de Salud.
 5. `s02_am04_unidad`: Unidad del tiempo de traslado.
-6. `s02_am05`: Categoría de accesibilidad.
-7. `s02_am06`: Tipo de vía.
+6. `s02_am04_horas`: Horas enteras normalizadas para almacenamiento y reportes.
+7. `s02_am04_minutos`: Minutos enteros normalizados para almacenamiento y reportes.
+8. `s02_am05`: Categoría de accesibilidad.
+9. `s02_am06`: Tipo de vía.
 
 

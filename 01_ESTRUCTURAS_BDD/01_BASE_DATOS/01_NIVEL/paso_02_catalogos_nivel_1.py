@@ -241,7 +241,7 @@ VARIABLES = [
         "validacion_json": {
             "min": 1,
             "precision": 2,
-            "regla_unidad": "Horas permite valores reales mayores o iguales a uno; Minutos permite valores reales entre uno y cincuenta y nueve.",
+            "regla_unidad": "Horas permite valores reales mayores o iguales a uno y se normaliza en horas y minutos enteros; Minutos permite solo enteros entre uno y cincuenta y nueve.",
         },
         "opciones": [],
     },
@@ -301,7 +301,7 @@ VALIDACIONES = [
     (
         "s02_am04",
         "rango_por_unidad",
-        "Si la unidad es Horas, el valor puede ser decimal mayor o igual a uno; si la unidad es Minutos, el valor debe estar entre uno y cincuenta y nueve.",
+        "Si la unidad es Horas, el valor puede ser decimal mayor o igual a uno y se separa en horas/minutos; si la unidad es Minutos, el valor debe ser entero entre uno y cincuenta y nueve.",
     ),
     ("s02_am04_unidad", "catalogo_unidad_tiempo", "La unidad del tiempo de traslado debe ser Horas o Minutos."),
     ("s02_am05", "catalogo_urbano_rural", "La categoria de accesibilidad debe ser Urbano o Rural."),

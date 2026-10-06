@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from .forms import S02AccesoMovilizacionForm
+from .forms import normalizar_tiempo_traslado
 from .models import FormularioOpcion, FormularioSeccion, FormularioVariable
 
 
@@ -90,3 +91,10 @@ class S02TiempoTrasladoFormTest(TestCase):
         form = S02AccesoMovilizacionForm(data=self.payload_base("Minutos", "59.5"))
         self.assertFalse(form.is_valid())
         self.assertIn("s02_am04", form.errors)
+
+    def test_normaliza_horas_decimales_a_horas_y_minutos(self):
+        self.assertEqual(normalizar_tiempo_traslado("2.5", "Horas"), (2, 30))
+        self.assertEqual(normalizar_tiempo_traslado("2.6", "Horas"), (2, 36))
+
+    def test_normaliza_minutos_enteros_sin_horas(self):
+        self.assertEqual(normalizar_tiempo_traslado("45", "Minutos"), (0, 45))

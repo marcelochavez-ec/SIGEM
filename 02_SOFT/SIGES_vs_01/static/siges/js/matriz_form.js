@@ -22,14 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
         campoTiempo.disabled = !tieneUnidad;
         // La regla general exige valores positivos desde 1.
         campoTiempo.min = "1";
+        // Horas permite decimales; minutos se ajusta mas abajo a entero.
+        campoTiempo.step = "0.01";
         // Las horas no tienen maximo funcional en el formulario.
         campoTiempo.removeAttribute("max");
 
         if (unidadSeleccionada && unidadSeleccionada.value === "Minutos") {
             // Minutos se limita a 59 porque 60 minutos equivale a 1 hora.
             campoTiempo.max = "59";
+            // Minutos se captura sin decimales.
+            campoTiempo.step = "1";
             // El ejemplo visible orienta al usuario hacia minutos decimales validos.
-            campoTiempo.placeholder = "Ejemplo: 15, 30.5 o 59";
+            campoTiempo.placeholder = "Ejemplo: 15, 30 o 59";
         } else if (unidadSeleccionada && unidadSeleccionada.value === "Horas") {
             // Horas permite decimales positivos a partir de 1.
             campoTiempo.placeholder = "Ejemplo: 1, 1.65 o 2.36";

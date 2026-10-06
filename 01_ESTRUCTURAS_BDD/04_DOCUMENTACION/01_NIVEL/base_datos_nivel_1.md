@@ -118,9 +118,11 @@ Esta regla protege registros reales. Para una reconstrucción total desde cero, 
 7. Cada formulario tiene una respuesta S01 y una respuesta S02.
 8. Las opciones de S02 se validan contra la variable que les corresponde.
 9. El tiempo de traslado en `Horas` admite valores reales positivos mayores o iguales a `1`, con máximo dos decimales.
-10. El tiempo de traslado en `Minutos` admite valores reales positivos entre `1` y `59`, con máximo dos decimales.
-11. La categoría de accesibilidad admite `Urbano` o `Rural`.
-12. Frontera admite `Si`, `Sí` o `No`.
+10. El tiempo de traslado en `Minutos` admite solo valores enteros positivos entre `1` y `59`.
+11. `respuesta_s02` almacena el tiempo normalizado en `s02_am04_horas` y `s02_am04_minutos`.
+12. Cuando el usuario registra horas decimales, la parte entera se almacena como horas y la fracción se convierte a minutos enteros.
+13. La categoría de accesibilidad admite `Urbano` o `Rural`.
+14. Frontera admite `Si`, `Sí` o `No`.
 
 ## 11. Dependencias
 

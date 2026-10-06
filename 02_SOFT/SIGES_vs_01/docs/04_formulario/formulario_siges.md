@@ -47,6 +47,7 @@ La Sección 02 registra acceso y movilización.
 1. S01 no avanza si el unicódigo no existe en PostgreSQL.
 2. S01 no permite continuar sin responsable, móvil y cedula.
 3. S02 exige catálogos validos para los campos desplegables.
-4. S02 exige que el tiempo sea mayor o igual a cero.
+4. S02 exige que el tiempo en horas sea mayor o igual a uno y que minutos sea entero entre uno y cincuenta y nueve.
+5. Cuando el usuario registra horas decimales, el sistema almacena la parte entera en horas y convierte la fracción a minutos enteros.
 
 

@@ -375,6 +375,10 @@ class RespuestaS02(models.Model):
         choices=OPCIONES_UNIDAD_TIEMPO,
         default="Horas",
     )
+    # Horas completas normalizadas para reportes y consultas.
+    s02_am04_horas = models.PositiveIntegerField("Horas de traslado", default=0)
+    # Minutos normalizados, sin decimales y siempre menores a una hora.
+    s02_am04_minutos = models.PositiveIntegerField("Minutos de traslado", default=0)
     # Categoria de accesibilidad se captura desde catalogo urbano/rural.
     s02_am05 = models.CharField(
         "Categoria de accesibilidad",
@@ -408,6 +412,11 @@ class RespuestaS02(models.Model):
                     | Q(s02_am04_unidad="Minutos", s02_am04__gte=1, s02_am04__lte=59)
                 ),
                 name="ck_respuesta_s02_am04_rango_unidad",
+            ),
+            # El resultado normalizado debe conservar minutos enteros entre 0 y 59.
+            models.CheckConstraint(
+                condition=Q(s02_am04_horas__gte=0, s02_am04_minutos__gte=0, s02_am04_minutos__lte=59),
+                name="ck_respuesta_s02_am04_horas_minutos",
             ),
         ]
         verbose_name = "Respuesta S02"
@@ -446,6 +455,15 @@ class RespuestaS02(models.Model):
         ):
             # Minutos queda limitado a 1..59 para mantener consistencia temporal.
             errores["s02_am04"] = "Cuando la unidad es minutos, ingrese un valor entre 1 y 59."
+
+        if self.s02_am04_unidad == "Minutos" and self.s02_am04 is not None:
+            if self.s02_am04 != self.s02_am04.to_integral_value():
+                # Minutos capturados no admiten decimales.
+                errores["s02_am04"] = "Cuando la unidad es minutos, ingrese solo valores enteros."
+
+        if self.s02_am04_minutos is not None and self.s02_am04_minutos > 59:
+            # Minutos normalizados nunca pueden completar otra hora.
+            errores["s02_am04_minutos"] = "Los minutos normalizados deben estar entre 0 y 59."
 
         if errores:
             # ValidationError permite asociar errores al campo correspondiente.

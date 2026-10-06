@@ -43,7 +43,7 @@
                 </div>
                 <span class="material-symbols-outlined">bar_chart</span>
             </div>
-            <canvas id="chartProvincias" class="report-chart" height="230"></canvas>
+            <div id="chartProvincias" class="report-chart" role="img" aria-label="Gráfico por Direcciones Provinciales"></div>
         </article>
 
         <article class="report-card">
@@ -54,7 +54,7 @@
                 </div>
                 <span class="material-symbols-outlined">donut_large</span>
             </div>
-            <canvas id="chartEstados" class="report-chart" height="230"></canvas>
+            <div id="chartEstados" class="report-chart" role="img" aria-label="Gráfico de Estado de Carga"></div>
         </article>
 
         <article class="report-card report-card-full">
@@ -65,7 +65,7 @@
                 </div>
                 <span class="material-symbols-outlined">show_chart</span>
             </div>
-            <canvas id="chartAvance" class="report-chart" height="230"></canvas>
+            <div id="chartAvance" class="report-chart" role="img" aria-label="Gráfico de Carga por fecha"></div>
         </article>
     </div>
 </section>
@@ -84,6 +84,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'siges/js/reportes_monitoreo.js' %}?v=20261004d"></script>
+<script src="{% static 'siges/vendor/echarts/echarts.min.js' %}?v=6.1.0"></script>
+<script src="{% static 'siges/js/reportes_monitoreo.js' %}?v=20261006a"></script>
 {% endblock %}
 
