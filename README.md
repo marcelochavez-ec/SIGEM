@@ -30,7 +30,7 @@ Proyecto institucional para estructurar, registrar, consultar y monitorear infor
 | Rol | Consultor Especialista en Protección Social |
 | Base de datos objetivo | PostgreSQL institucional |
 | Schema funcional | `sigem` |
-| Aplicativo web | Django + Unfold |
+| Aplicativo web | PostgreSQL + Django + Unfold |
 
 ## 2. De qué trata SIGEM
 
@@ -46,12 +46,12 @@ El sistema está diseñado para crecer por niveles de atención y por nuevas sec
 ```mermaid
 flowchart LR
     U[Usuario institucional] --> B[Navegador web]
-    B --> W[Aplicativo SIGES<br/>Django + Unfold]
-    W --> V[Vistas y controladores<br/>siges/views.py]
+    B --> W[Aplicativo SIGEM<br/>Django + Unfold]
+    W --> V[Vistas y controladores<br/>sigem/views.py]
     V --> F[Formularios<br/>siges/forms.py]
-    V --> S[Servicios de negocio<br/>siges/services.py]
-    S --> M[Modelos Django<br/>siges/models.py]
-    M --> DB[(PostgreSQL<br/>schema siges)]
+    V --> S[Servicios de negocio<br/>sigem/services.py]
+    S --> M[Modelos Django<br/>sigem/models.py]
+    M --> DB[(PostgreSQL<br/>schema sigem)]
     W --> ST[Static e imagenes<br/>CSS JS IMG]
     DB --> R[Reportes de monitoreo]
 ```
@@ -60,13 +60,13 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-    R[SIGES.git] --> E[01_ESTRUCTURAS_BDD]
+    R[SIGEM.git] --> E[01_ESTRUCTURAS_BDD]
     R --> A[02_SOFT]
     E --> B1[01_BASE_DATOS]
     E --> B2[02_DATA_FUENTE]
     E --> B3[04_DOCUMENTACION]
     E --> B4[05_ARQUITECTURAS]
-    A --> D1[SIGES_vs_01]
+    A --> D1[SIGEM_vs_01]
     D1 --> C1[config_siges]
     D1 --> C2[siges]
     D1 --> C3[templates]
@@ -94,7 +94,7 @@ sequenceDiagram
     Usuario->>Web: Completa Acceso y Movilización
     Web->>DB: Guarda cabecera, S01 y S02
     DB-->>Web: Confirma registro
-    Web-->>Usuario: Muestra detalle de matriz SIGES
+    Web-->>Usuario: Muestra detalle de matriz SIGEM
 ```
 
 ## 6. Estructura principal
@@ -104,7 +104,7 @@ SIGEM_vs_SEPT2026/
 ├── 01_ESTRUCTURAS_BDD/
 │   ├── 01_BASE_DATOS/
 │   │   └── 01_NIVEL/
-│   │       ├── paso_00_main_siges_nivel_1.py
+│   │       ├── paso_00_main_sigem_nivel_1.py
 │   │       ├── paso_01_configuracion.py
 │   │       ├── paso_02_catalogos_nivel_1.py
 │   │       ├── paso_03_niveles_atencion.py
@@ -115,9 +115,9 @@ SIGEM_vs_SEPT2026/
 │   └── 05_ARQUITECTURAS/
 │
 ├── 02_SOFT/
-│   └── SIGESMvs_01/
+│   └── SIGEM_vs_01/
 │       ├── config_siges/
-│       ├── siges/
+│       ├── sigem/
 │       │   ├── models.py
 │       │   ├── forms.py
 │       │   ├── views.py
@@ -127,7 +127,7 @@ SIGEM_vs_SEPT2026/
 │       ├── static/
 │       ├── img/
 │       ├── docs/
-│       ├── deploy_siges.py
+│       ├── deploy_sigem.py
 │       ├── manage.py
 │       └── requirements.txt
 │
@@ -204,7 +204,7 @@ conda activate msp_01
 ### 10.2. Instalar dependencias
 
 ```powershell
-cd C:\ruta\al\repositorio\SIGES_vs_SEPT2026\02_SOFT\SIGES_vs_01
+cd C:\ruta\al\repositorio\SIGEM_vs_SEPT2026\02_SOFT\SIGES_vs_01
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
