@@ -11,9 +11,9 @@
 | **Versión del software** | 0.1 |
 | **Fecha de actualización** | Octubre 2026 |
 
-# SIGES
+# SIGEM
 
-**Sistema de Información para la Gestión de Establecimientos de Salud**
+**Sistema de Gestión y Monitoreo de Establecimientos de Salud**
 
 Proyecto institucional para estructurar, registrar, consultar y monitorear información de establecimientos de salud del MSP, con una arquitectura basada en PostgreSQL, Django, Django Unfold, Bootstrap, HTML, CSS y JavaScript.
 
@@ -21,7 +21,7 @@ Proyecto institucional para estructurar, registrar, consultar y monitorear infor
 
 | Campo | Detalle |
 |---|---|
-| Nombre del aplicativo | SIGES |
+| Nombre del aplicativo | SIGEM |
 | Nombre completo | Sistema de Información para la Gestión de Establecimientos de Salud |
 | Institución | Ministerio de Salud Pública del Ecuador |
 | Proyecto | Red de Protección Social |
@@ -29,12 +29,12 @@ Proyecto institucional para estructurar, registrar, consultar y monitorear infor
 | Creador y consultor | Marcelo Chávez |
 | Rol | Consultor Especialista en Protección Social |
 | Base de datos objetivo | PostgreSQL institucional |
-| Schema funcional | `siges` |
+| Schema funcional | `sigem` |
 | Aplicativo web | Django + Django Unfold |
 
-## 2. De qué trata SIGES
+## 2. De qué trata SIGEM
 
-SIGES permite registrar matrices de información asociadas a establecimientos de salud, iniciando con dos secciones funcionales:
+SIGEM permite registrar matrices de información asociadas a establecimientos de salud, iniciando con dos secciones funcionales:
 
 1. **Datos Generales**: identifica el establecimiento mediante nivel de atención, unicódigo y datos institucionales autocompletados.
 2. **Acceso y Movilización**: registra condiciones de frontera, movilización, transporte público, tiempo de traslado, accesibilidad territorial y tipo de vía.
@@ -80,7 +80,7 @@ flowchart TB
 ```mermaid
 sequenceDiagram
     participant Usuario
-    participant Web as Django SIGES
+    participant Web as Django SIGEM
     participant Fuente as Vista establecimientos
     participant DB as PostgreSQL siges
 
@@ -100,7 +100,7 @@ sequenceDiagram
 ## 6. Estructura principal
 
 ```text
-SIGES_vs_SEPT2026/
+SIGEM_vs_SEPT2026/
 ├── 01_ESTRUCTURAS_BDD/
 │   ├── 01_BASE_DATOS/
 │   │   └── 01_NIVEL/
@@ -115,7 +115,7 @@ SIGES_vs_SEPT2026/
 │   └── 05_ARQUITECTURAS/
 │
 ├── 02_SOFT/
-│   └── SIGES_vs_01/
+│   └── SIGESMvs_01/
 │       ├── config_siges/
 │       ├── siges/
 │       │   ├── models.py
@@ -140,7 +140,7 @@ SIGES_vs_SEPT2026/
 | Componente | Uso |
 |---|---|
 | Python | Lenguaje principal del backend y scripts de base de datos |
-| Django | Framework web del aplicativo SIGES |
+| Django | Framework web del aplicativo SIGEM |
 | Django Unfold | Interfaz administrativa y componentes visuales de administración |
 | PostgreSQL | Base institucional de almacenamiento |
 | psycopg | Conector Python/PostgreSQL |
@@ -151,17 +151,17 @@ SIGES_vs_SEPT2026/
 
 ## 8. Base de datos
 
-SIGES trabaja sobre PostgreSQL y utiliza el schema funcional:
+SIGEM trabaja sobre PostgreSQL y utiliza el schema funcional:
 
 ```text
-siges
+sigem
 ```
 
 Tablas principales del primer alcance:
 
 | Tabla | Proposito |
 |---|---|
-| `siges_formulario` | Cabecera de cada matriz registrada |
+| `sigem_formulario` | Cabecera de cada matriz registrada |
 | `respuesta_s01` | Datos Generales del establecimiento |
 | `respuesta_s02` | Acceso y Movilización |
 | `formulario_seccion` | Catálogo de secciones del formulario |
@@ -176,12 +176,12 @@ Las credenciales no se versionan. Deben configurarse como variables del ambiente
 
 | Variable | Descripción |
 |---|---|
-| `SIGES_DB_NAME` | Nombre de la base PostgreSQL |
-| `SIGES_DB_USER` | Usuario PostgreSQL |
-| `SIGES_DB_PASSWORD` | Contrasena PostgreSQL |
-| `SIGES_DB_HOST` | Host o IP de PostgreSQL |
-| `SIGES_DB_PORT` | Puerto PostgreSQL |
-| `SIGES_DB_SCHEMA` | Schema funcional, normalmente `siges` |
+| `SIGEM_DB_NAME` | Nombre de la base PostgreSQL |
+| `SIGEM_DB_USER` | Usuario PostgreSQL |
+| `SIGEM_DB_PASSWORD` | Contrasena PostgreSQL |
+| `SIGEM_DB_HOST` | Host o IP de PostgreSQL |
+| `SIGEM_DB_PORT` | Puerto PostgreSQL |
+| `SIGEM_DB_SCHEMA` | Schema funcional, normalmente `sigem` |
 | `DJANGO_SECRET_KEY` | Clave Django para ambientes no locales |
 | `DJANGO_DEBUG` | `true` en desarrollo, `false` en despliegues controlados |
 | `DJANGO_ALLOWED_HOSTS` | Hosts permitidos separados por coma |
@@ -212,12 +212,12 @@ pip install -r requirements.txt
 ### 10.3. Configurar variables de conexión
 
 ```powershell
-conda env config vars set SIGES_DB_NAME=productos_bm
-conda env config vars set SIGES_DB_USER=usuario_postgresql
-conda env config vars set SIGES_DB_PASSWORD="clave_postgresql"
-conda env config vars set SIGES_DB_HOST=10.64.100.191
-conda env config vars set SIGES_DB_PORT=5432
-conda env config vars set SIGES_DB_SCHEMA=siges
+conda env config vars set SIGEM_DB_NAME=productos_bm
+conda env config vars set SIGEM_DB_USER=usuario_postgresql
+conda env config vars set SIGEM_DB_PASSWORD="clave_postgresql"
+conda env config vars set SIGEM_DB_HOST=10.64.100.191
+conda env config vars set SIGEM_DB_PORT=5432
+conda env config vars set SIGEM_DB_SCHEMA=siges
 conda env config vars set DJANGO_DEBUG=true
 conda env config vars set DJANGO_ALLOWED_HOSTS="127.0.0.1,localhost,0.0.0.0"
 conda deactivate
@@ -233,13 +233,13 @@ python manage.py check
 ### 10.5. Cargar catálogos del aplicativo
 
 ```powershell
-python manage.py cargar_catalogos_siges
+python manage.py cargar_catalogos_sigem
 ```
 
 ### 10.6. Levantar aplicativo local
 
 ```powershell
-python deploy_siges.py
+python deploy_sigem.py
 ```
 
 Abrir:
@@ -266,7 +266,7 @@ conda activate msp_01
 ### 11.2. Instalar dependencias
 
 ```bash
-cd /ruta/al/repositorio/SIGES_vs_SEPT2026/02_SOFT/SIGES_vs_01
+cd /ruta/al/repositorio/SIGEM_vs_SEPT2026/02_SOFT/SIGEM_vs_01
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -274,12 +274,12 @@ pip install -r requirements.txt
 ### 11.3. Configurar variables
 
 ```bash
-conda env config vars set SIGES_DB_NAME=productos_bm
-conda env config vars set SIGES_DB_USER=usuario_postgresql
-conda env config vars set SIGES_DB_PASSWORD="clave_postgresql"
-conda env config vars set SIGES_DB_HOST=10.64.100.191
-conda env config vars set SIGES_DB_PORT=5432
-conda env config vars set SIGES_DB_SCHEMA=siges
+conda env config vars set SIGEM_DB_NAME=productos_bm
+conda env config vars set SIGEM_DB_USER=usuario_postgresql
+conda env config vars set SIGEM_DB_PASSWORD="clave_postgresql"
+conda env config vars set SIGEM_DB_HOST=10.64.100.191
+conda env config vars set SIGEM_DB_PORT=5432
+conda env config vars set SIGEM_DB_SCHEMA=siges
 conda env config vars set DJANGO_DEBUG=false
 conda env config vars set DJANGO_ALLOWED_HOSTS="10.64.100.194,10.64.100.197,localhost,127.0.0.1"
 conda deactivate
@@ -290,7 +290,7 @@ conda activate msp_01
 
 ```bash
 python manage.py check
-python manage.py cargar_catalogos_siges
+python manage.py cargar_catalogos_sigem
 ```
 
 ### 11.5. Levantar con Waitress
@@ -323,13 +323,13 @@ Ejecución principal:
 
 ```bash
 cd 01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL
-python paso_00_main_siges_nivel_1.py
+python paso_00_main_sigem_nivel_1.py
 ```
 
 Este proceso:
 
 1. Lee la configuración de conexión.
-2. Crea o actualiza tablas del schema `siges`.
+2. Crea o actualiza tablas del schema `sigem`.
 3. Carga secciones, variables, opciones y validaciones.
 4. Mantiene la ejecución idempotente para evitar duplicados de catálogo.
 
@@ -350,14 +350,14 @@ flowchart TD
 
 ## 14. Comandos útiles
 
-Desde `02_SOFT/SIGES_vs_01`:
+Desde `02_SOFT/SIGEM_vs_01`:
 
 ```bash
 python manage.py check
-python manage.py cargar_catalogos_siges
+python manage.py cargar_catalogos_sigem
 python manage.py collectstatic --noinput
 python manage.py createsuperuser
-python deploy_siges.py
+python deploy_sigem.py
 ```
 
 ## 15. Documentación técnica
@@ -365,7 +365,7 @@ python deploy_siges.py
 La documentación se mantiene dentro del repositorio:
 
 ```text
-02_SOFT/SIGES_vs_01/docs/
+02_SOFT/SIGEM_vs_01/docs/
 01_ESTRUCTURAS_BDD/04_DOCUMENTACION/
 ```
 
@@ -375,7 +375,7 @@ Principales documentos:
 |---|---|
 | `docs/01_arquitectura/arquitectura.md` | Arquitectura del aplicativo |
 | `docs/02_base_datos/base_datos.md` | Base de datos y relación con Django |
-| `docs/04_formulario/formulario_siges.md` | Flujo del formulario |
+| `docs/04_formulario/formulario_sigem.md` | Flujo del formulario |
 | `docs/06_modulos/establecimientos.md` | Módulo de establecimientos |
 | `docs/06_modulos/reportes_monitoreo.md` | Dashboard de monitoreo |
 | `01_ESTRUCTURAS_BDD/04_DOCUMENTACION/01_NIVEL/base_datos_nivel_1.md` | Capa de base de datos nivel 1 |
@@ -400,7 +400,7 @@ Antes de publicar o mover a otro servidor:
 
 ```bash
 python manage.py check
-python manage.py cargar_catalogos_siges
+python manage.py cargar_catalogos_sigem
 python manage.py collectstatic --noinput
 ```
 
@@ -420,7 +420,7 @@ Validar en navegador:
 El repositorio contiene:
 
 1. Scripts de base de datos para el primer nivel.
-2. Aplicativo Django SIGES funcional.
+2. Aplicativo Django SIGEM funcional.
 3. Formularios S01 y S02.
 4. Catálogos y validaciones del formulario.
 5. Interfaz institucional responsive.
