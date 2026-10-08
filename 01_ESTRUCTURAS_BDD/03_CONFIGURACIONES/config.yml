@@ -1,0 +1,14 @@
+default:
+  dummy: true
+
+# Servidor AlmaLinux: 10.64.100.194
+# Base de datos en PostgreSQL: productos_bm
+  postgresql_dneaisns:
+    user: "marcelo_chavez"
+    password: "*Marcelo.2025*-"
+    host: "10.64.100.191"
+    port: 5432
+
+presup_api:
+    url: "https://aplicaciones.presup.com.ec/app/msp/planificacion/api/v1.php"
+    apikey: "FbyIqRjCJWKHXJwlj-2P89fp-mgTrTPx1Phdu9xMLGroKPRo7CN27m98LtOKPUPp"

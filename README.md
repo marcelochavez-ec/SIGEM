@@ -360,7 +360,312 @@ python manage.py createsuperuser
 python deploy_sigem.py
 ```
 
-## 15. Documentación técnica
+## 15. Sincronización con GitHub desde Windows
+
+Esta sección describe la receta operativa para replicar, ejecutar, desplegar y sincronizar el proyecto SIGEM con el repositorio oficial:
+
+```text
+https://github.com/marcelochavez-ec/SIGEM.git
+```
+
+### 15.1. Replicar el proyecto en otro Windows 11
+
+Abrir PowerShell en la carpeta donde se almacenará el proyecto y clonar el repositorio:
+
+```powershell
+cd C:\Users\USUARIO\Documents
+git clone https://github.com/marcelochavez-ec/SIGEM.git
+cd SIGEM
+```
+
+Si el repositorio ya existe en el equipo, actualizarlo:
+
+```powershell
+cd C:\Users\USUARIO\Documents\SIGEM
+git pull --rebase origin main
+```
+
+### 15.2. Crear o activar el ambiente Conda `msp_01` en Windows
+
+Crear el ambiente si no existe:
+
+```powershell
+conda create -n msp_01 python=3.14 -y
+conda activate msp_01
+```
+
+Activarlo si ya existe:
+
+```powershell
+conda activate msp_01
+```
+
+Instalar la paquetería requerida:
+
+```powershell
+cd C:\Users\USUARIO\Documents\SIGEM\02_SOFT\SIGEM_vs_01
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Versiones base del aplicativo:
+
+```text
+Django==6.1.1
+django-unfold==0.108.0
+psycopg[binary]>=3.2,<4.0
+whitenoise>=6.8,<7.0
+waitress>=3.0,<4.0
+```
+
+### 15.3. Configurar credenciales y conexión PostgreSQL en Windows
+
+El aplicativo puede leer la conexión desde variables persistidas en Conda:
+
+```powershell
+conda env config vars set SIGEM_DB_NAME=productos_bm
+conda env config vars set SIGEM_DB_USER=usuario_postgresql
+conda env config vars set SIGEM_DB_PASSWORD="clave_postgresql"
+conda env config vars set SIGEM_DB_HOST=10.64.100.191
+conda env config vars set SIGEM_DB_PORT=5432
+conda env config vars set SIGEM_DB_SCHEMA=sigem
+conda env config vars set DJANGO_DEBUG=true
+conda env config vars set DJANGO_ALLOWED_HOSTS="127.0.0.1,localhost,0.0.0.0"
+conda deactivate
+conda activate msp_01
+```
+
+También puede usarse el archivo de configuración de base de datos:
+
+```text
+01_ESTRUCTURAS_BDD/03_CONFIGURACIONES/config.yml
+```
+
+Ese archivo debe contener el bloque PostgreSQL institucional usado por los scripts de estructura.
+
+### 15.4. Crear o actualizar estructuras de base de datos
+
+Desde la raíz del repositorio:
+
+```powershell
+cd C:\Users\USUARIO\Documents\SIGEM
+conda activate msp_01
+python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_sigem_nivel_1.py
+```
+
+El proceso crea o actualiza el esquema `sigem`, las tablas maestras, las tablas de respuesta, validaciones, índices, funciones, triggers y la vista de catálogo del nivel 1.
+
+### 15.5. Validar y levantar SIGEM en Windows
+
+Desde la carpeta del aplicativo:
+
+```powershell
+cd C:\Users\USUARIO\Documents\SIGEM\02_SOFT\SIGEM_vs_01
+conda activate msp_01
+python manage.py check
+python manage.py cargar_catalogos_sigem
+python deploy_sigem.py
+```
+
+Abrir en navegador:
+
+```text
+http://127.0.0.1:8036/
+```
+
+### 15.6. Desplegar en AlmaLinux con Conda
+
+Ingresar al servidor y clonar o actualizar el repositorio:
+
+```bash
+cd /home/marcelo.chavez
+git clone https://github.com/marcelochavez-ec/SIGEM.git
+cd SIGEM
+```
+
+Si el repositorio ya existe:
+
+```bash
+cd /home/marcelo.chavez/SIGEM
+git pull --rebase origin main
+```
+
+Activar o crear el ambiente:
+
+```bash
+conda activate msp_01
+```
+
+Si no existe:
+
+```bash
+conda create -n msp_01 python=3.14 -y
+conda activate msp_01
+```
+
+Instalar dependencias:
+
+```bash
+cd /home/marcelo.chavez/SIGEM/02_SOFT/SIGEM_vs_01
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Configurar variables de entorno:
+
+```bash
+conda env config vars set SIGEM_DB_NAME=productos_bm
+conda env config vars set SIGEM_DB_USER=usuario_postgresql
+conda env config vars set SIGEM_DB_PASSWORD="clave_postgresql"
+conda env config vars set SIGEM_DB_HOST=10.64.100.191
+conda env config vars set SIGEM_DB_PORT=5432
+conda env config vars set SIGEM_DB_SCHEMA=sigem
+conda env config vars set DJANGO_DEBUG=false
+conda env config vars set DJANGO_ALLOWED_HOSTS="10.64.100.194,10.64.100.197,localhost,127.0.0.1,0.0.0.0"
+conda deactivate
+conda activate msp_01
+```
+
+Crear o actualizar estructuras de base de datos:
+
+```bash
+cd /home/marcelo.chavez/SIGEM
+python 01_ESTRUCTURAS_BDD/01_BASE_DATOS/01_NIVEL/paso_00_main_sigem_nivel_1.py
+```
+
+Validar y levantar:
+
+```bash
+cd /home/marcelo.chavez/SIGEM/02_SOFT/SIGEM_vs_01
+python manage.py check
+python manage.py cargar_catalogos_sigem
+python deploy_sigem.py
+```
+
+Levantamiento manual alternativo:
+
+```bash
+waitress-serve --host=0.0.0.0 --port=8036 config_sigem.wsgi:application
+```
+
+Abrir desde un navegador autorizado:
+
+```text
+http://10.64.100.194:8036/
+http://10.64.100.197:8036/
+```
+
+Si el firewall está activo, habilitar el puerto:
+
+```bash
+sudo firewall-cmd --zone=public --add-port=8036/tcp --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --zone=public --list-ports
+```
+
+### 15.7. Sincronizar cambios locales hacia GitHub
+
+Ubicarse en la raíz del repositorio local:
+
+```powershell
+cd C:\Users\MARCELO\OneDrive\Documentos\MSP\14_SEP2026\SIGEM_vs_SEPT2026
+```
+
+Confirmar que el remoto apunte al repositorio oficial:
+
+```powershell
+git remote -v
+```
+
+El resultado esperado debe apuntar a:
+
+```text
+https://github.com/marcelochavez-ec/SIGEM.git
+```
+
+Si el remoto no corresponde, configurarlo con:
+
+```powershell
+git remote set-url origin https://github.com/marcelochavez-ec/SIGEM.git
+```
+
+Revisar el estado general:
+
+```powershell
+git status --short --branch
+```
+
+Revisar diferencias de contenido:
+
+```powershell
+git diff
+```
+
+Revisar archivos nuevos que Git todavía no rastrea:
+
+```powershell
+git status --short
+```
+
+Traer cambios remotos sin sobrescribir trabajo local:
+
+```powershell
+git pull --rebase origin main
+```
+
+Si Git informa conflictos, resolverlos manualmente, guardar los archivos corregidos y continuar con:
+
+```powershell
+git add archivo_corregido
+git rebase --continue
+```
+
+Agregar los cambios según la configuración actual del repositorio:
+
+```powershell
+git add -A
+```
+
+Después de agregar, confirmar qué quedó preparado:
+
+```powershell
+git status --short
+```
+
+Crear un commit con un mensaje claro:
+
+```powershell
+git commit -m "Describe brevemente el cambio realizado"
+```
+
+Ejemplo:
+
+```powershell
+git commit -m "Actualiza documentación y sincroniza cambios del aplicativo"
+```
+
+Enviar la rama local `main` al repositorio oficial:
+
+```powershell
+git push origin main
+```
+
+Verificar que el estado local quede limpio:
+
+```powershell
+git status --short --branch
+```
+
+Verificar que el último commit local coincida con GitHub:
+
+```powershell
+git rev-parse HEAD
+git ls-remote --heads origin main
+```
+
+Los dos identificadores deben coincidir.
+
+## 16. Documentación técnica
 
 La documentación se mantiene dentro del repositorio:
 
@@ -386,7 +691,7 @@ La documentación técnica, funcional, de base de datos, backend y frontend debe
 
 Los identificadores técnicos se mantienen exactamente como fueron definidos cuando una tilde pueda romper una referencia, por ejemplo nombres de variables, columnas, rutas, comandos, claves de configuración, migraciones o campos de base de datos como `unicodigo`, `nivel_atencion` o `fecha_actualizacion`.
 
-## 16. Consideraciones de seguridad
+## 17. Consideraciones de seguridad
 
 1. No versionar credenciales reales.
 2. No subir archivos `.env`, `config.yml` con claves ni respaldos locales.
@@ -394,7 +699,7 @@ Los identificadores técnicos se mantienen exactamente como fueron definidos cua
 4. Configurar `DJANGO_ALLOWED_HOSTS` con los hosts reales de despliegue.
 5. Controlar el puerto `8036` mediante firewall solo en servidores autorizados.
 
-## 17. Pruebas mínimas sugeridas
+## 18. Pruebas mínimas sugeridas
 
 Antes de publicar o mover a otro servidor:
 
@@ -415,7 +720,7 @@ Validar en navegador:
 7. Acceso al módulo de roles y usuarios.
 8. Acceso al módulo de reportes de monitoreo.
 
-## 18. Estado actual
+## 19. Estado actual
 
 El repositorio contiene:
 
