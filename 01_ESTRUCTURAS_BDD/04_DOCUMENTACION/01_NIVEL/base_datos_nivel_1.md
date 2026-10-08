@@ -154,6 +154,8 @@ Al finalizar, el resumen debe mostrar:
 3. Resultado operativo: 2 secciones, 20 variables, 16 opciones y 6 validaciones cargadas por el proceso.
 4. La verificación devolvió tablas, columnas, vistas, funciones, triggers e índices faltantes como listas o diccionarios vacíos.
 5. Se corrigió el DDL para eliminar el trigger heredado `trg_validar_respuesta_s02_opciones` antes de normalizar `respuesta_s02`, evitando referencias antiguas dentro de la función de validación.
+6. Se consolidó la cabecera heredada `siges_formulario` hacia `sigem_formulario` cuando la tabla nueva está vacía y la heredada conserva registros, manteniendo las respuestas S01/S02 asociadas al mismo `id_formulario`.
+7. Se verificó que `sigem_formulario`, `respuesta_s01` y `respuesta_s02` conserven 8 registros después de la consolidación.
 
 ## 13. Pruebas sugeridas
 

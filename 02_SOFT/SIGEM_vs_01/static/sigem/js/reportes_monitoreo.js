@@ -159,6 +159,7 @@
         const rows = data.estado_carga || [];
         if (!rows.length) return renderEmpty(chart);
         const total = rows.reduce((sum, row) => sum + Number(row.value || 0), 0);
+        if (total <= 0) return renderEmpty(chart);
 
         chart.setOption({
             ...chartBase,

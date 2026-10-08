@@ -5,8 +5,8 @@ db.sqlite3
 .env
 .venv/
 venv/
-staticfiles/
-media/
+# staticfiles/
+# media/
 *.log
 .idea/
 .vscode/

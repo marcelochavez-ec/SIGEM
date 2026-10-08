@@ -1,5 +1,5 @@
-02_data/
-03_configuraciones/config.yml
+# 02_data/
+# 03_configuraciones/config.yml
 
 __pycache__/
 *.py[cod]

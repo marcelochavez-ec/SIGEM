@@ -143,6 +143,46 @@ INDICES_ESPERADOS = {
 }
 
 
+def consolidar_cabecera_heredada(conn, esquema: str) -> None:
+    """Convierte `siges_formulario` en `sigem_formulario` cuando conserva datos reales."""
+    tabla_heredada = conn.execute(text("SELECT to_regclass(:tabla);"), {"tabla": f"{esquema}.siges_formulario"}).scalar()
+    if not tabla_heredada:
+        return
+
+    registros_heredados = conn.execute(text(f"SELECT COUNT(*) FROM {esquema}.siges_formulario;")).scalar_one()
+    if registros_heredados == 0:
+        return
+
+    tabla_sigem = conn.execute(text("SELECT to_regclass(:tabla);"), {"tabla": f"{esquema}.sigem_formulario"}).scalar()
+    registros_sigem = 0
+    if tabla_sigem:
+        registros_sigem = conn.execute(text(f"SELECT COUNT(*) FROM {esquema}.sigem_formulario;")).scalar_one()
+
+    if registros_sigem > 0:
+        raise RuntimeError(
+            "Existen registros tanto en siges_formulario como en sigem_formulario. "
+            "Se requiere conciliacion manual antes de consolidar la cabecera."
+        )
+
+    if tabla_sigem:
+        conn.execute(text(f"DROP TABLE {esquema}.sigem_formulario CASCADE;"))
+
+    conn.execute(text(f"ALTER TABLE {esquema}.siges_formulario RENAME TO sigem_formulario;"))
+    conn.execute(
+        text(
+            f"""
+            DO $$
+            BEGIN
+                ALTER TABLE {esquema}.sigem_formulario RENAME CONSTRAINT siges_formulario_pkey TO sigem_formulario_pkey;
+            EXCEPTION WHEN undefined_object OR duplicate_object THEN
+                NULL;
+            END
+            $$;
+            """
+        )
+    )
+
+
 def preparar_cabecera_formulario_limpia(conn, esquema: str) -> None:
     """Recrea tablas vacias si la cabecera conserva columnas o tipos heredados."""
     tipo_actual = conn.execute(
@@ -533,6 +573,7 @@ def crear_estructura_nivel_1() -> dict[str, object]:
     print()
 
     with engine.begin() as conn:
+        consolidar_cabecera_heredada(conn, configuracion.esquema)
         preparar_cabecera_formulario_limpia(conn, configuracion.esquema)
         ejecutar_ddl(conn, configuracion.esquema)
         ids_seccion = cargar_secciones(conn, configuracion.esquema)

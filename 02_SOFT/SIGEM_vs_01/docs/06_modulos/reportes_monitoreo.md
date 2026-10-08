@@ -112,6 +112,7 @@ Reporte de monitoreo SIGEM.
 4. Verificacion de que el template usa contenedores ECharts y ya no conserva elementos `<canvas>`.
 5. `python manage.py makemigrations --check --dry-run` sin cambios pendientes de modelo.
 6. Prueba real con cliente Django sobre `/reportes-monitoreo/`: HTTP 200, `echarts.min.js` cargado, `chartProvincias` presente y sin `<canvas>`.
+7. Prueba real posterior a la consolidación de cabecera: `sigem_formulario`, `respuesta_s01` y `respuesta_s02` registran 8 filas cada una; el reporte devuelve HTTP 200 y las series provinciales se generan con datos.
 
 ## 14. Pruebas sugeridas o ejecutadas
 
@@ -120,9 +121,10 @@ Reporte de monitoreo SIGEM.
 3. Ejecutada: verificar estructura de métricas, Direcciones Provinciales, estado de carga y fechas.
 4. Ejecutada: validar sintaxis de `static/sigem/js/reportes_monitoreo.js`.
 5. Ejecutada: solicitar `/reportes-monitoreo/` contra PostgreSQL real mediante cliente Django.
-6. No ejecutada en esta validación: batería completa `python manage.py test sigem --noinput`, porque requeriría crear base de datos de prueba en PostgreSQL institucional.
-7. Sugerida: confirmar que las cifras coincidan con consultas directas a PostgreSQL.
-8. Sugerida: validar visualmente el dashboard en navegador con datos reales.
+6. Ejecutada: verificación de conteos reales de `sigem.sigem_formulario`, `sigem.respuesta_s01` y `sigem.respuesta_s02`.
+7. No ejecutada en esta validación: batería completa `python manage.py test sigem --noinput`, porque requeriría crear base de datos de prueba en PostgreSQL institucional.
+8. Sugerida: confirmar que las cifras coincidan con consultas directas a PostgreSQL.
+9. Sugerida: validar visualmente el dashboard en navegador con datos reales.
 
 ## 15. Riesgos, supuestos y consideraciones de rendimiento
 
@@ -146,6 +148,8 @@ Reporte de monitoreo SIGEM.
 12. Se corrigió el posicionamiento del tooltip para evitar que salga fuera de la pantalla.
 13. Se migraron los tres graficos principales a Apache ECharts.
 14. Se agregó `echarts.min.js` como recurso local para evitar dependencia de internet en ejecución.
+15. Se ajustó la dona para que muestre estado vacío cuando el total sea cero, evitando un aro con categorías en cero.
+16. Se actualizó la versión del JavaScript del reporte para forzar recarga del navegador después del ajuste.
 
 ## 17. Pendientes o recomendaciones futuras
 
