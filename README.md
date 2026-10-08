@@ -6,7 +6,7 @@
 | **Consultor Especialista en Protección Social** | Marcelo Chávez |
 | **Correo electrónico** | marcelo_chavez_ec@outlook.com |
 | **Móvil** | 098 333 2687 |
-| **Repositorio** | `marcelochavez-ec/SIGES` |
+| **Repositorio** | `marcelochavez-ec/SIGEM` |
 | **Versión documental** | 1.0 |
 | **Versión del software** | 0.1 |
 | **Fecha de actualización** | Octubre 2026 |
