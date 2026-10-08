@@ -1,4 +1,4 @@
-| **Producto** | **Sistema de Gestión y Monitoreo para la Gestión de Establecimientos de Salud - SIGEM** |
+| **Producto** | **Sistema de Gestión y Monitoreo de los Establecimientos de Salud - SIGEM** |
 |---|---|
 | **Proyecto** | Red de Protección Social |
 | **Institución rectora** | Ministerio de Salud Pública del Ecuador |
@@ -13,7 +13,7 @@
 
 # SIGEM
 
-**Sistema de Gestión y Monitoreo de Establecimientos de Salud**
+**Sistema de Gestión y Monitoreo de los Establecimientos de Salud**
 
 Proyecto institucional para estructurar, registrar, consultar y monitorear información de establecimientos de salud del MSP, con una arquitectura basada en PostgreSQL, Django, Django Unfold, Bootstrap, HTML, CSS y JavaScript.
 
@@ -22,7 +22,7 @@ Proyecto institucional para estructurar, registrar, consultar y monitorear infor
 | Campo | Detalle |
 |---|---|
 | Nombre del aplicativo | SIGEM |
-| Nombre completo | Sistema de Información para la Gestión de Establecimientos de Salud |
+| Nombre completo | Sistema de Información para la Gestión y Monitoreo de los Establecimientos de Salud |
 | Institución | Ministerio de Salud Pública del Ecuador |
 | Proyecto | Red de Protección Social |
 | Cooperante | Banco Mundial |
