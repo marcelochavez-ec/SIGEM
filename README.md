@@ -30,7 +30,7 @@ Proyecto institucional para estructurar, registrar, consultar y monitorear infor
 | Rol | Consultor Especialista en Protección Social |
 | Base de datos objetivo | PostgreSQL institucional |
 | Schema funcional | `sigem` |
-| Aplicativo web | Django + Django Unfold |
+| Aplicativo web | Django + Unfold |
 
 ## 2. De qué trata SIGEM
 
