@@ -1,4 +1,4 @@
-| **Producto** | **Sistema de Información para la Gestión de Establecimientos de Salud - SIGES** |
+| **Producto** | **Sistema de Gestión y Monitoreo para la Gestión de Establecimientos de Salud - SIGEM** |
 |---|---|
 | **Proyecto** | Red de Protección Social |
 | **Institución rectora** | Ministerio de Salud Pública del Ecuador |
