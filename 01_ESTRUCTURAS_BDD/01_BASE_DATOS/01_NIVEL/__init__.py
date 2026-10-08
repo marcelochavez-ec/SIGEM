@@ -1,2 +1,2 @@
-"""Paquete de estructuras de base de datos para SIGES nivel 1."""
+"""Paquete de estructuras de base de datos para SIGEM nivel 1."""
 

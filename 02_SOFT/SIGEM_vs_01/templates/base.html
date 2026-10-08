@@ -1,0 +1,98 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIGEM</title>
+    <link rel="icon" type="image/png" href="{% static 'msp_favicon.png' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'msp_favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'msp_favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'unfold/fonts/inter/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'unfold/fonts/material-symbols/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'unfold/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'sigem/css/app.css' %}?v=20260928c">
+</head>
+<body class="SIGEM-app unfold-app">
+    <header class="SIGEM-topbar">
+        <div class="SIGEM-brand">
+            <img class="SIGEM-logo" src="{% static 'logo_msp.png' %}" alt="Ministerio de Salud Pública">
+            <span class="SIGEM-divider" aria-hidden="true"></span>
+            <div class="SIGEM-title">
+                <span>Bienvenido(a) al</span>
+                <strong>SIGEM</strong>
+                <small>Sistema de Información para la Gestión de Establecimientos de Salud</small>
+            </div>
+        </div>
+    </header>
+
+    <div class="SIGEM-shell">
+        <aside class="SIGEM-sidebar" aria-label="Navegacion principal">
+            <nav class="SIGEM-menu">
+                <a class="SIGEM-menu-item {% if active_page == 'inicio' %}active{% endif %}" href="{% url 'sigem:inicio' %}">
+                    <span class="material-symbols-outlined">home</span>
+                    <strong>Inicio</strong>
+                </a>
+                <a class="SIGEM-menu-item {% if active_page == 'establecimientos' %}active{% endif %}" href="{% url 'sigem:establecimientos' %}">
+                    <span class="material-symbols-outlined">local_hospital</span>
+                    <strong>Establecimientos</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+                <a class="SIGEM-menu-item {% if active_page == 'roles' %}active{% endif %}" href="{% url 'sigem:roles_usuarios' %}">
+                    <span class="material-symbols-outlined">group</span>
+                    <strong>Roles y usuarios</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+                <a class="SIGEM-menu-item {% if active_page == 'reportes' %}active{% endif %}" href="{% url 'sigem:reportes_monitoreo' %}">
+                    <span class="material-symbols-outlined">monitoring</span>
+                    <strong>Reporte de monitoreo</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+                <a class="SIGEM-menu-item {% if active_page == 'manual' %}active{% endif %}" href="{% url 'sigem:manual_usuario' %}">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    <strong>Manual de usuario</strong>
+                    <em class="material-symbols-outlined">chevron_right</em>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="SIGEM-main unfold-main">
+            {% if messages %}
+                {% for message in messages %}<div class="SIGEM-alert">{{ message }}</div>{% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="SIGEM-footer">
+        <div class="footer-primary">
+            <div class="footer-ministry">Ministerio de Salud Pública del Ecuador</div>
+            <div class="footer-column">
+                <h3><span class="material-symbols-outlined">desktop_windows</span>Tecnología</h3>
+                <p>Python</p>
+                <p>Django</p>
+                <p>Bootstrap</p>
+            </div>
+            <div class="footer-column">
+                <h3><span class="material-symbols-outlined">description</span>Recursos</h3>
+                <p>Sincronización con PRAS y RDACAA</p>
+                <p>Interoperabilidad</p>
+                <p>Informes de monitoreo y control</p>
+            </div>
+            <div class="footer-column footer-contact">
+                <h3><span class="material-symbols-outlined">support_agent</span>Contacto</h3>
+                <p><span class="material-symbols-outlined">mail</span>info@msp.gob.ec</p>
+                <p><span class="material-symbols-outlined">call</span>+593 2 381 4400</p>
+                <p><span class="material-symbols-outlined">location_on</span>Av. Quitumbe Ñan y Amaru Ñan, Quito, Ecuador</p>
+            </div>
+            <img class="footer-seal" src="{% static 'escudo.png' %}" alt="República del Ecuador">
+        </div>
+        <div class="footer-bottom">
+            <span><span class="material-symbols-outlined">lock</span>Este sitio es seguro. Todos los derechos reservados.</span>
+            <span>&copy; Copyright MSP 2026</span>
+            <span>Versión 1.0</span>
+        </div>
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,4 +1,4 @@
-"""Ejecucion del ETL unico para estructuras SIGES nivel 1.
+"""Ejecucion del ETL unico para estructuras SIGEM nivel 1.
 
 El archivo orquesta la creacion de tablas, catalogos y validaciones del
 primer nivel. Cada funcion se mantiene pequena para que el flujo pueda ser
@@ -26,7 +26,7 @@ TABLAS_ESPERADAS = {
     "formulario_variable",
     "formulario_opcion",
     "formulario_validacion",
-    "siges_formulario",
+    "sigem_formulario",
     "respuesta_s01",
     "respuesta_s02",
 }
@@ -64,7 +64,7 @@ COLUMNAS_ESPERADAS = {
         "parametros_json",
         "activo",
     },
-    "siges_formulario": {
+    "sigem_formulario": {
         "id_formulario",
         "id_usuario",
         "fecha_registro",
@@ -112,7 +112,7 @@ COLUMNAS_ESPERADAS = {
 
 
 TIPOS_ESPERADOS = {
-    ("siges_formulario", "id_formulario"): "integer",
+    ("sigem_formulario", "id_formulario"): "integer",
     ("respuesta_s01", "id_formulario"): "integer",
     ("respuesta_s02", "id_formulario"): "integer",
 }
@@ -126,7 +126,7 @@ FUNCIONES_ESPERADAS = {
 }
 
 TRIGGERS_ESPERADOS = {
-    "trg_siges_formulario_actualizacion",
+    "trg_sigem_formulario_actualizacion",
     "trg_respuesta_s01_actualizado_en",
     "trg_respuesta_s02_actualizado_en",
     "trg_validar_respuesta_s02_opciones",
@@ -135,9 +135,9 @@ TRIGGERS_ESPERADOS = {
 INDICES_ESPERADOS = {
     "ix_formulario_variable_id_seccion",
     "ix_formulario_opcion_id_variable",
-    "ix_siges_formulario_unicodigo",
-    "ix_siges_formulario_nivel_atencion",
-    "ix_siges_formulario_estado",
+    "ix_sigem_formulario_unicodigo",
+    "ix_sigem_formulario_nivel_atencion",
+    "ix_sigem_formulario_estado",
     "ix_respuesta_s01_id_formulario",
     "ix_respuesta_s02_id_formulario",
 }
@@ -151,7 +151,7 @@ def preparar_cabecera_formulario_limpia(conn, esquema: str) -> None:
             SELECT data_type
             FROM information_schema.columns
             WHERE table_schema = :esquema
-              AND table_name = 'siges_formulario'
+              AND table_name = 'sigem_formulario'
               AND column_name = 'id_formulario';
             """
         ),
@@ -165,7 +165,7 @@ def preparar_cabecera_formulario_limpia(conn, esquema: str) -> None:
                 SELECT column_name
                 FROM information_schema.columns
                 WHERE table_schema = :esquema
-                  AND table_name = 'siges_formulario';
+                  AND table_name = 'sigem_formulario';
                 """
             ),
             {"esquema": esquema},
@@ -180,7 +180,7 @@ def preparar_cabecera_formulario_limpia(conn, esquema: str) -> None:
         text(
             f"""
             SELECT
-                (SELECT COUNT(*) FROM {esquema}.siges_formulario) AS formularios,
+                (SELECT COUNT(*) FROM {esquema}.sigem_formulario) AS formularios,
                 (SELECT COUNT(*) FROM {esquema}.respuesta_s01) AS respuesta_s01,
                 (SELECT COUNT(*) FROM {esquema}.respuesta_s02) AS respuesta_s02;
             """
@@ -189,7 +189,7 @@ def preparar_cabecera_formulario_limpia(conn, esquema: str) -> None:
 
     if any(valor > 0 for valor in conteos.values()):
         raise RuntimeError(
-            "siges_formulario conserva una estructura heredada y existen registros. "
+            "sigem_formulario conserva una estructura heredada y existen registros. "
             "Se requiere una migracion controlada antes de ajustar columnas o tipos."
         )
 
@@ -198,7 +198,7 @@ def preparar_cabecera_formulario_limpia(conn, esquema: str) -> None:
             f"""
             DROP TABLE IF EXISTS {esquema}.respuesta_s02;
             DROP TABLE IF EXISTS {esquema}.respuesta_s01;
-            DROP TABLE IF EXISTS {esquema}.siges_formulario;
+            DROP TABLE IF EXISTS {esquema}.sigem_formulario;
             """
         )
     )
@@ -525,7 +525,7 @@ def crear_estructura_nivel_1() -> dict[str, object]:
     engine = crear_engine(configuracion)
 
     print("=" * 72)
-    print("SIGES - ESTRUCTURAS BASE DE DATOS NIVEL 1")
+    print("SIGEM - ESTRUCTURAS BASE DE DATOS NIVEL 1")
     print("=" * 72)
     print(f"Host   : {configuracion.host}")
     print(f"Base   : {configuracion.base}")

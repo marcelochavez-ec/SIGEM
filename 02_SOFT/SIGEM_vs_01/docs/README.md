@@ -1,0 +1,129 @@
+# Documentación Del Aplicativo SIGEM
+
+## Proposito
+
+Esta carpeta organiza la documentación técnica y funcional del aplicativo SIGEM desarrollado en Django sobre PostgreSQL `productos_bm`, schema `sigem`.
+
+La documentación esta separada por carpetas numeradas para que el recorrido sea natural: primero arquitectura, luego base de datos, interfaz, formulario, ejecución, módulos y diagramas editables.
+
+## Orden de lectura sugerido
+
+1. Revisar `01_arquitectura` para entender la estructura general del aplicativo.
+2. Revisar `02_base_datos` para entender tablas, relaciones y fuentes institucionales.
+3. Revisar `03_interfaz` para entender la identidad visual y componentes de pantalla.
+4. Revisar `04_formulario` para entender el flujo funcional de la matriz SIGEM.
+5. Revisar `05_ejecucion` para levantar el aplicativo localmente.
+6. Revisar `06_modulos` para ver la documentación técnica del módulo implementado.
+7. Revisar `07_arquitecturas` para abrir diagramas editables en Draw.io.
+8. Revisar `08_codigo` para entender la separación técnica entre Python, HTML, CSS y JavaScript.
+
+## Estructura documental
+
+```text
+docs/
+├── README.md
+├── 01_arquitectura/
+│   ├── arquitectura.md
+│   └── estructura_proyecto.md
+├── 02_base_datos/
+│   ├── base_datos.md
+│   ├── modelo_er.md
+│   └── MODEL_1_reference.png
+├── 03_interfaz/
+│   └── interfaz.md
+├── 04_formulario/
+│   └── formulario_SIGEM.md
+├── 05_ejecucion/
+│   └── ejecucion.md
+├── 06_modulos/
+│   ├── SIGEM_01.md
+│   ├── establecimientos.md
+│   ├── inicio.md
+│   ├── manual_usuario.md
+│   ├── reportes_monitoreo.md
+│   └── roles_usuarios.md
+└── 07_arquitecturas/
+    └── modelo_entidad_relacion_sigem_s01_s02.drawio
+└── 08_codigo/
+    ├── lectura_codigo.md
+    ├── python.md
+    └── frontend.md
+```
+
+## Contenido por carpeta
+
+### `01_arquitectura`
+
+1. Describe la arquitectura general del aplicativo.
+2. Explica la separación entre configuración Django, aplicación `SIGEM`, templates, static, documentación y script de inicio.
+3. Documenta como esta ordenado el proyecto a nivel de carpetas y archivos principales.
+
+### `02_base_datos`
+
+1. Describe la conexión a PostgreSQL `productos_bm`.
+2. Documenta el uso del schema `sigem`.
+3. Explica las tablas administradas por Django.
+4. Registra la fuente institucional `sigem.vm_establecimientos_ingresados`.
+5. Incluye el modelo entidad relación en Markdown y una imagen de referencia previa.
+
+### `03_interfaz`
+
+1. Documenta la identidad visual aplicada al aplicativo.
+2. Explica el encabezado institucional, logo, colores, botones, tarjetas, formularios y paginación.
+3. Registra la integracion visual con Unfold en la capa de interfaz.
+
+### `04_formulario`
+
+1. Describe el flujo funcional del formulario SIGEM.
+2. Explica la captura por secciones S01 y S02.
+3. Documenta reglas de avance, validaciones y comportamiento esperado para el usuario.
+
+### `05_ejecucion`
+
+1. Indica como iniciar el aplicativo localmente.
+2. Documenta el uso del ambiente Conda `msp_01`.
+3. Explica el script `deploy_sigem.py`.
+4. Registra consideraciones de puerto, PostgreSQL y servidor local.
+
+### `06_modulos`
+
+1. Contiene la documentación técnica de `SIGEM_01` y sus módulos funcionales.
+2. Resume objetivo, ubicación de archivos, entradas, salidas, reglas de negocio, lógica UI, lógica server, dependencias, pruebas y riesgos.
+3. Incluye módulos de inicio, establecimientos, roles y usuarios, reportes de monitoreo y manual de usuario.
+4. Debe actualizarse cada vez que se modifique un módulo.
+
+### `07_arquitecturas`
+
+1. Contiene el diagrama editable oficial del primer modelo entidad relación.
+2. El archivo `modelo_entidad_relacion_sigem_s01_s02.drawio` grafica el modelo lógico del Sistema de Información para la Gestión de Establecimientos de Salud, organizado por fuente institucional, parametrizacion, cabecera, secciones, administración y trazabilidad.
+3. El archivo está construido con objetos nativos de Draw.io; por tanto, sus bloques, textos y relaciones pueden moverse o editarse individualmente en Draw.io o diagrams.net.
+4. El diagrama documenta la propuesta de tablas relacionadas previa al modelo entidad relación detallado.
+
+### `08_codigo`
+
+1. Explica como leer el código por capas.
+2. Documenta la separación entre modelo, vista/controlador, templates, CSS, JavaScript y configuración.
+3. Sirve como base para documentación línea por línea o bloque por bloque sin ensuciar el código fuente.
+
+## Como esta ordenado el aplicativo
+
+1. `config_sigem/` contiene la configuración principal de Django.
+2. `sigem/` contiene modelos, formularios, vistas, servicios, rutas, admin y comandos del aplicativo.
+3. `templates/` contiene la estructura HTML institucional y pantallas de SIGEM.
+4. `static/` contiene CSS y JavaScript del aplicativo.
+5. `img/` contiene activos institucionales como `logo_msp.png`.
+6. `deploy_sigem.py` levanta el aplicativo local en el puerto `8036`.
+7. `requirements.txt` lista dependencias Python del proyecto.
+8. `docs/` conserva la documentación organizada y versionable.
+
+## Criterios de mantenimiento
+
+1. Mantener esta estructura numerada cuando se agreguen nuevos documentos.
+2. No dejar documentos técnicos sueltos en la raiz de `docs`, excepto este `README.md`.
+3. Crear nuevos documentos en la carpeta que corresponda por tema.
+4. Actualizar `06_modulos/SIGEM_01.md` cuando cambie la lógica del módulo.
+5. Actualizar `08_codigo` cuando se reorganicen archivos o responsabilidades tecnicas.
+6. Actualizar diagramas en `07_arquitecturas` cuando cambien relaciones, tablas o componentes relevantes.
+
+
+

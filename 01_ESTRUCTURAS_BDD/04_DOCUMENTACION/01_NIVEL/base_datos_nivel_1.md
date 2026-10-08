@@ -1,4 +1,4 @@
-# Base de datos SIGES - Nivel 1
+# Base de datos SIGEM - Nivel 1
 
 ## 1. Nombre del módulo
 
@@ -6,19 +6,19 @@ Estructuras de base de datos del nivel 1 para el Sistema de Información para la
 
 ## 2. Objetivo funcional
 
-Crear, actualizar y verificar la estructura inicial del esquema `siges` en PostgreSQL para las dos primeras secciones del formulario:
+Crear, actualizar y verificar la estructura inicial del esquema `sigem` en PostgreSQL para las dos primeras secciones del formulario:
 
 1. **Datos Generales**.
 2. **Acceso y Movilización**.
 
-El proceso deja creadas las tablas maestras, tablas de respuesta, catálogos, validaciones, funciones, triggers, índices y vista de catálogo requeridos por el aplicativo SIGES.
+El proceso deja creadas las tablas maestras, tablas de respuesta, catálogos, validaciones, funciones, triggers, índices y vista de catálogo requeridos por el aplicativo SIGEM.
 
 ## 3. Archivo raíz de ejecución
 
 El archivo que debe ejecutarse para construir o reconstruir la estructura del nivel 1 es:
 
 ```powershell
-python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_siges_nivel_1.py
+python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_sigem_nivel_1.py
 ```
 
 Este archivo llama al orquestador del nivel 1 y no contiene lógica de negocio propia. Su función es ser el punto único y claro de arranque.
@@ -27,7 +27,7 @@ Este archivo llama al orquestador del nivel 1 y no contiene lógica de negocio p
 
 | Orden | Archivo | Función principal |
 |---|---|---|
-| 00 | `paso_00_main_siges_nivel_1.py` | Punto de entrada. Ejecuta el proceso completo del nivel 1. |
+| 00 | `paso_00_main_sigem_nivel_1.py` | Punto de entrada. Ejecuta el proceso completo del nivel 1. |
 | 01 | `paso_01_configuracion.py` | Lee variables de ambiente o `config.yml`, arma la configuración PostgreSQL y crea el motor SQLAlchemy. |
 | 02 | `paso_02_catalogos_nivel_1.py` | Define secciones, variables, opciones y validaciones funcionales de S01 y S02. |
 | 03 | `paso_03_niveles_atencion.py` | Define el DataFrame maestro de niveles de atención permitidos: I, II y III nivel. |
@@ -36,13 +36,13 @@ Este archivo llama al orquestador del nivel 1 y no contiene lógica de negocio p
 
 ## 5. Flujo general paso a paso
 
-1. `paso_00_main_siges_nivel_1.py` llama a `crear_estructura_nivel_1()`.
+1. `paso_00_main_sigem_nivel_1.py` llama a `crear_estructura_nivel_1()`.
 2. `paso_05_ejecutar_nivel_1.py` obtiene la configuración mediante `paso_01_configuracion.py`.
 3. Se abre una transacción con SQLAlchemy.
-4. Se revisa si `siges_formulario` conserva una estructura heredada vacía con `id_formulario` no entero o columnas ya retiradas.
+4. Se revisa si `sigem_formulario` conserva una estructura heredada vacía con `id_formulario` no entero o columnas ya retiradas.
 5. Si la estructura heredada está vacía, se eliminan las tablas de respuesta y cabecera para permitir su recreación limpia.
 6. Se ejecuta el DDL generado por `paso_04_ddl_nivel_1.py`.
-7. Se crean, si no existen, el esquema `siges`, tablas, relaciones, restricciones, índices, funciones, triggers y vista.
+7. Se crean, si no existen, el esquema `sigem`, tablas, relaciones, restricciones, índices, funciones, triggers y vista.
 8. Se cargan o actualizan las secciones funcionales `s01` y `s02`.
 9. Se cargan o actualizan las variables funcionales definidas para ambas secciones.
 10. Se cargan o actualizan las opciones de catálogo para preguntas cerradas.
@@ -52,14 +52,14 @@ Este archivo llama al orquestador del nivel 1 y no contiene lógica de negocio p
 
 ## 6. Qué se recrea si se borra la estructura
 
-Si se elimina completamente el esquema `siges` o se eliminan las tablas del nivel 1, el archivo raíz vuelve a crear:
+Si se elimina completamente el esquema `sigem` o se eliminan las tablas del nivel 1, el archivo raíz vuelve a crear:
 
-1. Esquema `siges`.
+1. Esquema `sigem`.
 2. Tabla `formulario_seccion`.
 3. Tabla `formulario_variable`.
 4. Tabla `formulario_opcion`.
 5. Tabla `formulario_validacion`.
-6. Tabla `siges_formulario`.
+6. Tabla `sigem_formulario`.
 7. Tabla `respuesta_s01`.
 8. Tabla `respuesta_s02`.
 9. Índices funcionales y de búsqueda.
@@ -81,24 +81,24 @@ El proceso es idempotente: puede ejecutarse más de una vez sin duplicar catálo
 5. Si existe una estructura heredada con registros, el proceso se detiene y solicita migración controlada.
 6. El proceso no ejecuta `DROP SCHEMA` ni elimina datos productivos sin instrucción explícita.
 
-Esta regla protege registros reales. Para una reconstrucción total desde cero, primero debe eliminarse manualmente el esquema o las tablas objetivo con respaldo previo. Luego se ejecuta `paso_00_main_siges_nivel_1.py`.
+Esta regla protege registros reales. Para una reconstrucción total desde cero, primero debe eliminarse manualmente el esquema o las tablas objetivo con respaldo previo. Luego se ejecuta `paso_00_main_sigem_nivel_1.py`.
 
 ## 8. Entradas del módulo
 
 1. Variables de ambiente opcionales:
-   1. `SIGES_DB_USER`.
-   2. `SIGES_DB_PASSWORD`.
-   3. `SIGES_DB_HOST`.
-   4. `SIGES_DB_PORT`.
-   5. `SIGES_DB_NAME`.
-   6. `SIGES_DB_SCHEMA`.
+   1. `SIGEM_DB_USER`.
+   2. `SIGEM_DB_PASSWORD`.
+   3. `SIGEM_DB_HOST`.
+   4. `SIGEM_DB_PORT`.
+   5. `SIGEM_DB_NAME`.
+   6. `SIGEM_DB_SCHEMA`.
 2. Archivo local opcional: `01_ESTRUCTURAS_BDD/03_CONFIGURACIONES/config.yml`.
 3. Definición funcional en `paso_02_catalogos_nivel_1.py`.
 4. Definición SQL en `paso_04_ddl_nivel_1.py`.
 
 ## 9. Salidas del módulo
 
-1. Esquema PostgreSQL `siges`.
+1. Esquema PostgreSQL `sigem`.
 2. Tablas maestras de formulario.
 3. Tablas de respuesta de S01 y S02.
 4. Relaciones y restricciones de integridad.
@@ -112,7 +112,7 @@ Esta regla protege registros reales. Para una reconstrucción total desde cero, 
 1. `s01` contiene datos generales del establecimiento.
 2. `s02` contiene acceso y movilización.
 3. `id_formulario` es secuencial positivo de tipo `integer`.
-4. `siges_formulario` no usa `observaciones` ni `establecimiento_id`.
+4. `sigem_formulario` no usa `observaciones` ni `establecimiento_id`.
 5. `nivel_atencion` queda almacenado en la cabecera del formulario.
 6. S01 y S02 se relacionan con la cabecera mediante `id_formulario`.
 7. Cada formulario tiene una respuesta S01 y una respuesta S02.
@@ -147,19 +147,27 @@ Al finalizar, el resumen debe mostrar:
 8. `indices_faltantes`: lista vacía.
 9. Conteos de secciones, variables, opciones y validaciones cargadas.
 
+## 12.1 Validación ejecutada
+
+1. Se ejecutó `python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_sigem_nivel_1.py`.
+2. El proceso terminó correctamente sobre `productos_bm.sigem`.
+3. Resultado operativo: 2 secciones, 20 variables, 16 opciones y 6 validaciones cargadas por el proceso.
+4. La verificación devolvió tablas, columnas, vistas, funciones, triggers e índices faltantes como listas o diccionarios vacíos.
+5. Se corrigió el DDL para eliminar el trigger heredado `trg_validar_respuesta_s02_opciones` antes de normalizar `respuesta_s02`, evitando referencias antiguas dentro de la función de validación.
+
 ## 13. Pruebas sugeridas
 
 1. Ejecutar el archivo raíz:
 
 ```powershell
-python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_siges_nivel_1.py
+python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_sigem_nivel_1.py
 ```
 
-2. Verificar que exista el esquema `siges`.
+2. Verificar que exista el esquema `sigem`.
 3. Verificar que existan las siete tablas esperadas.
-4. Verificar que exista `siges.vw_catalogo_formulario_nivel_1`.
+4. Verificar que exista `sigem.vw_catalogo_formulario_nivel_1`.
 5. Revisar que `id_formulario` sea `integer`.
-6. Revisar que `observaciones` y `establecimiento_id` no existan en `siges_formulario`.
+6. Revisar que `observaciones` y `establecimiento_id` no existan en `sigem_formulario`.
 
 ## 14. Consideraciones de seguridad
 
@@ -173,5 +181,5 @@ python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_siges_nivel_1.py
 1. Se deja una sola documentación oficial para `01_NIVEL`.
 2. Se retira la documentación antigua de S03 que no correspondía al nivel 1 actual.
 3. Se numeran los scripts con prefijo `paso_XX`.
-4. Se declara `paso_00_main_siges_nivel_1.py` como archivo raíz de ejecución.
+4. Se declara `paso_00_main_sigem_nivel_1.py` como archivo raíz de ejecución.
 5. Se documenta qué recrea el proceso cuando el esquema o las tablas fueron borradas.

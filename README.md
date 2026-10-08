@@ -30,7 +30,7 @@ Proyecto institucional para estructurar, registrar, consultar y monitorear infor
 | Rol | Consultor Especialista en Protección Social |
 | Base de datos objetivo | PostgreSQL institucional |
 | Schema funcional | `sigem` |
-| Aplicativo web | PostgreSQL + Django + Unfold |
+| Aplicativo web | Django + Django Unfold |
 
 ## 2. De qué trata SIGEM
 
@@ -48,7 +48,7 @@ flowchart LR
     U[Usuario institucional] --> B[Navegador web]
     B --> W[Aplicativo SIGEM<br/>Django + Unfold]
     W --> V[Vistas y controladores<br/>sigem/views.py]
-    V --> F[Formularios<br/>siges/forms.py]
+    V --> F[Formularios<br/>sigem/forms.py]
     V --> S[Servicios de negocio<br/>sigem/services.py]
     S --> M[Modelos Django<br/>sigem/models.py]
     M --> DB[(PostgreSQL<br/>schema sigem)]
@@ -67,8 +67,8 @@ flowchart TB
     E --> B3[04_DOCUMENTACION]
     E --> B4[05_ARQUITECTURAS]
     A --> D1[SIGEM_vs_01]
-    D1 --> C1[config_siges]
-    D1 --> C2[siges]
+    D1 --> C1[config_sigem]
+    D1 --> C2[sigem]
     D1 --> C3[templates]
     D1 --> C4[static]
     D1 --> C5[img]
@@ -82,7 +82,7 @@ sequenceDiagram
     participant Usuario
     participant Web as Django SIGEM
     participant Fuente as Vista establecimientos
-    participant DB as PostgreSQL siges
+    participant DB as PostgreSQL sigem
 
     Usuario->>Web: Selecciona nivel de atencion
     Usuario->>Web: Busca unicodigo o nombre
@@ -116,7 +116,7 @@ SIGEM_vs_SEPT2026/
 │
 ├── 02_SOFT/
 │   └── SIGEM_vs_01/
-│       ├── config_siges/
+│       ├── config_sigem/
 │       ├── sigem/
 │       │   ├── models.py
 │       │   ├── forms.py
@@ -204,7 +204,7 @@ conda activate msp_01
 ### 10.2. Instalar dependencias
 
 ```powershell
-cd C:\ruta\al\repositorio\SIGEM_vs_SEPT2026\02_SOFT\SIGES_vs_01
+cd C:\ruta\al\repositorio\SIGEM_vs_SEPT2026\02_SOFT\SIGEM_vs_01
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -217,7 +217,7 @@ conda env config vars set SIGEM_DB_USER=usuario_postgresql
 conda env config vars set SIGEM_DB_PASSWORD="clave_postgresql"
 conda env config vars set SIGEM_DB_HOST=10.64.100.191
 conda env config vars set SIGEM_DB_PORT=5432
-conda env config vars set SIGEM_DB_SCHEMA=siges
+conda env config vars set SIGEM_DB_SCHEMA=sigem
 conda env config vars set DJANGO_DEBUG=true
 conda env config vars set DJANGO_ALLOWED_HOSTS="127.0.0.1,localhost,0.0.0.0"
 conda deactivate
@@ -279,7 +279,7 @@ conda env config vars set SIGEM_DB_USER=usuario_postgresql
 conda env config vars set SIGEM_DB_PASSWORD="clave_postgresql"
 conda env config vars set SIGEM_DB_HOST=10.64.100.191
 conda env config vars set SIGEM_DB_PORT=5432
-conda env config vars set SIGEM_DB_SCHEMA=siges
+conda env config vars set SIGEM_DB_SCHEMA=sigem
 conda env config vars set DJANGO_DEBUG=false
 conda env config vars set DJANGO_ALLOWED_HOSTS="10.64.100.194,10.64.100.197,localhost,127.0.0.1"
 conda deactivate
@@ -296,13 +296,13 @@ python manage.py cargar_catalogos_sigem
 ### 11.5. Levantar con Waitress
 
 ```bash
-python deploy_siges.py
+python deploy_sigem.py
 ```
 
 Si se requiere levantar manualmente:
 
 ```bash
-waitress-serve --host=0.0.0.0 --port=8036 config_siges.wsgi:application
+waitress-serve --host=0.0.0.0 --port=8036 config_sigem.wsgi:application
 ```
 
 Abrir desde la red autorizada:

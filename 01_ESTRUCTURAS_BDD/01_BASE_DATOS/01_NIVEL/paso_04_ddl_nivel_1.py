@@ -1,4 +1,4 @@
-"""DDL PostgreSQL para crear la estructura SIGES del nivel 1.
+"""DDL PostgreSQL para crear la estructura SIGEM del nivel 1.
 
 El DDL se mantiene idempotente: puede ejecutarse mas de una vez sin borrar
 datos existentes. Las reglas nuevas se expresan como restricciones para que
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS {esquema}.formulario_validacion (
     CONSTRAINT uq_formulario_validacion_variable_regla UNIQUE (id_variable, regla)
 );
 
-CREATE TABLE IF NOT EXISTS {esquema}.siges_formulario (
+CREATE TABLE IF NOT EXISTS {esquema}.sigem_formulario (
     id_formulario SERIAL PRIMARY KEY,
     id_usuario BIGINT,
     fecha_registro TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -95,9 +95,9 @@ CREATE TABLE IF NOT EXISTS {esquema}.siges_formulario (
     estado VARCHAR(20) NOT NULL DEFAULT 'BORRADOR',
     unicodigo VARCHAR(20) NOT NULL,
     nivel_atencion VARCHAR(80) NOT NULL DEFAULT 'I NIVEL DE ATENCION',
-    CONSTRAINT ck_siges_formulario_id_formulario CHECK (id_formulario > 0),
-    CONSTRAINT ck_siges_formulario_version CHECK (version >= 1),
-    CONSTRAINT ck_siges_formulario_estado CHECK (estado IN ('BORRADOR', 'ENVIADO', 'VALIDADO', 'ANULADO'))
+    CONSTRAINT ck_sigem_formulario_id_formulario CHECK (id_formulario > 0),
+    CONSTRAINT ck_sigem_formulario_version CHECK (version >= 1),
+    CONSTRAINT ck_sigem_formulario_estado CHECK (estado IN ('BORRADOR', 'ENVIADO', 'VALIDADO', 'ANULADO'))
 );
 
 CREATE TABLE IF NOT EXISTS {esquema}.respuesta_s01 (
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS {esquema}.respuesta_s01 (
     actualizado_en TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_respuesta_s01_formulario
         FOREIGN KEY (id_formulario)
-        REFERENCES {esquema}.siges_formulario (id_formulario)
+        REFERENCES {esquema}.sigem_formulario (id_formulario)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT uq_respuesta_s01_formulario UNIQUE (id_formulario)
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS {esquema}.respuesta_s02 (
     actualizado_en TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_respuesta_s02_formulario
         FOREIGN KEY (id_formulario)
-        REFERENCES {esquema}.siges_formulario (id_formulario)
+        REFERENCES {esquema}.sigem_formulario (id_formulario)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT uq_respuesta_s02_formulario UNIQUE (id_formulario),
@@ -191,6 +191,8 @@ ALTER TABLE {esquema}.respuesta_s02
 
 ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am04_rango_unidad;
 ALTER TABLE {esquema}.respuesta_s02 DROP CONSTRAINT IF EXISTS ck_respuesta_s02_am05_categoria;
+
+DROP TRIGGER IF EXISTS trg_validar_respuesta_s02_opciones ON {esquema}.respuesta_s02;
 
 UPDATE {esquema}.respuesta_s02
 SET
@@ -269,14 +271,14 @@ CREATE INDEX IF NOT EXISTS ix_formulario_variable_id_seccion
 CREATE INDEX IF NOT EXISTS ix_formulario_opcion_id_variable
     ON {esquema}.formulario_opcion (id_variable);
 
-CREATE INDEX IF NOT EXISTS ix_siges_formulario_unicodigo
-    ON {esquema}.siges_formulario (unicodigo);
+CREATE INDEX IF NOT EXISTS ix_sigem_formulario_unicodigo
+    ON {esquema}.sigem_formulario (unicodigo);
 
-CREATE INDEX IF NOT EXISTS ix_siges_formulario_nivel_atencion
-    ON {esquema}.siges_formulario (nivel_atencion);
+CREATE INDEX IF NOT EXISTS ix_sigem_formulario_nivel_atencion
+    ON {esquema}.sigem_formulario (nivel_atencion);
 
-CREATE INDEX IF NOT EXISTS ix_siges_formulario_estado
-    ON {esquema}.siges_formulario (estado);
+CREATE INDEX IF NOT EXISTS ix_sigem_formulario_estado
+    ON {esquema}.sigem_formulario (estado);
 
 CREATE INDEX IF NOT EXISTS ix_respuesta_s01_id_formulario
     ON {esquema}.respuesta_s01 (id_formulario);
@@ -294,10 +296,10 @@ BEGIN
 END;
 $$;
 
-DROP TRIGGER IF EXISTS trg_siges_formulario_actualizacion ON {esquema}.siges_formulario;
+DROP TRIGGER IF EXISTS trg_sigem_formulario_actualizacion ON {esquema}.sigem_formulario;
 
-CREATE TRIGGER trg_siges_formulario_actualizacion
-BEFORE UPDATE ON {esquema}.siges_formulario
+CREATE TRIGGER trg_sigem_formulario_actualizacion
+BEFORE UPDATE ON {esquema}.sigem_formulario
 FOR EACH ROW
 EXECUTE FUNCTION {esquema}.fn_actualizar_fecha_actualizacion();
 

@@ -1,6 +1,6 @@
-# Estructuras de base de datos SIGES
+# Estructuras de base de datos SIGEM
 
-Esta carpeta contiene la capa de estructuras de base de datos del proyecto SIGES.
+Esta carpeta contiene la capa de estructuras de base de datos del proyecto SIGEM.
 
 ## Organización
 
@@ -16,7 +16,7 @@ Esta carpeta contiene la capa de estructuras de base de datos del proyecto SIGES
 El nivel 1 se ejecuta desde:
 
 ```powershell
-python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_siges_nivel_1.py
+python 01_ESTRUCTURAS_BDD\01_BASE_DATOS\01_NIVEL\paso_00_main_sigem_nivel_1.py
 ```
 
 La documentación técnica está en:

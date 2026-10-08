@@ -1,4 +1,4 @@
-"""Configuracion de conexion para la capa de base de datos SIGES nivel 1."""
+"""Configuracion de conexion para la capa de base de datos SIGEM nivel 1."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ class ConfiguracionBaseDatos:
 
 
 def raiz_proyecto() -> Path:
-    """Devuelve la carpeta raiz del repositorio SIGES."""
+    """Devuelve la carpeta raiz del repositorio SIGEM."""
     return Path(__file__).resolve().parents[3]
 
 
@@ -43,22 +43,22 @@ def leer_yaml_seguro(ruta: Path) -> dict[str, Any]:
 
 
 def obtener_configuracion() -> ConfiguracionBaseDatos:
-    """Combina variables de ambiente y YAML para conectar a productos_bm.siges."""
+    """Combina variables de ambiente y YAML para conectar a productos_bm.sigem."""
     datos = leer_yaml_seguro(ruta_configuracion())
     bloque_default = datos.get("default", {})
     bloque_postgres = bloque_default.get("postgresql_dneaisns", {})
 
-    usuario = os.getenv("SIGES_DB_USER") or str(bloque_postgres.get("user", ""))
-    clave = os.getenv("SIGES_DB_PASSWORD") or str(bloque_postgres.get("password", ""))
-    host = os.getenv("SIGES_DB_HOST") or str(bloque_postgres.get("host", "127.0.0.1"))
-    puerto = int(os.getenv("SIGES_DB_PORT") or bloque_postgres.get("port", 5432))
-    base = os.getenv("SIGES_DB_NAME") or str(bloque_postgres.get("database", "productos_bm"))
-    esquema = (os.getenv("SIGES_DB_SCHEMA") or str(bloque_postgres.get("schema", "siges"))).lower()
+    usuario = os.getenv("SIGEM_DB_USER") or str(bloque_postgres.get("user", ""))
+    clave = os.getenv("SIGEM_DB_PASSWORD") or str(bloque_postgres.get("password", ""))
+    host = os.getenv("SIGEM_DB_HOST") or str(bloque_postgres.get("host", "127.0.0.1"))
+    puerto = int(os.getenv("SIGEM_DB_PORT") or bloque_postgres.get("port", 5432))
+    base = os.getenv("SIGEM_DB_NAME") or str(bloque_postgres.get("database", "productos_bm"))
+    esquema = (os.getenv("SIGEM_DB_SCHEMA") or str(bloque_postgres.get("schema", "sigem"))).lower()
 
     if not usuario:
-        raise RuntimeError("No se encontro usuario PostgreSQL para SIGES.")
+        raise RuntimeError("No se encontro usuario PostgreSQL para SIGEM.")
     if not clave:
-        raise RuntimeError("No se encontro clave PostgreSQL para SIGES.")
+        raise RuntimeError("No se encontro clave PostgreSQL para SIGEM.")
 
     return ConfiguracionBaseDatos(
         usuario=usuario,

@@ -1,4 +1,4 @@
-"""Catalogo controlado de niveles de atencion para SIGES nivel 1."""
+"""Catalogo controlado de niveles de atencion para SIGEM nivel 1."""
 
 from __future__ import annotations
 
@@ -28,5 +28,5 @@ NIVELES_ATENCION = [
 
 
 def construir_dataframe_niveles_atencion() -> pd.DataFrame:
-    """Devuelve el DataFrame maestro con los niveles permitidos por SIGES."""
+    """Devuelve el DataFrame maestro con los niveles permitidos por SIGEM."""
     return pd.DataFrame(NIVELES_ATENCION)

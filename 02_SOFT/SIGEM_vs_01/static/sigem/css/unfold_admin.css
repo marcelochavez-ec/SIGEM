@@ -1,0 +1,216 @@
+:root {
+    --SIGEM-admin-navy: #073e76;
+    --SIGEM-admin-blue: #087bff;
+    --SIGEM-admin-cyan: #00d7f7;
+    --SIGEM-admin-ink: #070b8f;
+    --SIGEM-admin-soft: #f4fbff;
+    --SIGEM-admin-border: #b9e4ff;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+    font-family: "Century Gothic", Arial, sans-serif !important;
+}
+
+body {
+    background:
+        linear-gradient(180deg, rgba(244, 251, 255, 0.96), rgba(239, 250, 255, 0.96)),
+        var(--SIGEM-admin-soft) !important;
+    color: var(--SIGEM-admin-ink) !important;
+}
+
+html.dark,
+html.dark body {
+    background: var(--SIGEM-admin-soft) !important;
+    color: var(--SIGEM-admin-ink) !important;
+}
+
+html.dark .dark\:bg-base-900,
+html.dark .dark\:bg-base-800,
+html.dark .dark\:bg-white\/\[\.02\],
+html.dark .dark\:bg-white\/\[\.06\] {
+    background-color: #ffffff !important;
+}
+
+html.dark .dark\:text-font-default-dark,
+html.dark .dark\:text-font-important-dark,
+html.dark .dark\:text-base-200,
+html.dark .dark\:text-base-300 {
+    color: var(--SIGEM-admin-ink) !important;
+}
+
+html.dark .dark\:border-base-700,
+html.dark .dark\:border-base-800 {
+    border-color: var(--SIGEM-admin-border) !important;
+}
+
+img[src*="logo_msp"] {
+    max-height: 48px;
+    object-fit: contain;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+    border-radius: 8px !important;
+}
+
+input,
+select,
+textarea {
+    border-color: var(--SIGEM-admin-border) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--SIGEM-admin-blue) !important;
+    box-shadow: 0 0 0 3px rgba(8, 123, 255, 0.12) !important;
+}
+
+.breadcrumbs,
+.breadcrumb {
+    color: var(--SIGEM-admin-navy) !important;
+}
+
+.messagelist,
+[role="alert"] {
+    border-radius: 8px !important;
+}
+
+[class*="bg-primary-600"],
+[class*="bg-primary-700"] {
+    background: linear-gradient(135deg, var(--SIGEM-admin-blue), #001bb8) !important;
+}
+
+[class*="text-primary-600"],
+[class*="text-primary-700"] {
+    color: var(--SIGEM-admin-blue) !important;
+}
+
+[class*="border-primary-600"],
+[class*="border-primary-700"] {
+    border-color: var(--SIGEM-admin-blue) !important;
+}
+
+.SIGEM-admin-page {
+    background: #f4fbff !important;
+}
+
+.SIGEM-admin-main {
+    background: #f4fbff !important;
+}
+
+.SIGEM-admin-content-wrap {
+    flex: 1 0 auto;
+    padding-bottom: 24px;
+}
+
+.SIGEM-admin-topbar {
+    flex: 0 0 auto;
+    padding: 14px 28px;
+    background:
+        linear-gradient(125deg, #073e76 0%, #006fd6 58%, #00a7d8 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, .35);
+}
+
+.SIGEM-admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    min-height: 62px;
+    color: #ffffff;
+}
+
+.SIGEM-admin-brand img {
+    width: 260px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.SIGEM-admin-brand > span {
+    width: 1px;
+    height: 46px;
+    background: rgba(255, 255, 255, .82);
+}
+
+.SIGEM-admin-brand div {
+    display: grid;
+    gap: 1px;
+}
+
+.SIGEM-admin-brand small {
+    color: #ffffff;
+    font-size: .82rem;
+    line-height: 1;
+}
+
+.SIGEM-admin-brand strong {
+    color: #ffffff;
+    font-size: 1.65rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.SIGEM-admin-brand em {
+    color: #ffffff;
+    font-size: .88rem;
+    font-style: normal;
+    line-height: 1.15;
+}
+
+.SIGEM-admin-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    margin-top: auto;
+    padding: 14px 28px;
+    border-top: 1px solid #00d7f7;
+    color: #ffffff;
+    background: #073e76;
+    font-size: .8rem;
+}
+
+.SIGEM-admin-footer div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.SIGEM-admin-footer strong {
+    font-weight: 900;
+}
+
+#content {
+    padding-top: 18px;
+}
+
+@media (max-width: 920px) {
+    .SIGEM-admin-brand {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .SIGEM-admin-brand img {
+        width: min(280px, 100%);
+    }
+
+    .SIGEM-admin-brand > span {
+        display: none;
+    }
+
+    .SIGEM-admin-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
