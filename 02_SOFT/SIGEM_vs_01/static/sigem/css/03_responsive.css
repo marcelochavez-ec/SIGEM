@@ -10,7 +10,7 @@
     }
 
     .home-hero {
-        padding: 38px;
+        padding: 28px;
     }
 
     .hero-visual {
@@ -225,9 +225,9 @@ svg {
 
     .home-hero {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
         min-height: 0;
-        padding: 28px;
+        padding: 24px;
     }
 
     .hero-copy {
@@ -237,7 +237,7 @@ svg {
 
     .hero-visual {
         display: block;
-        min-height: 260px;
+        min-height: 236px;
         width: min(640px, 100%);
         margin: 0 auto;
     }
@@ -276,7 +276,7 @@ svg {
     }
 
     .module-card.compact {
-        min-height: 286px;
+        min-height: 252px;
     }
 
     .section-summary,
@@ -309,7 +309,7 @@ svg {
 
     .balanced-page-panel {
         height: auto;
-        min-height: 642px;
+        min-height: clamp(440px, calc(100dvh - 210px), 520px);
     }
 
     .footer-primary {

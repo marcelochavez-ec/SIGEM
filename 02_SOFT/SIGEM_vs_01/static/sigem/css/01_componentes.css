@@ -8,19 +8,19 @@
 }
 
 .content-panel {
-    padding: 26px 28px;
-    margin-bottom: 24px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
 }
 
 .balanced-page-panel {
-    height: 642px;
+    min-height: clamp(460px, calc(100dvh - 220px), 560px);
 }
 
 .breadcrumb {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #445f94;
     font-size: 1.05rem;
 }
@@ -35,7 +35,7 @@
 }
 
 .page-title {
-    margin-bottom: 30px;
+    margin-bottom: 22px;
 }
 
 .page-title h1,
@@ -60,10 +60,10 @@
     position: relative;
     display: grid;
     grid-template-columns: minmax(420px, 1fr) minmax(620px, .98fr);
-    min-height: 310px;
+    min-height: 268px;
     overflow: hidden;
-    padding: 30px 44px 30px 54px;
-    margin-bottom: 14px;
+    padding: 22px 36px 22px 44px;
+    margin-bottom: 12px;
     border-color: #79ddeb;
     background:
         linear-gradient(100deg, #e9fbff 0%, #f4fdff 48%, #d9f7ff 100%);
@@ -76,9 +76,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     max-width: 720px;
-    min-height: 260px;
+    min-height: 224px;
     z-index: 1;
 }
 
@@ -101,13 +101,13 @@
 
 .hero-visual {
     position: relative;
-    min-height: 260px;
+    min-height: 236px;
 }
 
 .hero-hex-group {
     position: absolute;
     left: 4px;
-    top: 0;
+    top: -10px;
     width: 318px;
     height: 260px;
     z-index: 3;
@@ -178,7 +178,7 @@
     right: 0;
     top: 0;
     width: 286px;
-    height: 260px;
+    height: 236px;
     object-fit: cover;
     object-position: center center;
     clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
@@ -190,20 +190,20 @@
 .module-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-    margin-bottom: 14px;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .module-grid-actions {
-    margin-bottom: 34px;
+    margin-bottom: 22px;
 }
 
 .module-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 246px;
-    padding: 8px 10px 18px;
+    min-height: 212px;
+    padding: 8px 10px 14px;
     border: 1px solid #c4ebff;
     border-radius: 8px;
     color: #0017e8;
@@ -223,31 +223,31 @@
 }
 
 .module-card.compact {
-    min-height: 318px;
+    min-height: 268px;
 }
 
 .module-card .module-art {
     display: grid;
     place-items: center;
     width: 100%;
-    min-height: 88px;
-    margin-bottom: 11px;
+    min-height: 74px;
+    margin-bottom: 8px;
     border-radius: 7px;
 }
 
 .module-card .module-art span {
     display: grid;
     place-items: center;
-    width: 76px;
-    height: 76px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    font-size: 3.05rem;
+    font-size: 2.65rem;
 }
 
 .module-card h2 {
     width: min(390px, 100%);
-    min-height: 42px;
-    margin: 0 0 8px;
+    min-height: 36px;
+    margin: 0 0 6px;
     color: #0017e8;
     font-size: clamp(1.05rem, 1.35vw, 1.38rem);
     line-height: 1.05;
@@ -255,8 +255,8 @@
 
 .module-card p {
     width: min(390px, 100%);
-    min-height: 42px;
-    margin: 0 0 10px;
+    min-height: 36px;
+    margin: 0 0 8px;
     color: #536da6;
     font-size: clamp(.86rem, 1.02vw, 1rem);
     line-height: 1.18;
@@ -265,15 +265,15 @@
 .module-action {
     display: grid;
     place-items: center;
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
     margin-top: auto;
     border: 3px solid currentColor;
     border-radius: 50%;
 }
 
 .module-action span {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
 }
 
 .module-card.green .module-art { background: #e0ffef; }
@@ -300,8 +300,8 @@
     display: grid;
     grid-template-columns: 48px minmax(0, 1fr);
     align-items: center;
-    min-height: 50px;
-    padding: 8px 18px;
+    min-height: 44px;
+    padding: 7px 16px;
     border: 1px solid #c3ebff;
     border-radius: 8px;
     color: #001ad8;

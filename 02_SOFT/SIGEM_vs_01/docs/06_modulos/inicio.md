@@ -61,11 +61,14 @@ Presentar la pantalla inicial del aplicativo y orientar al usuario hacia los tre
 
 ## 11. Cambios realizados
 
-1. Se adapto el hero institucional.
-2. Se agregó texto superior de desarrollo tecnologico.
+1. Se adaptó el hero institucional.
+2. Se agregó texto superior de desarrollo tecnológico.
 3. Se ajustaron hexágonos y comportamiento responsive.
 4. Se reforzó el contenedor visual de cada opción de navegación del home principal.
 5. Se actualizaron las etiquetas visibles de los hexágonos institucionales del home.
-6. Se fijo la primera línea del hexágono principal para que `Todos los niveles de` no se divida visualmente.
+6. Se fijó la primera línea del hexágono principal para que `Todos los niveles de` no se divida visualmente.
+7. Se redujo el alto general del hero, las tarjetas de navegación y la franja informativa para que el footer requiera menos desplazamiento vertical en escritorio.
+8. Se mantuvieron reglas responsive para que el home siga reorganizándose correctamente en tablet y móvil.
+9. Se elevó ligeramente el grupo de hexágonos del hero para separarlo del bloque inferior y mejorar el equilibrio visual.
 
 

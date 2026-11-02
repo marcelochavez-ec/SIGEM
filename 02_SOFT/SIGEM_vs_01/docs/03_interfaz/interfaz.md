@@ -2,14 +2,16 @@
 
 ## Identidad visual
 
-La interfaz adopta una referencia visual compatible con Analitica en Salud del MSP y con las nuevas pantallas institucionales SIGEM.
+La interfaz adopta una referencia visual compatible con Analítica en Salud del MSP y con las nuevas pantallas institucionales SIGEM.
 
-1. El encabezado usa un fondo azul institucional con transicion hacia cyan.
+1. El encabezado usa un fondo azul institucional con transición hacia cyan.
 2. El logotipo MSP se presenta en blanco mediante estilo CSS para conservar contraste sobre fondo azul.
-3. El encabezado muestra el texto `Bienvenido(a) al`, el titulo `SIGEM` y el subtitulo `Sistema de Informacion para la Gestion de Establecimientos de Salud`.
+3. El encabezado muestra el texto `Bienvenido(a) al`, el título `SIGEM` y el subtítulo `Sistema de Gestión y Monitoreo de los Establecimientos de Salud de la Red MSP`.
 4. La navegación principal se presenta en una barra lateral izquierda con las opciones `Inicio`, `Establecimientos`, `Roles y usuarios` y `Manual de usuario`.
-5. El footer institucional usa una franja compacta azul con textura punteada, columnas separadas, íconos Material Symbols, tecnologia, recursos, contacto, aviso de sitio seguro, copyright y versión.
-6. La tipografia global del aplicativo se define como `Century Gothic`, con escala reducida para evitar textos sobredimensionados.
+5. El footer institucional usa una franja compacta azul con textura punteada, columnas separadas, íconos Material Symbols, tecnología, recursos, contacto, aviso de sitio seguro, copyright y versión.
+6. La tipografía global del aplicativo se define como `Century Gothic`, con escala reducida para evitar textos sobredimensionados.
+7. El alto general se controla desde `00_base.css`, `01_componentes.css`, `02_footer.css` y `03_responsive.css` para que el footer sea visible con menor desplazamiento vertical en pantallas de escritorio, sin perder adaptación en tablet y móvil.
+8. El encabezado mantiene una altura institucional intermedia para conservar presencia visual sin recuperar el exceso de scroll anterior.
 
 ## Componentes visuales
 
@@ -33,6 +35,10 @@ La interfaz adopta una referencia visual compatible con Analitica en Salud del M
 18. Los componentes Unfold propios del aplicativo mantienen tokens visuales, bordes, radios, sombras y estados consistentes en todos los breakpoints.
 19. La hoja `app.css` funciona como índice de estilos y carga `00_base.css`, `01_componentes.css`, `02_footer.css` y `03_responsive.css` para mantener separada la presentacion por responsabilidad.
 20. Los templates no contienen CSS embebido ni JavaScript funcional embebido; solo cargan archivos estáticos cuando corresponde.
+21. Los paneles principales, el hero, las tarjetas de navegación, el menú lateral y el footer usan alturas y espaciados más compactos para reducir el scroll vertical general.
+22. La clase `balanced-page-panel` dejó de depender de una altura fija alta y ahora usa una altura mínima adaptable al viewport mediante `clamp()` y `100dvh`.
+23. Los elementos interactivos del aplicativo usan una regla global de cursor para mostrar la mano sobre enlaces, botones, selectores, controles accionables y componentes con atributos `data-*` utilizados por la interfaz.
+24. La barra inferior del navegador que muestra la URL al pasar sobre enlaces reales pertenece al navegador y no al aplicativo; se conserva el uso de enlaces estándar para mantener accesibilidad, navegación normal y compatibilidad con abrir en nueva pestaña.
 
 ## Integracion visual con Unfold
 
