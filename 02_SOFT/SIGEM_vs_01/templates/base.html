@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'unfold/fonts/inter/styles.css' %}">
     <link rel="stylesheet" href="{% static 'unfold/fonts/material-symbols/styles.css' %}">
     <link rel="stylesheet" href="{% static 'unfold/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'sigem/css/app.css' %}?v=20261009g">
+    <link rel="stylesheet" href="{% static 'sigem/css/app.css' %}?v=20261102a">
 </head>
 <body class="SIGEM-app unfold-app">
     <header class="SIGEM-topbar">
@@ -41,11 +41,6 @@
                 <a class="SIGEM-menu-item {% if active_page == 'roles' %}active{% endif %}" href="{% url 'sigem:roles_usuarios' %}">
                     <span class="material-symbols-outlined">group</span>
                     <strong>Roles y usuarios</strong>
-                    <em class="material-symbols-outlined">chevron_right</em>
-                </a>
-                <a class="SIGEM-menu-item {% if active_page == 'reportes' %}active{% endif %}" href="{% url 'sigem:reportes_monitoreo' %}">
-                    <span class="material-symbols-outlined">monitoring</span>
-                    <strong>Reporte de monitoreo</strong>
                     <em class="material-symbols-outlined">chevron_right</em>
                 </a>
                 <a class="SIGEM-menu-item {% if active_page == 'manual' %}active{% endif %}" href="{% url 'sigem:manual_usuario' %}">

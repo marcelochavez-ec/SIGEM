@@ -16,7 +16,7 @@ La interfaz adopta una referencia visual compatible con Analítica en Salud del 
 ## Componentes visuales
 
 1. `templates/sigem/inicio.html` funciona como home inicial con banner institucional contrastado y tres tarjetas de acceso.
-2. El home utiliza hexágonos informativos sin superposicion, Material Symbols y la imagen `img/establecimiento_salud.jpg` como referencia visual del establecimiento de salud.
+2. El home utiliza tres tarjetas con Material Symbols y la imagen `img/establecimiento_salud.jpg`; los hexágonos fueron retirados el 2 de noviembre de 2026 y respaldados en la etiqueta Git `respaldo/hexagonos-monitoreo-20261102`.
 3. `templates/sigem/establecimientos.html` contiene la pantalla de gestión de establecimientos, acciones principales y resumen visible de S01/S02.
 4. `templates/sigem/roles_usuarios.html` contiene las acciones visuales de crear, modificar y desactivar roles o usuarios, enlazadas al panel administrativo Unfold/Django.
 5. `templates/sigem/manual_usuario.html` contiene el estado `En construccion`, siguiendo la referencia visual entregada.
@@ -25,7 +25,7 @@ La interfaz adopta una referencia visual compatible con Analítica en Salud del 
 8. No se utiliza animacion de numeros ni textura de puntos en el fondo del hero.
 9. El diseño responde a pantallas angostas reordenando menu, tarjetas, formularios y footer sin superposiciones.
 10. El footer mantiene el contenido tecnologico original: `Python`, `Django` y `Bootstrap`; `Recursos` muestra `Sincronizacion con PRAS y RDACAA`, `Interoperabilidad` e `Informes de monitoreo y control`; `Contacto` muestra correo, telefono y dirección institucional.
-11. El hero no muestra texto flotante sobre la imagen institucional; los hexágonos quedan encajados con distancia mínima y uniforme para mantener lectura clara.
+11. El hero mantiene texto e imagen, con una columna visual más estrecha tras retirar los hexágonos. En móvil angosto se omite el contenedor de imagen para no dejar espacio vacío.
 12. El bloque principal del home usa fondo celeste institucional y borde en la misma familia cromatica para diferenciarlo del fondo general sin romper la imagen institucional.
 13. La pantalla `Manual de usuario` conserva el panel principal y reduce el alto del bloque interno `En construccion` para evitar exceso de espacio vertical.
 14. Las pantallas `Roles y usuarios` y `Manual de usuario` comparten la clase `balanced-page-panel` para conservar el mismo alto del panel principal y evitar saltos del footer al navegar.
@@ -39,6 +39,7 @@ La interfaz adopta una referencia visual compatible con Analítica en Salud del 
 22. La clase `balanced-page-panel` dejó de depender de una altura fija alta y ahora usa una altura mínima adaptable al viewport mediante `clamp()` y `100dvh`.
 23. Los elementos interactivos del aplicativo usan una regla global de cursor para mostrar la mano sobre enlaces, botones, selectores, controles accionables y componentes con atributos `data-*` utilizados por la interfaz.
 24. La barra inferior del navegador que muestra la URL al pasar sobre enlaces reales pertenece al navegador y no al aplicativo; se conserva el uso de enlaces estándar para mantener accesibilidad, navegación normal y compatibilidad con abrir en nueva pestaña.
+25. El menú y las rutas públicas no incluyen `Reporte de monitoreo`. Su implementación se conserva sin acceso público; la recuperación se documenta en `06_modulos/recuperacion_hexagonos_monitoreo.md`.
 
 ## Integracion visual con Unfold
 

@@ -6,25 +6,9 @@
         <h1>Dirección Nacional de Estadística y Análisis de la Información del Sistema Nacional de Salud</h1>
     </div>
     {% load static %}
-        <div class="hero-visual">
-            <img class="facility-photo" src="{% static 'establecimiento_salud.jpg' %}" alt="">
-            <div class="hero-hex-group">
-                <a class="hero-hex hex-main" href="{% url 'sigem:establecimientos' %}" aria-label="Abrir Monitoreo de Establecimientos de Salud">
-                    <span class="material-symbols-outlined">local_hospital</span>
-                    <strong><span class="hex-line-nowrap">Niveles de atención</span><br>I, II y III de los Establecimientos<br>de Salud<br>Red MSP</strong>
-                </a>
-
-                <a class="hero-hex hex-blue" href="{% url 'sigem:roles_usuarios' %}" aria-label="Abrir Administración de Roles y Usuarios">
-                    <span class="material-symbols-outlined">groups</span>
-                    <strong>Administración de roles<br>y usuarios</strong>
-                </a>
-
-                <a class="hero-hex hex-green" href="https://analiticadesalud.msp.gob.ec/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Sistema de Analítica en Salud">
-                    <span class="material-symbols-outlined">ads_click</span>
-                    <strong>Manual<br>de<br>Usuario</strong>
-                </a>
-            </div>
-        </div>
+    <div class="hero-visual">
+        <img class="facility-photo" src="{% static 'establecimiento_salud.jpg' %}" alt="">
+    </div>
 </section>
 
 <section class="module-grid">

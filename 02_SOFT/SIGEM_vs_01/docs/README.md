@@ -41,6 +41,7 @@ docs/
 │   ├── inicio.md
 │   ├── manual_usuario.md
 │   ├── reportes_monitoreo.md
+│   ├── recuperacion_hexagonos_monitoreo.md
 │   └── roles_usuarios.md
 └── 07_arquitecturas/
     └── modelo_entidad_relacion_sigem_s01_s02.drawio

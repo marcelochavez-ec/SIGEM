@@ -29,8 +29,6 @@ urlpatterns = [
     path("establecimientos/", views.establecimientos, name="establecimientos"),
     # Pantalla visual de roles y usuarios.
     path("roles-usuarios/", views.roles_usuarios, name="roles_usuarios"),
-    # Pantalla de reportes de monitoreo.
-    path("reportes-monitoreo/", views.reportes_monitoreo, name="reportes_monitoreo"),
     # Pantalla del manual de usuario.
     path("manual/", views.manual_usuario, name="manual_usuario"),
     # Formulario para crear matriz nueva.

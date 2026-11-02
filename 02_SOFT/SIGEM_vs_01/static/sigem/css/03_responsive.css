@@ -200,7 +200,7 @@ svg {
     }
 
     .home-hero {
-        grid-template-columns: minmax(360px, .95fr) minmax(540px, 1fr);
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 286px);
     }
 
     .hero-copy h1 {
@@ -238,16 +238,12 @@ svg {
     .hero-visual {
         display: block;
         min-height: 236px;
-        width: min(640px, 100%);
+        width: min(286px, 100%);
         margin: 0 auto;
     }
 
-    .hero-hex-group {
-        left: 0;
-    }
-
     .facility-photo {
-        width: min(286px, 44%);
+        width: 100%;
     }
 
     .module-grid {
@@ -485,13 +481,8 @@ svg {
         min-height: 222px;
     }
 
-    .hero-hex-group {
-        transform: scale(.82);
-        transform-origin: left top;
-    }
-
     .facility-photo {
-        width: 46%;
+        width: 100%;
         height: 220px;
     }
 
@@ -651,14 +642,7 @@ svg {
     }
 
     .hero-visual {
-        min-height: 212px;
-    }
-
-    .hero-hex-group {
-        left: 50%;
-        width: 318px;
-        transform: translateX(-50%) scale(.72);
-        transform-origin: top center;
+        display: none;
     }
 
     .facility-photo {

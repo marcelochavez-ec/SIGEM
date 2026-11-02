@@ -1,5 +1,7 @@
 # Módulo Reporte de Monitoreo
 
+Estado al 2 de noviembre de 2026: retirado de la navegación y de las rutas públicas. `/reportes-monitoreo/` ya no resuelve a una vista y devuelve 404. Se conservan la vista, el helper ORM, el template, el JavaScript y los estilos, sin habilitar su ejecución desde HTTP. La implementación completa previa al retiro está versionada en `respaldo/hexagonos-monitoreo-20261102` (commit `0a1d6f1`). Las fuentes, cálculos y componentes descritos a continuación corresponden a esa implementación conservada; no se ejecutan desde una ruta del aplicativo actual.
+
 ## 1. Nombre del módulo
 
 Reporte de monitoreo SIGEM.
@@ -25,14 +27,10 @@ Reporte de monitoreo SIGEM.
 
 ## 4. Flujo general paso a paso
 
-1. El usuario selecciona `Reporte de monitoreo` en el menu lateral.
-2. Django resuelve la ruta `/reportes-monitoreo/`.
-3. La vista `reportes_monitoreo` ejecuta `obtener_series_reportes_monitoreo`.
-4. La vista consulta registros de `SigemFormulario` y `RespuestaS01`.
-5. El template muestra tarjetas KPI y graficos principales sin un contenedor visual general que sature la interfaz.
-6. El JavaScript lee el JSON generado por Django y dibuja graficos interactivos con Apache ECharts.
-7. El usuario puede pasar el mouse sobre barras, puntos o sectores para ver tooltip.
-8. El usuario puede hacer clic en KPIs o graficos para abrir un popup explicativo.
+1. El menú lateral no ofrece acceso a este módulo.
+2. Una petición a `/reportes-monitoreo/` no encuentra una ruta registrada; no ejecuta la vista ni las agregaciones.
+3. `reverse('sigem:reportes_monitoreo')` genera `NoReverseMatch`, por lo que no deben añadirse enlaces al nombre retirado.
+4. Para reincorporarlo, seguir `recuperacion_hexagonos_monitoreo.md` y validar la compatibilidad del código conservado con la versión vigente.
 
 ## 5. Entradas del módulo
 
@@ -71,7 +69,7 @@ Reporte de monitoreo SIGEM.
 
 ## 9. Lógica UI
 
-1. El menu lateral incorpora la opción `Reporte de monitoreo`.
+1. El menú lateral ya no incorpora `Reporte de monitoreo`. Los componentes siguientes se conservan en el template inactivo, sin renderizarse en la versión actual.
 2. El panel principal evita un contenedor global; cada KPI y cada gráfico conserva su propia tarjeta visual.
 3. Las métricas principales se muestran como tarjetas KPI.
 4. El gráfico territorial se titula `Por Direcciones Provinciales`.
@@ -87,7 +85,7 @@ Reporte de monitoreo SIGEM.
 1. `obtener_series_reportes_monitoreo` concentra las consultas ORM.
 2. `serie_respuesta` agrupa dinamicamente un campo de `RespuestaS01`.
 3. La serie `estado_carga` resume matrices almacenadas, modificadas y versionadas.
-4. `reportes_monitoreo` renderiza el template y entrega los datos en formato Python/JSON.
+4. `reportes_monitoreo(request)` conserva el render del template y la entrega de datos Python/JSON; al retirarse su ruta no recibe peticiones desde el aplicativo actual.
 5. La vista no modifica base de datos.
 
 ## 11. Consultas SQL o lógica ETL relevante
@@ -106,6 +104,8 @@ Reporte de monitoreo SIGEM.
 
 ## 13. Validaciones realizadas
 
+Validación actual (2 de noviembre de 2026): `manage.py check` correcto y tres pruebas `InicioSinComponentesRetiradosTest` correctas, incluidas ausencia del enlace y desregistro de la URL y su nombre. No se consultó ni modificó PostgreSQL. Los resultados de HTTP 200 y conteos de datos enumerados abajo son históricos, anteriores al retiro.
+
 1. `python manage.py check`.
 2. Verificacion de sintaxis JavaScript con `node --check`.
 3. Verificacion de renderizado del template con datos de prueba para confirmar la carga de `echarts.min.js`.
@@ -115,6 +115,8 @@ Reporte de monitoreo SIGEM.
 7. Prueba real posterior a la consolidación de cabecera: `sigem_formulario`, `respuesta_s01` y `respuesta_s02` registran 8 filas cada una; el reporte devuelve HTTP 200 y las series provinciales se generan con datos.
 
 ## 14. Pruebas sugeridas o ejecutadas
+
+Para la versión actual se ejecutó `python manage.py test sigem.tests.InicioSinComponentesRetiradosTest --noinput --verbosity 2`. Usa `SimpleTestCase`, no prepara base de datos y confirma que el reporte no es accesible por su ruta anterior. La lista siguiente conserva las pruebas de la implementación previa.
 
 1. Ejecutada: renderizar `templates/sigem/reportes_monitoreo.html` con datos simulados.
 2. Ejecutada: validar `manage.py check`.
@@ -131,6 +133,7 @@ Reporte de monitoreo SIGEM.
 1. Si existen registros sin S01, no apareceran en las series territoriales.
 2. La métrica de modificaciones depende de qué `fecha_actualizacion` refleje cambios reales de formulario.
 3. Los graficos son informativos y no reemplazan reportes estadisticos auditados.
+4. El retiro no elimina registros, tablas, modelos ni consultas del código conservado. Una recuperación futura requiere comprobar sus campos y dependencias contra la versión vigente.
 
 ## 16. Cambios realizados en esta tarea
 
@@ -150,6 +153,7 @@ Reporte de monitoreo SIGEM.
 14. Se agregó `echarts.min.js` como recurso local para evitar dependencia de internet en ejecución.
 15. Se ajustó la dona para que muestre estado vacío cuando el total sea cero, evitando un aro con categorías en cero.
 16. Se actualizó la versión del JavaScript del reporte para forzar recarga del navegador después del ajuste.
+17. El 2 de noviembre de 2026 se retiraron el enlace de `templates/base.html` y el registro de la ruta en `sigem/urls.py`, después del respaldo Git `0a1d6f1`. Se conservó el módulo sin acceso público y se documentó su recuperación selectiva.
 
 ## 17. Pendientes o recomendaciones futuras
 

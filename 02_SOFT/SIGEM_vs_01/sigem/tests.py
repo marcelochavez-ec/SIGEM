@@ -1,8 +1,35 @@
-from django.test import TestCase
+from django.test import RequestFactory, SimpleTestCase, TestCase
+from django.urls import NoReverseMatch, Resolver404, resolve, reverse
 
 from .forms import S02AccesoMovilizacionForm
 from .forms import normalizar_tiempo_traslado
 from .models import FormularioOpcion, FormularioSeccion, FormularioVariable
+from .views import inicio
+
+
+class InicioSinComponentesRetiradosTest(SimpleTestCase):
+    def test_inicio_conserva_accesos_sin_hexagonos_ni_reporte(self):
+        response = inicio(RequestFactory().get("/"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "hero-hex")
+        self.assertNotContains(response, "Reporte de monitoreo")
+        self.assertNotContains(response, "reportes-monitoreo/")
+        self.assertContains(response, "module-card", count=3)
+        self.assertContains(response, "establecimiento_salud.jpg")
+        for name in ("establecimientos", "roles_usuarios", "manual_usuario"):
+            self.assertContains(response, reverse(f"sigem:{name}"))
+
+    def test_reporte_retirado_no_tiene_ruta_publica(self):
+        with self.assertRaises(Resolver404):
+            resolve("/reportes-monitoreo/")
+        with self.assertRaises(NoReverseMatch):
+            reverse("sigem:reportes_monitoreo")
+
+    def test_rutas_principales_siguen_disponibles(self):
+        for name, path in (("inicio", "/"), ("establecimientos", "/establecimientos/"),
+                           ("roles_usuarios", "/roles-usuarios/"), ("manual_usuario", "/manual/")):
+            with self.subTest(name=name):
+                self.assertEqual(resolve(path).view_name, f"sigem:{name}")
 
 
 class ModeloCatalogoTest(TestCase):

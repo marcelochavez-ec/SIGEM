@@ -55,7 +55,7 @@ SIGEM 01 - Aplicativo web Django para matriz SIGEM.
 5. El script ejecuta `check`, `migrate`, `cargar_catalogos_sigem` y `runserver`.
 6. La vista de inicio muestra el home SIGEM con accesos a establecimientos, roles y usuarios, y manual de usuario.
 7. La pantalla `Establecimientos` muestra acciones principales, resumen S01/S02 y registros SIGEM.
-8. La pantalla `Reportes de monitoreo` resume avance de registros por territorio, estado y mes.
+8. `Reporte de monitoreo` está retirado del menú y de las rutas públicas desde el 2 de noviembre de 2026; su implementación permanece conservada para recuperación futura.
 9. El usuario crea una matriz desde `Nuevo Registro`.
 10. La página S01 muestra Datos Generales y buscador real de establecimientos.
 11. Si S01 tiene campos incompletos, Django muestra errores y no avanza.
@@ -90,7 +90,7 @@ SIGEM 01 - Aplicativo web Django para matriz SIGEM.
 3. Registro de S02 en `respuesta_s02`.
 4. Pantallas de home, establecimientos, roles y usuarios, manual en construccion, captura paginada y detalle.
 5. Administración de catálogos, roles y usuarios con Django Unfold.
-6. Dashboard de reportes de monitoreo con KPIs, graficos y series ejecutivas.
+6. El dashboard de reportes de monitoreo no está publicado en esta versión; no genera salidas por HTTP.
 
 ## 7. Fuentes de datos utilizadas
 
@@ -113,7 +113,7 @@ SIGEM 01 - Aplicativo web Django para matriz SIGEM.
 ## 9. Lógica UI
 
 1. `templates/base.html` define encabezado SIGEM, menu lateral, footer institucional y carga local de estilos Unfold.
-2. `templates/sigem/inicio.html` muestra el home con banner institucional y tres módulos principales.
+2. `templates/sigem/inicio.html` muestra el home con banner institucional sin hexágonos y tres tarjetas de módulos principales.
 3. `templates/sigem/establecimientos.html` muestra gestión de establecimientos, acciones y resumen S01/S02.
 4. `templates/sigem/roles_usuarios.html` enlaza acciones de administración hacia Django Admin con Unfold.
 5. `templates/sigem/manual_usuario.html` muestra el estado `En construccion`.
@@ -121,7 +121,7 @@ SIGEM 01 - Aplicativo web Django para matriz SIGEM.
 7. S02 aparece bloqueada hasta completar S01.
 8. `static/sigem/css/app.css` funciona como índice de CSS y carga archivos especializados.
 9. El footer institucional se organiza en cuatro bloques: ministerio, tecnologia, recursos y contacto; usa separadores verticales, tipografia compacta, textura punteada e iconografia Material Symbols.
-10. `templates/sigem/reportes_monitoreo.html` muestra KPIs y gráficos ECharts para lectura ejecutiva.
+10. `templates/sigem/reportes_monitoreo.html` conserva los KPIs y gráficos ECharts; permanece inactivo al no registrarse la ruta del módulo.
 
 ## 10. Lógica server
 
@@ -133,7 +133,7 @@ SIGEM 01 - Aplicativo web Django para matriz SIGEM.
 6. `deploy_sigem.py` valida Django y levanta el servidor local en `0.0.0.0:8036`.
 7. `deploy_sigem.py` configura Waitress con hilos y limite de conexiones para reducir avisos de cola en desarrollo local.
 8. `settings.py` permite publicar el aplicativo bajo una ruta base institucional mediante `DJANGO_FORCE_SCRIPT_NAME`, conservando enlaces, favicon y archivos estáticos cuando Nginx expone SIGEM como subruta.
-9. `reportes_monitoreo` consulta agregaciones ORM para alimentar el dashboard sin modificar datos.
+9. `reportes_monitoreo` conserva sus agregaciones ORM, pero no se ejecuta desde HTTP porque su ruta fue retirada.
 
 ## 11. Consultas SQL o lógica ETL relevante
 
@@ -245,6 +245,7 @@ SIGEM 01 - Aplicativo web Django para matriz SIGEM.
 61. Se renombró el esquema funcional por defecto a `sigem` y se retiraron variables antiguas de configuración.
 62. Se limpió `sigem/__init__.py` para conservarlo como archivo de paquete Python sin contenido de template.
 63. Se actualizó el dashboard de reporte de monitoreo para usar Apache ECharts local en lugar de gráficos canvas propios.
+64. El 2 de noviembre de 2026 se respaldó la interfaz vigente en `0a1d6f1`, etiqueta `respaldo/hexagonos-monitoreo-20261102`, antes de retirar los hexágonos y el acceso público a Reporte de monitoreo. La recuperación selectiva se documenta en `recuperacion_hexagonos_monitoreo.md`. Pasaron `manage.py check` y tres pruebas de render y rutas sin base de datos; no se verificó visualmente en navegador.
 
 ## 17. Pendientes o recomendaciones futuras
 
