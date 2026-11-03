@@ -1,0 +1,1924 @@
+{
+  "deploy/presidencia/api.py": {
+    "1": {
+      "codigo": "\"\"\"API de solo lectura sobre un corte autorizado creado por el módulo R.\"\"\"",
+      "explicacion": "Texto descriptivo del componente; no ejecuta una operación de red ni abre un servicio."
+    },
+    "2": {
+      "codigo": "import html",
+      "explicacion": "Importa html para escape de títulos que se insertan en HTML."
+    },
+    "3": {
+      "codigo": "import asyncio",
+      "explicacion": "Importa asyncio para tareas y esperas asíncronas del proxy WebSocket."
+    },
+    "4": {
+      "codigo": "import os",
+      "explicacion": "Importa os para variables de entorno privadas del proceso."
+    },
+    "5": {
+      "codigo": "import secrets",
+      "explicacion": "Importa secrets para comparación de credenciales y generación aleatoria de SID."
+    },
+    "6": {
+      "codigo": "from datetime import date, datetime, timezone",
+      "explicacion": "Importa datetime para fechas, horas y cálculos de vigencia UTC."
+    },
+    "7": {
+      "codigo": "from pathlib import Path",
+      "explicacion": "Importa pathlib para rutas de archivos independientes del directorio desde el que se invoca el código."
+    },
+    "8": {
+      "codigo": "from typing import Annotated, Literal",
+      "explicacion": "Importa typing para anotaciones de tipo y valores de indicador permitidos."
+    },
+    "9": {
+      "codigo": "from urllib.parse import urlsplit",
+      "explicacion": "Importa urllib.parse para separación y validación de direcciones URL."
+    },
+    "11": {
+      "codigo": "import httpx",
+      "explicacion": "Importa httpx para peticiones HTTP asíncronas al visualizador interno."
+    },
+    "12": {
+      "codigo": "from fastapi import Depends, FastAPI, HTTPException, Query, Request, WebSocket",
+      "explicacion": "Importa fastapi para aplicación, rutas, dependencias, excepciones y contrato HTTP."
+    },
+    "13": {
+      "codigo": "from fastapi.responses import HTMLResponse, RedirectResponse, Response",
+      "explicacion": "Importa fastapi.responses para respuestas HTML, redirección y cuerpos HTTP."
+    },
+    "14": {
+      "codigo": "from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer, APIKeyHeader",
+      "explicacion": "Importa fastapi.security para lectores de los tres encabezados de autenticación API."
+    },
+    "15": {
+      "codigo": "from fastapi.middleware.trustedhost import TrustedHostMiddleware",
+      "explicacion": "Importa fastapi.middleware.trustedhost para comprobación de nombres de host permitidos."
+    },
+    "16": {
+      "codigo": "from fastapi.exceptions import RequestValidationError",
+      "explicacion": "Importa fastapi.exceptions para manejo de errores de validación de entradas."
+    },
+    "17": {
+      "codigo": "from fastapi.openapi.utils import get_openapi",
+      "explicacion": "Importa fastapi.openapi.utils para generación de OpenAPI para Swagger."
+    },
+    "18": {
+      "codigo": "from pydantic import BaseModel, ConfigDict, ValidationError, SecretStr, Field",
+      "explicacion": "Importa pydantic para modelos de entrada/salida y tratamiento de contraseñas como secretos."
+    },
+    "19": {
+      "codigo": "from websockets.asyncio.client import connect",
+      "explicacion": "Importa websockets.asyncio.client para conexión WebSocket hacia el visualizador."
+    },
+    "20": {
+      "codigo": "from .auth import Gateway, PostgresIdentity, AccessDenied, IdentityUnavailable",
+      "explicacion": "Importa auth para gateway y proveedor de identidad institucional reutilizados por api.py."
+    },
+    "22": {
+      "codigo": "IDS = ('primer-nivel', 'salud-mental', 'paquete-ninos', 'paquete-gestantes', 'medicamentos')",
+      "explicacion": "En `módulo`, declara los cinco identificadores que admite la integración."
+    },
+    "23": {
+      "codigo": "LABELS = dict(zip(IDS, ('Cobertura del primer nivel', 'Cobertura de salud mental',",
+      "explicacion": "En `módulo`, relaciona esos identificadores con sus títulos institucionales."
+    },
+    "24": {
+      "codigo": "                       'Paquete priorizado en niños', 'Paquete priorizado en gestantes',",
+      "explicacion": "Continuación de la instrucción de la línea 23: En `módulo`, relaciona esos identificadores con sus títulos institucionales."
+    },
+    "25": {
+      "codigo": "                       'Abastecimiento de medicamentos')))",
+      "explicacion": "Continuación de la instrucción de la línea 23: En `módulo`, relaciona esos identificadores con sus títulos institucionales."
+    },
+    "26": {
+      "codigo": "IndicatorId = Literal['primer-nivel', 'salud-mental', 'paquete-ninos', 'paquete-gestantes', 'medicamentos']",
+      "explicacion": "En `módulo`, restringe mediante Literal los valores de indicador admitidos."
+    },
+    "27": {
+      "codigo": "BASE = Path(__file__).resolve().parent",
+      "explicacion": "En `módulo`, resuelve la carpeta real del archivo para encontrar recursos relativos."
+    },
+    "30": {
+      "codigo": "class Punto(BaseModel):",
+      "explicacion": "Declara `Punto`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "31": {
+      "codigo": "    model_config = ConfigDict(extra='forbid', allow_inf_nan=False)",
+      "explicacion": "En `módulo`, rechaza campos ajenos al contrato; cuando corresponde también impide NaN e infinito."
+    },
+    "32": {
+      "codigo": "    fecha: date",
+      "explicacion": "Define `fecha`: fecha del punto mensual, validada como fecha de calendario."
+    },
+    "33": {
+      "codigo": "    mes: str",
+      "explicacion": "Define `mes`: nombre del mes mostrado en la serie."
+    },
+    "34": {
+      "codigo": "    valor: float",
+      "explicacion": "Define `valor`: resultado numérico del indicador para ese período."
+    },
+    "35": {
+      "codigo": "    meta_mensual: float | None",
+      "explicacion": "Define `meta_mensual`: meta del mes; puede ser nula."
+    },
+    "36": {
+      "codigo": "    numerador: float | None",
+      "explicacion": "Define `numerador`: numerador acumulado del indicador; admite nulo."
+    },
+    "37": {
+      "codigo": "    numerador_puntual: float | None",
+      "explicacion": "Define `numerador_puntual`: numerador del período puntual; admite nulo."
+    },
+    "38": {
+      "codigo": "    denominador: float | None",
+      "explicacion": "Define `denominador`: denominador usado en la medición; admite nulo."
+    },
+    "39": {
+      "codigo": "    fecha_corte: date | None",
+      "explicacion": "Define `fecha_corte`: fecha hasta la que corresponde el dato; admite nulo."
+    },
+    "40": {
+      "codigo": "    fecha_actualizacion: datetime | None",
+      "explicacion": "Define `fecha_actualizacion`: fecha y hora de actualización; admite nulo."
+    },
+    "43": {
+      "codigo": "class Indicador(BaseModel):",
+      "explicacion": "Declara `Indicador`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "44": {
+      "codigo": "    model_config = ConfigDict(extra='forbid', allow_inf_nan=False)",
+      "explicacion": "En `módulo`, rechaza campos ajenos al contrato; cuando corresponde también impide NaN e infinito."
+    },
+    "45": {
+      "codigo": "    id: IndicatorId",
+      "explicacion": "Define `id`: uno de los cinco identificadores de indicador permitidos."
+    },
+    "46": {
+      "codigo": "    titulo: str",
+      "explicacion": "Define `titulo`: título institucional del indicador."
+    },
+    "47": {
+      "codigo": "    objetivo: str",
+      "explicacion": "Define `objetivo`: descripción del objetivo del indicador."
+    },
+    "48": {
+      "codigo": "    unidad: Literal['Porcentaje']",
+      "explicacion": "Define `unidad`: unidad de medida, restringida al texto Porcentaje."
+    },
+    "49": {
+      "codigo": "    linea_base: float",
+      "explicacion": "Define `linea_base`: valor de línea base del indicador."
+    },
+    "50": {
+      "codigo": "    meta_2026: float",
+      "explicacion": "Define `meta_2026`: meta anual del año 2026."
+    },
+    "51": {
+      "codigo": "    datos: list[Punto]",
+      "explicacion": "Define `datos`: lista validada de puntos mensuales del modelo Punto."
+    },
+    "54": {
+      "codigo": "class Corte(BaseModel):",
+      "explicacion": "Declara `Corte`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "55": {
+      "codigo": "    model_config = ConfigDict(extra='forbid')",
+      "explicacion": "En `módulo`, rechaza campos ajenos al contrato; cuando corresponde también impide NaN e infinito."
+    },
+    "56": {
+      "codigo": "    modulo: Literal['PRESIDENCIA']",
+      "explicacion": "Define `modulo`: módulo, restringido al identificador PRESIDENCIA."
+    },
+    "57": {
+      "codigo": "    origen: str",
+      "explicacion": "Define `origen`: identificación de la fuente de datos."
+    },
+    "58": {
+      "codigo": "    generado_en: datetime",
+      "explicacion": "Define `generado_en`: fecha y hora en que se produjo el corte autorizado."
+    },
+    "59": {
+      "codigo": "    indicadores: list[Indicador]",
+      "explicacion": "Define `indicadores`: lista de indicadores o enlaces del catálogo."
+    },
+    "62": {
+      "codigo": "class EnlaceIndicador(BaseModel):",
+      "explicacion": "Declara `EnlaceIndicador`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "63": {
+      "codigo": "    id: IndicatorId",
+      "explicacion": "Define `id`: uno de los cinco identificadores de indicador permitidos."
+    },
+    "64": {
+      "codigo": "    titulo: str",
+      "explicacion": "Define `titulo`: título institucional del indicador."
+    },
+    "65": {
+      "codigo": "    dashboard: str",
+      "explicacion": "Define `dashboard`: plantilla de URL de visualización del indicador."
+    },
+    "66": {
+      "codigo": "    datos: str",
+      "explicacion": "Define `datos`: URL del endpoint REST que entrega la serie de este indicador."
+    },
+    "69": {
+      "codigo": "class Catalogo(BaseModel):",
+      "explicacion": "Declara `Catalogo`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "70": {
+      "codigo": "    modulo: Literal['PRESIDENCIA']",
+      "explicacion": "Define `modulo`: módulo, restringido al identificador PRESIDENCIA."
+    },
+    "71": {
+      "codigo": "    generado_en: datetime",
+      "explicacion": "Define `generado_en`: fecha y hora en que se produjo el corte autorizado."
+    },
+    "72": {
+      "codigo": "    indicadores: list[EnlaceIndicador]",
+      "explicacion": "Define `indicadores`: lista de indicadores o enlaces del catálogo."
+    },
+    "75": {
+      "codigo": "class Serie(Indicador):",
+      "explicacion": "Declara `Serie`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "76": {
+      "codigo": "    generado_en: datetime",
+      "explicacion": "Define `generado_en`: fecha y hora en que se produjo el corte autorizado."
+    },
+    "77": {
+      "codigo": "    origen: str",
+      "explicacion": "Define `origen`: identificación de la fuente de datos."
+    },
+    "80": {
+      "codigo": "class SolicitudSesion(BaseModel):",
+      "explicacion": "Declara `SolicitudSesion`: modelo de datos validado de FastAPI/Pydantic."
+    },
+    "81": {
+      "codigo": "    model_config = ConfigDict(extra='forbid')",
+      "explicacion": "En `módulo`, rechaza campos ajenos al contrato; cuando corresponde también impide NaN e infinito."
+    },
+    "82": {
+      "codigo": "    usuario_sivas: str = Field(min_length=1, max_length=80)",
+      "explicacion": "Define `usuario_sivas`: nombre institucional obligatorio, de uno a ochenta caracteres."
+    },
+    "83": {
+      "codigo": "    clave_sivas: SecretStr = Field(min_length=1, max_length=256)",
+      "explicacion": "Define `clave_sivas`: contraseña institucional tratada como SecretStr, de uno a 256 caracteres."
+    },
+    "84": {
+      "codigo": "    indicador: IndicatorId = 'primer-nivel'",
+      "explicacion": "Define `indicador`: indicador inicial autorizado; por defecto primer-nivel."
+    },
+    "87": {
+      "codigo": "def create_app(*, key: str | None = None, snapshot: Path | None = None,",
+      "explicacion": "Define `create_app`, que construye la aplicación FastAPI, su configuración, el gateway y sus rutas."
+    },
+    "88": {
+      "codigo": "               shiny_url: str | None = None, max_age: float | None = None,",
+      "explicacion": "Completa los parámetros de `create_app`: shiny_url: str | None = None, max_age: float | None = None,."
+    },
+    "89": {
+      "codigo": "               gateway: Gateway | None = None) -> FastAPI:",
+      "explicacion": "Completa los parámetros de `create_app`: gateway: Gateway | None = None) -> FastAPI:."
+    },
+    "90": {
+      "codigo": "    api_key = key if key is not None else os.getenv('PRESIDENCIA_API_KEY', '')",
+      "explicacion": "En `create_app`, obtiene el Bearer del argumento de pruebas o de PRESIDENCIA_API_KEY."
+    },
+    "91": {
+      "codigo": "    if len(api_key) < 32:",
+      "explicacion": "Exige un Bearer de al menos 32 caracteres antes de crear la aplicación."
+    },
+    "92": {
+      "codigo": "        raise RuntimeError('Configure PRESIDENCIA_API_KEY con al menos 32 caracteres aleatorios.')",
+      "explicacion": "Detiene el arranque con un mensaje de configuración; evita servir una API mal configurada."
+    },
+    "93": {
+      "codigo": "    gate = gateway or Gateway(os.getenv('PRESIDENCIA_CLIENT_USER',''),",
+      "explicacion": "Usa el gateway recibido en pruebas o crea uno con el usuario del cliente API configurado."
+    },
+    "94": {
+      "codigo": "        os.getenv('PRESIDENCIA_CLIENT_HASH',''), os.getenv('PRESIDENCIA_BRIDGE_KEY',''),",
+      "explicacion": "Entrega al gateway el hash Argon2 de la clave API y la clave HMAC del puente; no son la contraseña institucional."
+    },
+    "95": {
+      "codigo": "        PostgresIdentity(os.getenv('PRESIDENCIA_SIVAS_USER','')),",
+      "explicacion": "Construye PostgresIdentity para consultar únicamente la cuenta institucional autorizada."
+    },
+    "96": {
+      "codigo": "        username=os.getenv('PRESIDENCIA_SIVAS_USER',''),",
+      "explicacion": "Fija en el gateway el nombre institucional que podrá generar sesiones de Presidencia."
+    },
+    "97": {
+      "codigo": "        seconds=int(os.getenv('PRESIDENCIA_VIEW_SECONDS','28800')))",
+      "explicacion": "Lee PRESIDENCIA_VIEW_SECONDS como entero; el valor por defecto es 28.800 segundos."
+    },
+    "98": {
+      "codigo": "    source = snapshot or Path(os.getenv('PRESIDENCIA_SNAPSHOT', str(BASE / 'runtime/presidencia.json')))",
+      "explicacion": "En `create_app`, resuelve la ubicación del corte JSON de indicadores desde la configuración."
+    },
+    "99": {
+      "codigo": "    shiny = (shiny_url or os.getenv('PRESIDENCIA_SHINY_PUBLIC_URL', 'http://127.0.0.1:8001')).rstrip('/')",
+      "explicacion": "En `create_app`, normaliza la dirección del visualizador quitando la barra final."
+    },
+    "100": {
+      "codigo": "    parsed = urlsplit(shiny)",
+      "explicacion": "En `create_app`, separa esquema, host y otras partes de la URL para validarlas."
+    },
+    "101": {
+      "codigo": "    if parsed.scheme not in ('http', 'https') or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:",
+      "explicacion": "Rechaza una dirección del visualizador sin host o protocolo HTTP/HTTPS, o que incluya credenciales, consulta o fragmento."
+    },
+    "102": {
+      "codigo": "        raise RuntimeError('La URL pública Shiny debe ser HTTP/HTTPS sin credenciales, query ni fragmento.')",
+      "explicacion": "Detiene el arranque con un mensaje de configuración; evita servir una API mal configurada."
+    },
+    "103": {
+      "codigo": "    ttl = max_age if max_age is not None else float(os.getenv('PRESIDENCIA_MAX_AGE_HOURS', '24'))",
+      "explicacion": "En `create_app`, obtiene la antigüedad máxima permitida al corte, expresada en horas."
+    },
+    "104": {
+      "codigo": "    if ttl <= 0:",
+      "explicacion": "Comprueba que la antigüedad máxima del corte sea mayor que cero."
+    },
+    "105": {
+      "codigo": "        raise RuntimeError('La vigencia del corte debe ser positiva.')",
+      "explicacion": "Detiene el arranque con un mensaje de configuración; evita servir una API mal configurada."
+    },
+    "106": {
+      "codigo": "    ancestors = os.getenv('PRESIDENCIA_FRAME_ANCESTORS', \"'self' http://127.0.0.1:8000 http://localhost:8000\")",
+      "explicacion": "En `create_app`, lee la lista explícita de orígenes que pueden embeber el visualizador."
+    },
+    "107": {
+      "codigo": "    if any(c in ancestors for c in (';', '\\n', '\\r', '*')):",
+      "explicacion": "Impide comodines, saltos de línea y punto y coma en la configuración de orígenes iframe."
+    },
+    "108": {
+      "codigo": "        raise RuntimeError('Configure orígenes iframe explícitos, sin comodines.')",
+      "explicacion": "Detiene el arranque con un mensaje de configuración; evita servir una API mal configurada."
+    },
+    "109": {
+      "codigo": "    environment = os.getenv('PRESIDENCIA_ENVIRONMENT', 'desarrollo')",
+      "explicacion": "En `create_app`, lee el nombre del ambiente para identificarlo en FastAPI y OpenAPI."
+    },
+    "110": {
+      "codigo": "    app = FastAPI(title=f'SIVAS — Integración de Presidencia ({environment})', version='1.0.0',",
+      "explicacion": "Crea FastAPI con título identificable del ambiente y versión 1.0.0."
+    },
+    "111": {
+      "codigo": "                  description='Solo Presidencia. Cliente API y token permanente revocable; sesión iframe tras validar la cuenta institucional.',",
+      "explicacion": "Describe en OpenAPI el alcance del módulo y la diferencia entre credenciales API y sesión temporal."
+    },
+    "112": {
+      "codigo": "                  docs_url=os.getenv('PRESIDENCIA_DOCS_URL', '/docs'),",
+      "explicacion": "Lee la ruta de Swagger desde PRESIDENCIA_DOCS_URL; su valor inicial es /docs."
+    },
+    "113": {
+      "codigo": "                  openapi_url=os.getenv('PRESIDENCIA_OPENAPI_URL', '/openapi.json'), redoc_url=None)",
+      "explicacion": "Configura la URL de OpenAPI y desactiva la interfaz ReDoc."
+    },
+    "114": {
+      "codigo": "    app.add_middleware(TrustedHostMiddleware, allowed_hosts=os.getenv(",
+      "explicacion": "Instala el control de host de FastAPI para rechazar dominios no autorizados."
+    },
+    "115": {
+      "codigo": "        'PRESIDENCIA_ALLOWED_HOSTS', '127.0.0.1,localhost,testserver').split(','))",
+      "explicacion": "Convierte la cadena de hosts permitidos en una lista separando por comas."
+    },
+    "116": {
+      "codigo": "    bearer = HTTPBearer(auto_error=False)",
+      "explicacion": "En `create_app`, prepara el lector del encabezado Authorization sin emitir un rechazo automático."
+    },
+    "117": {
+      "codigo": "    client_user = APIKeyHeader(name='X-API-Usuario',scheme_name='UsuarioAPI',auto_error=False)",
+      "explicacion": "En `create_app`, prepara el lector del encabezado X-API-Usuario."
+    },
+    "118": {
+      "codigo": "    client_password = APIKeyHeader(name='X-API-Clave',scheme_name='ClaveAPI',auto_error=False)",
+      "explicacion": "En `create_app`, prepara el lector del encabezado X-API-Clave."
+    },
+    "120": {
+      "codigo": "    def authorize(request: Request, credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],",
+      "explicacion": "Declara authorize como dependencia de acceso: recibe la petición y el Bearer que FastAPI extrajo de Authorization."
+    },
+    "121": {
+      "codigo": "                  username: Annotated[str | None, Depends(client_user)], password: Annotated[str | None, Depends(client_password)]):",
+      "explicacion": "Recibe X-API-Usuario y X-API-Clave mediante Depends; ninguno se obtiene del JavaScript del iframe."
+    },
+    "122": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `authorize` cuyos errores se traducen a una respuesta controlada."
+    },
+    "123": {
+      "codigo": "            gate.throttle(request.client.host if request.client else 'unknown')",
+      "explicacion": "Consulta o incrementa el contador de fallos del origen, antes de aceptar más intentos."
+    },
+    "124": {
+      "codigo": "            if credentials is None or credentials.scheme.lower() != 'bearer' or not secrets.compare_digest(credentials.credentials.encode(), api_key.encode()):",
+      "explicacion": "Rechaza un Bearer ausente, un esquema distinto de Bearer o un token diferente al configurado; compara el token en tiempo constante."
+    },
+    "125": {
+      "codigo": "                raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "126": {
+      "codigo": "            gate.verify_client(username,password)",
+      "explicacion": "Verifica X-API-Usuario y X-API-Clave contra el cliente y su hash configurados."
+    },
+    "127": {
+      "codigo": "            gate.principal()",
+      "explicacion": "Comprueba que la cuenta institucional configurada siga activa, vigente y autorizada para PRESIDENCIA."
+    },
+    "128": {
+      "codigo": "        except AccessDenied:",
+      "explicacion": "Captura `AccessDenied` en `authorize` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "129": {
+      "codigo": "            try:",
+      "explicacion": "Agrupa operaciones de `authorize` cuyos errores se traducen a una respuesta controlada."
+    },
+    "130": {
+      "codigo": "                gate.throttle(request.client.host if request.client else 'unknown',fail=True)",
+      "explicacion": "Registra el intento fallido asociado al origen para limitar repeticiones dentro de la ventana configurada."
+    },
+    "131": {
+      "codigo": "            except AccessDenied:",
+      "explicacion": "Captura `AccessDenied` en `authorize` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "132": {
+      "codigo": "                pass",
+      "explicacion": "No añade otra acción: conserva la excepción declarada o el rechazo principal del bloque anterior."
+    },
+    "133": {
+      "codigo": "            raise HTTPException(401, 'Credencial de integración inválida.', headers={'WWW-Authenticate': 'Bearer'})",
+      "explicacion": "Devuelve 401 y el encabezado WWW-Authenticate: Bearer, sin especificar qué secreto falló."
+    },
+    "134": {
+      "codigo": "        except IdentityUnavailable:",
+      "explicacion": "Captura `IdentityUnavailable` en `authorize` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "135": {
+      "codigo": "            raise HTTPException(503,'No se pudo comprobar la autorización institucional.') from None",
+      "explicacion": "Devuelve 503 cuando la identidad institucional no puede comprobarse; no concede acceso por omisión."
+    },
+    "137": {
+      "codigo": "    def view(sid):",
+      "explicacion": "Define `view`, que resuelve un SID y convierte rechazos o fallos de identidad en respuestas HTTP."
+    },
+    "138": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `view` cuyos errores se traducen a una respuesta controlada."
+    },
+    "139": {
+      "codigo": "            return gate.resolve(sid)",
+      "explicacion": "Devuelve una copia de la sesión autorizada para ese SID."
+    },
+    "140": {
+      "codigo": "        except AccessDenied:",
+      "explicacion": "Captura `AccessDenied` en `view` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "141": {
+      "codigo": "            raise HTTPException(401,'Sesión de visualización inválida o vencida.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 401: rechaza la autenticación o sesión inválida. No devuelve el secreto recibido."
+    },
+    "142": {
+      "codigo": "        except IdentityUnavailable:",
+      "explicacion": "Captura `IdentityUnavailable` en `view` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "143": {
+      "codigo": "            raise HTTPException(503,'No se pudo comprobar la autorización institucional.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 503: informa indisponibilidad de identidad, corte o visualizador. No devuelve el secreto recibido."
+    },
+    "145": {
+      "codigo": "    @app.exception_handler(RequestValidationError)",
+      "explicacion": "Aplica el decorador `app.exception_handler(RequestValidationError)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "146": {
+      "codigo": "    async def invalid_input(request, exc):",
+      "explicacion": "Define `invalid_input`, que responde 422 sin devolver los secretos que causaron un error de validación."
+    },
+    "147": {
+      "codigo": "        # No devolver el campo clave_sivas ni otros secretos en errores de validación.",
+      "explicacion": "Comentario del código: No devolver el campo clave_sivas ni otros secretos en errores de validación."
+    },
+    "148": {
+      "codigo": "        return Response('{\"detail\":\"Solicitud inválida; revise los campos y rangos permitidos.\"}',",
+      "explicacion": "Devuelve JSON genérico con estado 422; no refleja clave_sivas en el error."
+    },
+    "149": {
+      "codigo": "                        status_code=422,media_type='application/json')",
+      "explicacion": "Continuación de la instrucción de la línea 148: Devuelve JSON genérico con estado 422; no refleja clave_sivas en el error."
+    },
+    "151": {
+      "codigo": "    def read_snapshot() -> Corte:",
+      "explicacion": "Define `read_snapshot`, que lee el corte REST autorizado y valida tamaño, indicadores, fecha y vigencia."
+    },
+    "152": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `read_snapshot` cuyos errores se traducen a una respuesta controlada."
+    },
+    "153": {
+      "codigo": "            if source.stat().st_size > 2_000_000:",
+      "explicacion": "Comprueba `source.stat().st_size > 2000000` para asegurar integridad y vigencia del corte antes de devolver datos."
+    },
+    "154": {
+      "codigo": "                raise ValueError('Corte demasiado grande')",
+      "explicacion": "Interrumpe la validación del recurso y deja que el manejador del bloque traduzca el error."
+    },
+    "155": {
+      "codigo": "            cut = Corte.model_validate_json(source.read_text(encoding='utf-8'))",
+      "explicacion": "En `read_snapshot`, lee y valida el corte mediante el contrato Pydantic o reutiliza la lectura validada."
+    },
+    "156": {
+      "codigo": "            if {i.id for i in cut.indicadores} != set(IDS) or len(cut.indicadores) != 5:",
+      "explicacion": "Comprueba `{i.id for i in cut.indicadores} != set(IDS) or len(cut.indicadores) != 5` para asegurar integridad y vigencia del corte antes de devolver datos."
+    },
+    "157": {
+      "codigo": "                raise ValueError('Catálogo incompleto')",
+      "explicacion": "Interrumpe la validación del recurso y deja que el manejador del bloque traduzca el error."
+    },
+    "158": {
+      "codigo": "            if cut.generado_en.tzinfo is None:",
+      "explicacion": "Comprueba `cut.generado_en.tzinfo is None` para asegurar integridad y vigencia del corte antes de devolver datos."
+    },
+    "159": {
+      "codigo": "                raise ValueError('Fecha sin zona')",
+      "explicacion": "Interrumpe la validación del recurso y deja que el manejador del bloque traduzca el error."
+    },
+    "160": {
+      "codigo": "            age = (datetime.now(timezone.utc) - cut.generado_en).total_seconds()",
+      "explicacion": "En `read_snapshot`, calcula en segundos la diferencia entre el instante actual UTC y la generación del corte."
+    },
+    "161": {
+      "codigo": "            if age < -300 or age > ttl * 3600:",
+      "explicacion": "Comprueba `age < -300 or age > ttl * 3600` para asegurar integridad y vigencia del corte antes de devolver datos."
+    },
+    "162": {
+      "codigo": "                raise ValueError('Corte vencido')",
+      "explicacion": "Interrumpe la validación del recurso y deja que el manejador del bloque traduzca el error."
+    },
+    "163": {
+      "codigo": "            for indicator in cut.indicadores:",
+      "explicacion": "Recorre `cut.indicadores` asignando cada elemento a `indicator` dentro de `read_snapshot`."
+    },
+    "164": {
+      "codigo": "                dates = [p.fecha for p in indicator.datos]",
+      "explicacion": "En `read_snapshot`, extrae las fechas del indicador para detectar duplicados o años no admitidos."
+    },
+    "165": {
+      "codigo": "                if len(set(dates)) != len(dates) or any(d.year != 2026 for d in dates):",
+      "explicacion": "Comprueba `len(set(dates)) != len(dates) or any((d.year != 2026 for d in dates))` para asegurar integridad y vigencia del corte antes de devolver datos."
+    },
+    "166": {
+      "codigo": "                    raise ValueError('Períodos inválidos')",
+      "explicacion": "Interrumpe la validación del recurso y deja que el manejador del bloque traduzca el error."
+    },
+    "167": {
+      "codigo": "            return cut",
+      "explicacion": "Devuelve el objeto Corte validado para los endpoints de lectura."
+    },
+    "168": {
+      "codigo": "        except (OSError, ValueError, ValidationError):",
+      "explicacion": "Captura `(OSError, ValueError, ValidationError)` en `read_snapshot` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "169": {
+      "codigo": "            raise HTTPException(503, 'Corte no disponible, inválido o vencido. Ejecute la actualización de desarrollo.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 503: informa indisponibilidad de identidad, corte o visualizador. No devuelve el secreto recibido."
+    },
+    "171": {
+      "codigo": "    @app.middleware('http')",
+      "explicacion": "Aplica el decorador `app.middleware('http')`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "172": {
+      "codigo": "    async def headers(request, call_next):",
+      "explicacion": "Define `headers`, que añade políticas de no caché, tipos de contenido, referencia y ancestros iframe."
+    },
+    "173": {
+      "codigo": "        response = await call_next(request)",
+      "explicacion": "En `headers`, guarda la respuesta del visualizador o de la siguiente capa HTTP."
+    },
+    "174": {
+      "codigo": "        response.headers['Cache-Control'] = 'no-store'",
+      "explicacion": "Establece `response.headers['Cache-Control']` en la respuesta; esta política limita caché, interpretación de tipos, referencias u orígenes iframe según la línea de código."
+    },
+    "175": {
+      "codigo": "        response.headers['X-Content-Type-Options'] = 'nosniff'",
+      "explicacion": "Establece `response.headers['X-Content-Type-Options']` en la respuesta; esta política limita caché, interpretación de tipos, referencias u orígenes iframe según la línea de código."
+    },
+    "176": {
+      "codigo": "        response.headers['Referrer-Policy'] = 'no-referrer'",
+      "explicacion": "Establece `response.headers['Referrer-Policy']` en la respuesta; esta política limita caché, interpretación de tipos, referencias u orígenes iframe según la línea de código."
+    },
+    "177": {
+      "codigo": "        response.headers['Content-Security-Policy'] = f\"frame-ancestors {ancestors}; frame-src 'self' {parsed.scheme}://{parsed.netloc}; object-src 'none'; base-uri 'self'\"",
+      "explicacion": "Establece `response.headers['Content-Security-Policy']` en la respuesta; esta política limita caché, interpretación de tipos, referencias u orígenes iframe según la línea de código."
+    },
+    "178": {
+      "codigo": "        return response",
+      "explicacion": "Devuelve la respuesta HTTP con las políticas de seguridad incorporadas."
+    },
+    "180": {
+      "codigo": "    @app.get('/health/live', tags=['Salud'])",
+      "explicacion": "Aplica el decorador `app.get('/health/live', tags=['Salud'])`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "181": {
+      "codigo": "    def live() -> dict:",
+      "explicacion": "Define `live`, que informa que el proceso FastAPI atiende peticiones."
+    },
+    "182": {
+      "codigo": "        return {'estado': 'activo', 'modulo': 'PRESIDENCIA', 'ambiente': environment}",
+      "explicacion": "Devuelve estado activo, módulo y ambiente como JSON."
+    },
+    "184": {
+      "codigo": "    @app.get('/health/ready', tags=['Salud'])",
+      "explicacion": "Aplica el decorador `app.get('/health/ready', tags=['Salud'])`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "185": {
+      "codigo": "    def ready() -> dict:",
+      "explicacion": "Define `ready`, que comprueba la disponibilidad y vigencia del corte de indicadores."
+    },
+    "186": {
+      "codigo": "        cut = read_snapshot()",
+      "explicacion": "En `ready`, lee y valida el corte mediante el contrato Pydantic o reutiliza la lectura validada."
+    },
+    "187": {
+      "codigo": "        return {'estado': 'listo', 'indicadores': len(cut.indicadores), 'generado_en': cut.generado_en}",
+      "explicacion": "Devuelve estado listo, número de indicadores y fecha del corte."
+    },
+    "189": {
+      "codigo": "    @app.get('/health/shiny', tags=['Salud'])",
+      "explicacion": "Aplica el decorador `app.get('/health/shiny', tags=['Salud'])`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "190": {
+      "codigo": "    async def shiny_health() -> dict:",
+      "explicacion": "Define `shiny_health`, que consulta por HTTP el visualizador interno para comprobar su disponibilidad."
+    },
+    "191": {
+      "codigo": "        target = os.getenv('PRESIDENCIA_SHINY_INTERNAL_URL', shiny)",
+      "explicacion": "En `shiny_health`, construye la dirección interna a la que se enviará la petición HTTP del visualizador."
+    },
+    "192": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `shiny_health` cuyos errores se traducen a una respuesta controlada."
+    },
+    "193": {
+      "codigo": "            async with httpx.AsyncClient(timeout=5, follow_redirects=False) as client:",
+      "explicacion": "Abre un cliente HTTP asíncrono con el timeout indicado y sin seguir redirecciones automáticamente."
+    },
+    "194": {
+      "codigo": "                response = await client.get(target + '/')",
+      "explicacion": "En `shiny_health`, guarda la respuesta del visualizador o de la siguiente capa HTTP."
+    },
+    "195": {
+      "codigo": "            if response.status_code != 200:",
+      "explicacion": "Comprueba `response.status_code != 200` dentro de `shiny_health`, que consulta por HTTP el visualizador interno para comprobar su disponibilidad."
+    },
+    "196": {
+      "codigo": "                raise ValueError('Shiny no disponible')",
+      "explicacion": "Interrumpe la validación del recurso y deja que el manejador del bloque traduzca el error."
+    },
+    "197": {
+      "codigo": "        except (httpx.HTTPError, ValueError):",
+      "explicacion": "Captura `(httpx.HTTPError, ValueError)` en `shiny_health` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "198": {
+      "codigo": "            raise HTTPException(503, 'Shiny de desarrollo no responde.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 503: informa indisponibilidad de identidad, corte o visualizador. No devuelve el secreto recibido."
+    },
+    "199": {
+      "codigo": "        return {'estado': 'disponible', 'autenticacion': 'cuenta institucional validada antes del iframe'}",
+      "explicacion": "Devuelve disponibilidad del visualizador después de comprobar su respuesta HTTP."
+    },
+    "201": {
+      "codigo": "    prefix = '/api/v1/presidencia'",
+      "explicacion": "En `create_app`, define /api/v1/presidencia, base de los endpoints REST."
+    },
+    "203": {
+      "codigo": "    @app.post(prefix + '/sesiones', dependencies=[Depends(authorize)],tags=['Presidencia'])",
+      "explicacion": "Registra POST /api/v1/presidencia/sesiones y exige que authorize termine correctamente antes de ejecutar open_session."
+    },
+    "204": {
+      "codigo": "    def open_session(body: SolicitudSesion, request: Request):",
+      "explicacion": "Recibe el cuerpo SolicitudSesion ya validado y Request para conocer la dirección pública de la solicitud."
+    },
+    "205": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `open_session` cuyos errores se traducen a una respuesta controlada."
+    },
+    "206": {
+      "codigo": "            sid = gate.issue(body.usuario_sivas,body.clave_sivas.get_secret_value(),body.indicador)",
+      "explicacion": "Extrae la contraseña de SecretStr solo dentro del backend y llama a Gateway.issue con usuario, contraseña e indicador inicial."
+    },
+    "207": {
+      "codigo": "        except AccessDenied:",
+      "explicacion": "Captura `AccessDenied` en `open_session` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "208": {
+      "codigo": "            try:",
+      "explicacion": "Agrupa operaciones de `open_session` cuyos errores se traducen a una respuesta controlada."
+    },
+    "209": {
+      "codigo": "                gate.throttle(request.client.host if request.client else 'unknown',fail=True)",
+      "explicacion": "Consulta o incrementa el contador de fallos del origen, antes de aceptar más intentos."
+    },
+    "210": {
+      "codigo": "            except AccessDenied:",
+      "explicacion": "Captura `AccessDenied` en `open_session` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "211": {
+      "codigo": "                pass",
+      "explicacion": "No añade otra acción: conserva la excepción declarada o el rechazo principal del bloque anterior."
+    },
+    "212": {
+      "codigo": "            raise HTTPException(401,'Cuenta institucional no autorizada.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 401: rechaza la autenticación o sesión inválida. No devuelve el secreto recibido."
+    },
+    "213": {
+      "codigo": "        except IdentityUnavailable:",
+      "explicacion": "Captura `IdentityUnavailable` en `open_session` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "214": {
+      "codigo": "            raise HTTPException(503,'No se pudo comprobar la autorización institucional.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 503: informa indisponibilidad de identidad, corte o visualizador. No devuelve el secreto recibido."
+    },
+    "215": {
+      "codigo": "        base = str(request.base_url).rstrip('/') + '/vista/' + sid",
+      "explicacion": "Construye la base pública /vista/<sid> usando esquema y host de Request; Nginx debe aportar los encabezados correctos."
+    },
+    "216": {
+      "codigo": "        return {'url':base+'/embed/presidencia','demo':base+'/demo',",
+      "explicacion": "Devuelve url para el módulo y demo para la página de prueba; ambas incorporan el SID temporal."
+    },
+    "217": {
+      "codigo": "                'vigencia_segundos':gate.seconds,'indicadores':[",
+      "explicacion": "Incluye vigencia_segundos y empieza la lista de enlaces individuales de los cinco indicadores."
+    },
+    "218": {
+      "codigo": "                    {'id':i,'url':base+'/embed/presidencia/'+i} for i in IDS]}",
+      "explicacion": "Asocia cada ID autorizado con su URL /embed/presidencia/<id>; no devuelve contraseñas ni hashes."
+    },
+    "220": {
+      "codigo": "    # Capacidad temporal en la ruta: no requiere cookies de terceros en iframe.",
+      "explicacion": "Comentario del código: Capacidad temporal en la ruta: no requiere cookies de terceros en iframe."
+    },
+    "221": {
+      "codigo": "    internal = os.getenv('PRESIDENCIA_SHINY_INTERNAL_URL', shiny).rstrip('/')",
+      "explicacion": "En `create_app`, lee la URL interna del visualizador para reenviar HTTP y WebSocket."
+    },
+    "223": {
+      "codigo": "    @app.api_route('/vista/{sid}/shiny/{path:path}', methods=['GET', 'POST'], include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.api_route('/vista/{sid}/shiny/{path:path}', methods=['GET', 'POST'], include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "224": {
+      "codigo": "    async def shiny_http(sid: str, path: str, request: Request):",
+      "explicacion": "Declara el proxy HTTP que recibe SID, recurso interno solicitado y petición HTTP del navegador."
+    },
+    "225": {
+      "codigo": "        await asyncio.to_thread(view,sid)",
+      "explicacion": "Comprueba la sesión antes de reenviar el recurso; ejecuta esa validación síncrona mediante un hilo."
+    },
+    "226": {
+      "codigo": "        signed = await asyncio.to_thread(gate.headers,sid)",
+      "explicacion": "Obtiene los encabezados firmados para que el dashboard reconozca al usuario ya autenticado."
+    },
+    "227": {
+      "codigo": "        target = internal + '/' + path",
+      "explicacion": "En `shiny_http`, construye la dirección interna a la que se enviará la petición HTTP del visualizador."
+    },
+    "228": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `shiny_http` cuyos errores se traducen a una respuesta controlada."
+    },
+    "229": {
+      "codigo": "            async with httpx.AsyncClient(timeout=40, follow_redirects=False) as client:",
+      "explicacion": "Abre un cliente HTTP con espera máxima de cuarenta segundos y sin seguir redirecciones."
+    },
+    "230": {
+      "codigo": "                response = await client.request(request.method, target, params=request.query_params,",
+      "explicacion": "Reenvía el método y la consulta recibidos al recurso interno autorizado."
+    },
+    "231": {
+      "codigo": "                    content=await request.body(), headers={**{k:v for k,v in request.headers.items()",
+      "explicacion": "Reenvía el cuerpo y prepara una lista limitada de encabezados del navegador."
+    },
+    "232": {
+      "codigo": "                        if k.lower() in ('content-type', 'cookie', 'accept', 'range')},**signed})",
+      "explicacion": "Solo admite content-type, cookie, accept y range del navegador; añade después los encabezados firmados del gateway."
+    },
+    "233": {
+      "codigo": "        except httpx.HTTPError:",
+      "explicacion": "Captura `httpx.HTTPError` en `shiny_http` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "234": {
+      "codigo": "            raise HTTPException(503, 'Shiny de desarrollo no responde.') from None",
+      "explicacion": "Interrumpe esta ruta con HTTP 503: informa indisponibilidad de identidad, corte o visualizador. No devuelve el secreto recibido."
+    },
+    "235": {
+      "codigo": "        return Response(response.content, status_code=response.status_code,",
+      "explicacion": "Construye la respuesta con el cuerpo y el estado HTTP del visualizador."
+    },
+    "236": {
+      "codigo": "            headers={k:v for k,v in response.headers.items() if k.lower() in (",
+      "explicacion": "Filtra los encabezados de retorno para no propagar encabezados internos arbitrarios."
+    },
+    "237": {
+      "codigo": "                'content-type', 'content-disposition', 'accept-ranges', 'content-range')})",
+      "explicacion": "Conserva tipo de contenido, disposición de descarga y encabezados de rango necesarios para recursos y archivos."
+    },
+    "239": {
+      "codigo": "    @app.websocket('/vista/{sid}/shiny/{path:path}')",
+      "explicacion": "Aplica el decorador `app.websocket('/vista/{sid}/shiny/{path:path}')`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "240": {
+      "codigo": "    async def shiny_websocket(sid: str, path: str, socket: WebSocket):",
+      "explicacion": "Define `shiny_websocket`, que mantiene el canal interactivo autorizado entre navegador y visualizador."
+    },
+    "241": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `shiny_websocket` cuyos errores se traducen a una respuesta controlada."
+    },
+    "242": {
+      "codigo": "            signed = await asyncio.to_thread(gate.headers,sid)",
+      "explicacion": "En `shiny_websocket`, obtiene los encabezados internos firmados que acreditan la sesión ante el dashboard."
+    },
+    "243": {
+      "codigo": "        except (AccessDenied,IdentityUnavailable):",
+      "explicacion": "Captura `(AccessDenied, IdentityUnavailable)` en `shiny_websocket` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "244": {
+      "codigo": "            await socket.close(code=1008)",
+      "explicacion": "Cierra el WebSocket con código 1008 (política) o 1011 (fallo interno), según el bloque."
+    },
+    "245": {
+      "codigo": "            return",
+      "explicacion": "Devuelve el resultado de esta operación de shiny_websocket."
+    },
+    "246": {
+      "codigo": "        # Bloquear conexiones WS originadas por otros sitios; no se aceptan tokens en URL.",
+      "explicacion": "Comentario del código: Bloquear conexiones WS originadas por otros sitios; no se aceptan tokens en URL."
+    },
+    "247": {
+      "codigo": "        origin = socket.headers.get('origin', '')",
+      "explicacion": "Lee Origin del WebSocket para identificar la página que intenta establecer la conexión."
+    },
+    "248": {
+      "codigo": "        expected = str(socket.url).replace('ws://', 'http://').replace('wss://', 'https://')",
+      "explicacion": "Convierte ws/wss a http/https para comparar el origen contra la URL pública del socket."
+    },
+    "249": {
+      "codigo": "        expected_parts = urlsplit(expected)",
+      "explicacion": "En `shiny_websocket`, extrae esquema y host que deben coincidir con el origen del navegador."
+    },
+    "250": {
+      "codigo": "        if origin != f'{expected_parts.scheme}://{expected_parts.netloc}':",
+      "explicacion": "Exige igualdad exacta de esquema y host del origen; si no coinciden se cierra la conexión."
+    },
+    "251": {
+      "codigo": "            await socket.close(code=1008)",
+      "explicacion": "Cierra el WebSocket con código 1008 (política) o 1011 (fallo interno), según el bloque."
+    },
+    "252": {
+      "codigo": "            return",
+      "explicacion": "Devuelve el resultado de esta operación de shiny_websocket."
+    },
+    "253": {
+      "codigo": "        backend = internal.replace('https://', 'wss://').replace('http://', 'ws://') + '/' + path",
+      "explicacion": "En `shiny_websocket`, construye la URL ws/wss del visualizador interno, conservando ruta y consulta."
+    },
+    "254": {
+      "codigo": "        if socket.url.query:",
+      "explicacion": "Compara Origin con el esquema y host públicos esperados; una diferencia impide abrir el WebSocket."
+    },
+    "255": {
+      "codigo": "            backend += '?' + socket.url.query",
+      "explicacion": "En `shiny_websocket`, construye la URL ws/wss del visualizador interno, conservando ruta y consulta."
+    },
+    "256": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `shiny_websocket` cuyos errores se traducen a una respuesta controlada."
+    },
+    "257": {
+      "codigo": "            async with connect(backend, additional_headers=signed, max_size=4*1024*1024, open_timeout=10) as upstream:",
+      "explicacion": "Conecta al WebSocket interno con firma, máximo de 4 MiB por mensaje y diez segundos para abrir la conexión."
+    },
+    "258": {
+      "codigo": "                await socket.accept()",
+      "explicacion": "Acepta el WebSocket del navegador después de comprobar SID, origen y conexión interna."
+    },
+    "260": {
+      "codigo": "                async def to_upstream():",
+      "explicacion": "Define `to_upstream`, que reenvía al visualizador los mensajes WebSocket recibidos del navegador."
+    },
+    "261": {
+      "codigo": "                    while True:",
+      "explicacion": "Mantiene el bucle de `to_upstream` hasta desconexión, revocación o cancelación coordinada."
+    },
+    "262": {
+      "codigo": "                        message = await socket.receive()",
+      "explicacion": "En `to_upstream`, recibe un mensaje WebSocket para enviarlo al otro extremo sin convertir su contenido."
+    },
+    "263": {
+      "codigo": "                        if message['type'] == 'websocket.disconnect':",
+      "explicacion": "Comprueba `message['type'] == 'websocket.disconnect'` dentro de `to_upstream`, que reenvía al visualizador los mensajes WebSocket recibidos del navegador."
+    },
+    "264": {
+      "codigo": "                            break",
+      "explicacion": "Finaliza el bucle al detectar desconexión del navegador."
+    },
+    "265": {
+      "codigo": "                        await upstream.send(message.get('text') if message.get('text') is not None else message['bytes'])",
+      "explicacion": "Reenvía el mensaje de texto o binario al extremo indicado, conservando su tipo."
+    },
+    "267": {
+      "codigo": "                async def to_browser():",
+      "explicacion": "Define `to_browser`, que envía al navegador los mensajes de texto o binarios del visualizador."
+    },
+    "268": {
+      "codigo": "                    async for message in upstream:",
+      "explicacion": "Recorre `upstream` asignando cada elemento a `message` dentro de `to_browser`."
+    },
+    "269": {
+      "codigo": "                        if isinstance(message, str):",
+      "explicacion": "Comprueba `isinstance(message, str)` dentro de `to_browser`, que envía al navegador los mensajes de texto o binarios del visualizador."
+    },
+    "270": {
+      "codigo": "                            await socket.send_text(message)",
+      "explicacion": "Reenvía el mensaje de texto o binario al extremo indicado, conservando su tipo."
+    },
+    "271": {
+      "codigo": "                        else:",
+      "explicacion": "Continuación de la instrucción de la línea 269: Comprueba `isinstance(message, str)` dentro de `to_browser`, que envía al navegador los mensajes de texto o binarios del visualizador."
+    },
+    "272": {
+      "codigo": "                            await socket.send_bytes(message)",
+      "explicacion": "Reenvía el mensaje de texto o binario al extremo indicado, conservando su tipo."
+    },
+    "274": {
+      "codigo": "                async def check_session():",
+      "explicacion": "Define `check_session`, que revalida la sesión cada diez segundos mientras se mantiene el WebSocket."
+    },
+    "275": {
+      "codigo": "                    while True:",
+      "explicacion": "Mantiene el bucle de `check_session` hasta desconexión, revocación o cancelación coordinada."
+    },
+    "276": {
+      "codigo": "                        await asyncio.sleep(10)",
+      "explicacion": "Espera diez segundos antes de revalidar la sesión del WebSocket."
+    },
+    "277": {
+      "codigo": "                        try:",
+      "explicacion": "Agrupa operaciones de `check_session` cuyos errores se traducen a una respuesta controlada."
+    },
+    "278": {
+      "codigo": "                            await asyncio.to_thread(gate.resolve,sid)",
+      "explicacion": "Revalida el SID mientras el WebSocket sigue abierto, permitiendo aplicar vencimiento o revocación."
+    },
+    "279": {
+      "codigo": "                        except (AccessDenied,IdentityUnavailable):",
+      "explicacion": "Captura `(AccessDenied, IdentityUnavailable)` en `check_session` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "280": {
+      "codigo": "                            await socket.close(code=1008)",
+      "explicacion": "Cierra el WebSocket con código 1008 (política) o 1011 (fallo interno), según el bloque."
+    },
+    "281": {
+      "codigo": "                            return",
+      "explicacion": "Devuelve el resultado de esta operación de check_session."
+    },
+    "282": {
+      "codigo": "                tasks = [asyncio.create_task(to_upstream()), asyncio.create_task(to_browser()),asyncio.create_task(check_session())]",
+      "explicacion": "En `shiny_websocket`, crea las tres tareas: navegador a visualizador, retorno y comprobación periódica de sesión."
+    },
+    "283": {
+      "codigo": "                done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)",
+      "explicacion": "En `shiny_websocket`, asigna `(done, pending)` al resultado de la expresión mostrada."
+    },
+    "284": {
+      "codigo": "                for task in pending:",
+      "explicacion": "Recorre `pending` asignando cada elemento a `task` dentro de `shiny_websocket`."
+    },
+    "285": {
+      "codigo": "                    task.cancel()",
+      "explicacion": "Cancela una tarea pendiente cuando otro extremo ya terminó."
+    },
+    "286": {
+      "codigo": "                await asyncio.gather(*tasks, return_exceptions=True)",
+      "explicacion": "Espera el cierre de las tareas y recoge sus excepciones para terminar coordinadamente."
+    },
+    "287": {
+      "codigo": "        except (OSError, TimeoutError):",
+      "explicacion": "Captura `(OSError, TimeoutError)` en `shiny_websocket` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "288": {
+      "codigo": "            await socket.close(code=1011)",
+      "explicacion": "Cierra el WebSocket con código 1008 (política) o 1011 (fallo interno), según el bloque."
+    },
+    "290": {
+      "codigo": "    @app.get(prefix, response_model=Catalogo, dependencies=[Depends(authorize)], tags=['Presidencia'])",
+      "explicacion": "Registra GET /api/v1/presidencia, aplica authorize y valida su salida con el modelo Catalogo."
+    },
+    "291": {
+      "codigo": "    def catalog():",
+      "explicacion": "Define `catalog`, que entrega el catálogo REST protegido de los cinco indicadores."
+    },
+    "292": {
+      "codigo": "        cut = read_snapshot()",
+      "explicacion": "En `catalog`, lee y valida el corte mediante el contrato Pydantic o reutiliza la lectura validada."
+    },
+    "293": {
+      "codigo": "        return {'modulo': cut.modulo, 'generado_en': cut.generado_en,",
+      "explicacion": "Devuelve módulo, fecha del corte y enlaces del catálogo REST."
+    },
+    "294": {
+      "codigo": "                'indicadores': [dict(id=i.id, titulo=i.titulo, dashboard=f'/vista/{{sesion}}/embed/presidencia/{i.id}', datos=f'{prefix}/{i.id}/serie') for i in cut.indicadores]}",
+      "explicacion": "Construye un enlace REST y una plantilla de URL de dashboard para cada indicador; la plantilla exige reemplazar la sesión por un SID real."
+    },
+    "296": {
+      "codigo": "    @app.get(prefix + '/{indicator_id}/serie', response_model=Serie, dependencies=[Depends(authorize)], tags=['Presidencia'])",
+      "explicacion": "Registra GET /api/v1/presidencia/{indicator_id}/serie; exige authorize y valida la respuesta como Serie."
+    },
+    "297": {
+      "codigo": "    def series(indicator_id: IndicatorId, anio: Annotated[int, Query(ge=2026, le=2026)] = 2026,",
+      "explicacion": "Limita indicator_id a los cinco IDs y anio a 2026 mediante Query; no habilita otros años por cambiar la URL."
+    },
+    "298": {
+      "codigo": "               mes_desde: Annotated[int, Query(ge=1, le=12)] = 1,",
+      "explicacion": "Declara mes_desde entre uno y doce; su valor inicial es uno."
+    },
+    "299": {
+      "codigo": "               mes_hasta: Annotated[int, Query(ge=1, le=12)] = 12):",
+      "explicacion": "Declara mes_hasta entre uno y doce; su valor inicial es doce."
+    },
+    "300": {
+      "codigo": "        if mes_desde > mes_hasta:",
+      "explicacion": "Comprueba que el primer mes del rango no sea posterior al último."
+    },
+    "301": {
+      "codigo": "            raise HTTPException(422, 'mes_desde debe ser menor o igual a mes_hasta.')",
+      "explicacion": "Interrumpe esta ruta con HTTP 422: rechaza parámetros fuera de contrato. No devuelve el secreto recibido."
+    },
+    "302": {
+      "codigo": "        cut = read_snapshot()",
+      "explicacion": "En `series`, lee y valida el corte mediante el contrato Pydantic o reutiliza la lectura validada."
+    },
+    "303": {
+      "codigo": "        indicator = next(i for i in cut.indicadores if i.id == indicator_id)",
+      "explicacion": "En `series`, localiza el indicador cuyo ID coincide con el solicitado."
+    },
+    "304": {
+      "codigo": "        data = indicator.model_dump(mode='json')",
+      "explicacion": "En `series`, convierte el indicador validado a tipos JSON y conserva únicamente los puntos del rango pedido."
+    },
+    "305": {
+      "codigo": "        data['datos'] = [p.model_dump(mode='json') for p in indicator.datos if p.fecha.year == anio and mes_desde <= p.fecha.month <= mes_hasta]",
+      "explicacion": "Conserva únicamente puntos cuyo año y mes pertenecen al rango autorizado de la petición."
+    },
+    "306": {
+      "codigo": "        return {'generado_en': cut.generado_en, 'origen': cut.origen, **data}",
+      "explicacion": "Devuelve los puntos del indicador dentro del año y meses solicitados, con origen y fecha del corte."
+    },
+    "308": {
+      "codigo": "    @app.get('/vista/{sid}/embed/presidencia', response_class=HTMLResponse, include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.get('/vista/{sid}/embed/presidencia', response_class=HTMLResponse, include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "309": {
+      "codigo": "    def module(sid: str):",
+      "explicacion": "Define `module`, que abre el indicador inicial de una sesión autorizada."
+    },
+    "310": {
+      "codigo": "        session = view(sid)",
+      "explicacion": "En `module`, consulta la sesión actual del SID o recibe una copia de sus datos ya validados."
+    },
+    "311": {
+      "codigo": "        return embed(sid,session['indicator'])",
+      "explicacion": "Invoca la vista del indicador inicial guardado en la sesión."
+    },
+    "313": {
+      "codigo": "    @app.get('/vista/{sid}/embed/presidencia/{indicator_id}', response_class=HTMLResponse, include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.get('/vista/{sid}/embed/presidencia/{indicator_id}', response_class=HTMLResponse, include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "314": {
+      "codigo": "    def embed(sid: str, indicator_id: IndicatorId):",
+      "explicacion": "Define `embed`, que construye el iframe interno de un indicador después de validar el SID."
+    },
+    "315": {
+      "codigo": "        view(sid)",
+      "explicacion": "Ejecuta `view(sid)` dentro de `embed` para construye el iframe interno de un indicador después de validar el SID."
+    },
+    "316": {
+      "codigo": "        return page(f'<iframe title=\"{html.escape(LABELS[indicator_id])}\" src=\"/vista/{sid}/shiny/?indicador={indicator_id}\"></iframe>')",
+      "explicacion": "Construye el iframe interno con indicador y SID; escapa el título para que su texto no se interprete como HTML."
+    },
+    "318": {
+      "codigo": "    @app.post('/vista/{sid}/cerrar',include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.post('/vista/{sid}/cerrar',include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "319": {
+      "codigo": "    def close_view(sid: str,request: Request):",
+      "explicacion": "Define `close_view`, que revoca una sesión después de validar su origen HTTP."
+    },
+    "320": {
+      "codigo": "        view(sid)",
+      "explicacion": "Ejecuta `view(sid)` dentro de `close_view` para revoca una sesión después de validar su origen HTTP."
+    },
+    "321": {
+      "codigo": "        if request.headers.get('origin') != str(request.base_url).rstrip('/'):",
+      "explicacion": "Comprueba `request.headers.get('origin') != str(request.base_url).rstrip('/')` dentro de `close_view`, que revoca una sesión después de validar su origen HTTP."
+    },
+    "322": {
+      "codigo": "            raise HTTPException(403,'Origen no autorizado.')",
+      "explicacion": "Interrumpe esta ruta con HTTP 403: rechaza el origen no autorizado. No devuelve el secreto recibido."
+    },
+    "323": {
+      "codigo": "        gate.revoke(sid)",
+      "explicacion": "Ejecuta `gate.revoke(sid)` dentro de `close_view` para revoca una sesión después de validar su origen HTTP."
+    },
+    "324": {
+      "codigo": "        return {'estado':'cerrada'}",
+      "explicacion": "Confirma en JSON que la sesión fue cerrada."
+    },
+    "326": {
+      "codigo": "    @app.get('/vista/{sid}/demo', response_class=HTMLResponse, include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.get('/vista/{sid}/demo', response_class=HTMLResponse, include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "327": {
+      "codigo": "    def authorized_demo(sid: str):",
+      "explicacion": "Define `authorized_demo`, que carga la demostración con una URL de iframe de la sesión autorizada."
+    },
+    "328": {
+      "codigo": "        view(sid)",
+      "explicacion": "Ejecuta `view(sid)` dentro de `authorized_demo` para carga la demostración con una URL de iframe de la sesión autorizada."
+    },
+    "329": {
+      "codigo": "        return (BASE / 'examples/demo.html').read_text(encoding='utf-8').replace('__IFRAME_URL__',",
+      "explicacion": "Entrega el HTML de demostración sustituyendo su marcador por la URL autorizada."
+    },
+    "330": {
+      "codigo": "            '/vista/'+sid+'/embed/presidencia')",
+      "explicacion": "Continuación de la instrucción de la línea 329: Entrega el HTML de demostración sustituyendo su marcador por la URL autorizada."
+    },
+    "332": {
+      "codigo": "    @app.api_route('/shiny/{path:path}',methods=['GET','POST'],include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.api_route('/shiny/{path:path}',methods=['GET','POST'],include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "333": {
+      "codigo": "    @app.get('/embed/presidencia',include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.get('/embed/presidencia',include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "334": {
+      "codigo": "    @app.get('/embed/presidencia/{path:path}',include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.get('/embed/presidencia/{path:path}',include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "335": {
+      "codigo": "    def no_anonymous(path: str = ''):",
+      "explicacion": "Define `no_anonymous`, que rechaza el acceso HTTP al visualizador sin SID."
+    },
+    "336": {
+      "codigo": "        raise HTTPException(401,'Genere una sesión con POST /api/v1/presidencia/sesiones.')",
+      "explicacion": "Interrumpe esta ruta con HTTP 401: rechaza la autenticación o sesión inválida. No devuelve el secreto recibido."
+    },
+    "338": {
+      "codigo": "    @app.websocket('/shiny/{path:path}')",
+      "explicacion": "Aplica el decorador `app.websocket('/shiny/{path:path}')`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "339": {
+      "codigo": "    async def no_anonymous_ws(socket: WebSocket,path: str):",
+      "explicacion": "Define `no_anonymous_ws`, que rechaza conexiones WebSocket directas sin autorización."
+    },
+    "340": {
+      "codigo": "        await socket.close(code=1008)",
+      "explicacion": "Cierra el WebSocket con código 1008 (política) o 1011 (fallo interno), según el bloque."
+    },
+    "342": {
+      "codigo": "    @app.get('/demo', response_class=HTMLResponse, tags=['Dashboards'], include_in_schema=environment == 'desarrollo')",
+      "explicacion": "Aplica el decorador `app.get('/demo', response_class=HTMLResponse, tags=['Dashboards'], include_in_schema=environment == 'desarrollo')`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "343": {
+      "codigo": "    def demo():",
+      "explicacion": "Define `demo`, que entrega una página inicial que indica cómo crear la sesión."
+    },
+    "344": {
+      "codigo": "        return '<!doctype html><html lang=\"es\"><meta charset=\"utf-8\"><title>Integración Presidencia</title><p>Genere una sesión mediante POST /api/v1/presidencia/sesiones. Abra el enlace demo de la respuesta.</p></html>'",
+      "explicacion": "Entrega instrucciones HTML para solicitar una sesión de visualización."
+    },
+    "346": {
+      "codigo": "    @app.get('/', include_in_schema=False)",
+      "explicacion": "Aplica el decorador `app.get('/', include_in_schema=False)`. Vincula el método y la ruta HTTP con la función que aparece a continuación."
+    },
+    "347": {
+      "codigo": "    def root():",
+      "explicacion": "Define `root`, que redirige la raíz de este servicio a su entrada de visualización."
+    },
+    "348": {
+      "codigo": "        return RedirectResponse('/embed/presidencia')",
+      "explicacion": "Responde con redirección a /embed/presidencia."
+    },
+    "350": {
+      "codigo": "    def schema():",
+      "explicacion": "Define `schema`, que adapta OpenAPI a las rutas públicas y declara las tres credenciales API juntas."
+    },
+    "351": {
+      "codigo": "        if app.openapi_schema is None:",
+      "explicacion": "Comprueba `app.openapi_schema is None` dentro de `schema`, que adapta OpenAPI a las rutas públicas y declara las tres credenciales API juntas."
+    },
+    "352": {
+      "codigo": "            result = get_openapi(title=app.title,version=app.version,description=app.description,routes=app.routes)",
+      "explicacion": "En `schema`, genera o completa el documento OpenAPI que consulta Swagger."
+    },
+    "353": {
+      "codigo": "            health_prefix = os.getenv('PRESIDENCIA_HEALTH_PUBLIC_PREFIX', '')",
+      "explicacion": "En `schema`, lee el prefijo público de las comprobaciones de salud."
+    },
+    "354": {
+      "codigo": "            if health_prefix:",
+      "explicacion": "Comprueba `health_prefix` dentro de `schema`, que adapta OpenAPI a las rutas públicas y declara las tres credenciales API juntas."
+    },
+    "355": {
+      "codigo": "                for path in list(result['paths']):",
+      "explicacion": "Recorre `list(result['paths'])` asignando cada elemento a `path` dentro de `schema`."
+    },
+    "356": {
+      "codigo": "                    if path.startswith('/health/'):",
+      "explicacion": "Comprueba `path.startswith('/health/')` dentro de `schema`, que adapta OpenAPI a las rutas públicas y declara las tres credenciales API juntas."
+    },
+    "357": {
+      "codigo": "                        result['paths'][health_prefix + path] = result['paths'].pop(path)",
+      "explicacion": "En `schema`, asigna `result['paths'][health_prefix + path]` al resultado de la expresión mostrada."
+    },
+    "358": {
+      "codigo": "            for path, operations in result['paths'].items():",
+      "explicacion": "Recorre `result['paths'].items()` asignando cada elemento a `(path, operations)` dentro de `schema`."
+    },
+    "359": {
+      "codigo": "                if path.startswith(prefix):",
+      "explicacion": "Comprueba `path.startswith(prefix)` dentro de `schema`, que adapta OpenAPI a las rutas públicas y declara las tres credenciales API juntas."
+    },
+    "360": {
+      "codigo": "                    for operation in operations.values():",
+      "explicacion": "Recorre `operations.values()` asignando cada elemento a `operation` dentro de `schema`."
+    },
+    "361": {
+      "codigo": "                        operation['security'] = [{'HTTPBearer':[], 'UsuarioAPI':[], 'ClaveAPI':[]}]",
+      "explicacion": "Declara en OpenAPI que Bearer, UsuarioAPI y ClaveAPI se exigen juntos para esta operación."
+    },
+    "362": {
+      "codigo": "            app.openapi_schema = result",
+      "explicacion": "En `schema`, asigna `app.openapi_schema` al resultado de la expresión mostrada."
+    },
+    "363": {
+      "codigo": "        return app.openapi_schema",
+      "explicacion": "Devuelve el documento OpenAPI ya adaptado y almacenado en caché."
+    },
+    "364": {
+      "codigo": "    app.openapi = schema",
+      "explicacion": "En `create_app`, asigna `app.openapi` al resultado de la expresión mostrada."
+    },
+    "366": {
+      "codigo": "    return app",
+      "explicacion": "Devuelve el resultado de esta operación de create_app."
+    },
+    "369": {
+      "codigo": "def page(content: str) -> str:",
+      "explicacion": "Define `page`, que envuelve el contenido en una página HTML que ocupa todo el espacio disponible."
+    },
+    "370": {
+      "codigo": "    return '<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>SIVAS — Presidencia</title><style>html,body{width:100%;height:100%;margin:0;overflow:hidden}iframe{display:block;width:100%;height:100%;border:0}</style></head><body>' + content + '</body></html>'",
+      "explicacion": "Devuelve el documento HTML completo con metadatos, estilos y contenido del iframe."
+    }
+  },
+  "deploy/presidencia/auth.py": {
+    "1": {
+      "codigo": "\"\"\"Autorización de integración: cliente API, usuario SIVAS y sesiones de iframe.\"\"\"",
+      "explicacion": "Texto descriptivo del componente; no ejecuta una operación de red ni abre un servicio."
+    },
+    "2": {
+      "codigo": "import hashlib",
+      "explicacion": "Importa hashlib para SHA-256 para huellas y firmas."
+    },
+    "3": {
+      "codigo": "import hmac",
+      "explicacion": "Importa hmac para firma interna HMAC que acredita el acceso al dashboard."
+    },
+    "4": {
+      "codigo": "import os",
+      "explicacion": "Importa os para variables de entorno privadas del proceso."
+    },
+    "5": {
+      "codigo": "import secrets",
+      "explicacion": "Importa secrets para comparación de credenciales y generación aleatoria de SID."
+    },
+    "6": {
+      "codigo": "import time",
+      "explicacion": "Importa time para reloj del gateway y de sus sesiones."
+    },
+    "7": {
+      "codigo": "from dataclasses import dataclass",
+      "explicacion": "Importa dataclasses para identidad inmutable con campos definidos."
+    },
+    "8": {
+      "codigo": "from threading import Lock",
+      "explicacion": "Importa threading para exclusión mutua al consultar o modificar sesiones en memoria."
+    },
+    "10": {
+      "codigo": "from argon2 import PasswordHasher",
+      "explicacion": "Importa argon2 para verificación de hashes Argon2."
+    },
+    "11": {
+      "codigo": "from argon2.exceptions import VerificationError, InvalidHashError",
+      "explicacion": "Importa argon2.exceptions para rechazos de hash o verificación sin propagar detalles sensibles."
+    },
+    "12": {
+      "codigo": "import psycopg",
+      "explicacion": "Importa psycopg para lectura de identidad en PostgreSQL."
+    },
+    "13": {
+      "codigo": "from nacl import pwhash",
+      "explicacion": "Importa nacl para verificación del formato scrypt creado por sodium en R."
+    },
+    "14": {
+      "codigo": "from nacl.exceptions import InvalidkeyError",
+      "explicacion": "Importa nacl.exceptions para detección de contraseña scrypt inválida."
+    },
+    "15": {
+      "codigo": "from psycopg.rows import dict_row",
+      "explicacion": "Importa psycopg.rows para lectura de resultados SQL por nombre de columna."
+    },
+    "18": {
+      "codigo": "class AccessDenied(Exception):",
+      "explicacion": "Declara `AccessDenied`: excepción para denegar acceso."
+    },
+    "19": {
+      "codigo": "    pass",
+      "explicacion": "No añade otra acción: conserva la excepción declarada o el rechazo principal del bloque anterior."
+    },
+    "22": {
+      "codigo": "class IdentityUnavailable(Exception):",
+      "explicacion": "Declara `IdentityUnavailable`: excepción por indisponibilidad de identidad."
+    },
+    "23": {
+      "codigo": "    pass",
+      "explicacion": "No añade otra acción: conserva la excepción declarada o el rechazo principal del bloque anterior."
+    },
+    "26": {
+      "codigo": "@dataclass(frozen=True)",
+      "explicacion": "Aplica el decorador `dataclass(frozen=True)`. Define el comportamiento de la clase o función siguiente."
+    },
+    "27": {
+      "codigo": "class Identity:",
+      "explicacion": "Declara `Identity`: identidad inmutable con usuario, ID y huella."
+    },
+    "28": {
+      "codigo": "    username: str",
+      "explicacion": "Define `username`: nombre canónico de la identidad institucional."
+    },
+    "29": {
+      "codigo": "    user_id: int",
+      "explicacion": "Define `user_id`: ID interno de la persona; no es su contraseña."
+    },
+    "30": {
+      "codigo": "    fingerprint: str",
+      "explicacion": "Define `fingerprint`: huella SHA-256 del hash para detectar cambios posteriores de credencial."
+    },
+    "33": {
+      "codigo": "SQL_IDENTITY = \"\"\"",
+      "explicacion": "En `módulo`, declara la consulta institucional parametrizada de lectura; no crea ni modifica personas."
+    },
+    "34": {
+      "codigo": "SELECT u.id_usuario, u.nombre_usuario, u.password_hash",
+      "explicacion": "Selecciona ID, nombre de usuario y hash almacenado únicamente para verificar identidad."
+    },
+    "35": {
+      "codigo": "FROM credenciales.usuarios u",
+      "explicacion": "Lee credenciales.usuarios, sin modificar esa tabla."
+    },
+    "36": {
+      "codigo": "WHERE UPPER(u.nombre_usuario) = %s",
+      "explicacion": "Compara el nombre mediante un parámetro %s, sin concatenarlo a SQL."
+    },
+    "37": {
+      "codigo": "  AND u.activo IS TRUE AND u.superusuario IS NOT TRUE",
+      "explicacion": "Exige usuario activo y excluye el uso de una cuenta superusuario para esta integración."
+    },
+    "38": {
+      "codigo": "  AND u.fecha_inicio_vigencia <= CURRENT_DATE",
+      "explicacion": "Exige que la fecha inicial de vigencia ya haya comenzado."
+    },
+    "39": {
+      "codigo": "  AND (u.vigente_indefinido IS TRUE OR u.fecha_fin_vigencia IS NULL",
+      "explicacion": "Admite vigencia indefinida o una fecha final nula;"
+    },
+    "40": {
+      "codigo": "       OR u.fecha_fin_vigencia >= CURRENT_DATE)",
+      "explicacion": "en caso de fecha final definida, exige que aún no haya vencido."
+    },
+    "41": {
+      "codigo": "  AND EXISTS (",
+      "explicacion": "Exige además la existencia de una asignación de módulo válida."
+    },
+    "42": {
+      "codigo": "    SELECT 1 FROM credenciales.usuario_modulo um",
+      "explicacion": "Lee las asignaciones de credenciales.usuario_modulo."
+    },
+    "43": {
+      "codigo": "    JOIN credenciales.modulos m ON m.id_modulo=um.id_modulo AND m.activo IS TRUE",
+      "explicacion": "Exige que el módulo relacionado permanezca activo."
+    },
+    "44": {
+      "codigo": "    JOIN credenciales.roles r ON r.id_rol=um.id_rol AND r.activo IS TRUE",
+      "explicacion": "Exige que el rol relacionado permanezca activo."
+    },
+    "45": {
+      "codigo": "    WHERE um.id_usuario=u.id_usuario AND um.activo IS TRUE",
+      "explicacion": "Relaciona la asignación con esta persona y exige que esté activa."
+    },
+    "46": {
+      "codigo": "      AND UPPER(m.codigo_modulo)='PRESIDENCIA' AND r.nombre_rol IN ('USUARIO','ADMINISTRADOR')",
+      "explicacion": "Restringe el permiso al módulo PRESIDENCIA y a los roles USUARIO o ADMINISTRADOR."
+    },
+    "47": {
+      "codigo": "  )",
+      "explicacion": "Cierra la comprobación EXISTS de autorización institucional."
+    },
+    "48": {
+      "codigo": "\"\"\"",
+      "explicacion": "Finaliza la cadena SQL; todavía no ejecuta ninguna consulta."
+    },
+    "51": {
+      "codigo": "class PostgresIdentity:",
+      "explicacion": "Declara `PostgresIdentity`: proveedor de identidad institucional de lectura."
+    },
+    "52": {
+      "codigo": "    \"\"\"SELECT parametrizado, sin migraciones, permisos adicionales ni escrituras.\"\"\"",
+      "explicacion": "Texto descriptivo del componente; no ejecuta una operación de red ni abre un servicio."
+    },
+    "53": {
+      "codigo": "    def __init__(self, username='PRESIDENCIA'):",
+      "explicacion": "Define `__init__`, que prepara la instancia y sus valores de configuración."
+    },
+    "54": {
+      "codigo": "        self.username = username.upper()",
+      "explicacion": "Actualiza `self.username`: el usuario institucional en mayúsculas."
+    },
+    "56": {
+      "codigo": "    def __call__(self, username, password=None):",
+      "explicacion": "Define `__call__`, que consulta la cuenta institucional, comprueba vigencia y módulo y verifica su contraseña cuando se recibe."
+    },
+    "57": {
+      "codigo": "        if username.upper() != self.username:",
+      "explicacion": "Comprueba `username.upper() != self.username` antes de aceptar la identidad institucional o verificar su contraseña."
+    },
+    "58": {
+      "codigo": "            raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "59": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `__call__` cuyos errores se traducen a una respuesta controlada."
+    },
+    "60": {
+      "codigo": "            with psycopg.connect(dbname='productos_bm', host=os.environ['PGHOST'],",
+      "explicacion": "Abre una conexión PostgreSQL de solo lectura con límites de conexión/consulta y resultados por nombre."
+    },
+    "61": {
+      "codigo": "                 port=os.getenv('PGPORT','5432'), user=os.environ['PGUSER'],",
+      "explicacion": "Continuación de la instrucción de la línea 60: Abre una conexión PostgreSQL de solo lectura con límites de conexión/consulta y resultados por nombre."
+    },
+    "62": {
+      "codigo": "                 password=os.environ['PGPASSWORD'], sslmode=os.getenv('PGSSLMODE','prefer'),",
+      "explicacion": "Continuación de la instrucción de la línea 60: Abre una conexión PostgreSQL de solo lectura con límites de conexión/consulta y resultados por nombre."
+    },
+    "63": {
+      "codigo": "                 connect_timeout=5, options='-c default_transaction_read_only=on -c statement_timeout=5000',",
+      "explicacion": "Continuación de la instrucción de la línea 60: Abre una conexión PostgreSQL de solo lectura con límites de conexión/consulta y resultados por nombre."
+    },
+    "64": {
+      "codigo": "                 row_factory=dict_row) as con:",
+      "explicacion": "Continuación de la instrucción de la línea 60: Abre una conexión PostgreSQL de solo lectura con límites de conexión/consulta y resultados por nombre."
+    },
+    "65": {
+      "codigo": "                row = con.execute(SQL_IDENTITY, (self.username,)).fetchone()",
+      "explicacion": "En `__call__`, obtiene una sola cuenta que cumple actividad, vigencia y permiso de módulo."
+    },
+    "66": {
+      "codigo": "        except (psycopg.Error, KeyError):",
+      "explicacion": "Captura `(psycopg.Error, KeyError)` en `__call__` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "67": {
+      "codigo": "            raise IdentityUnavailable() from None",
+      "explicacion": "Señala que no es posible comprobar identidad o emitir otra sesión; no concede acceso por omisión."
+    },
+    "68": {
+      "codigo": "        if row is None:",
+      "explicacion": "Comprueba `row is None` antes de aceptar la identidad institucional o verificar su contraseña."
+    },
+    "69": {
+      "codigo": "            raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "70": {
+      "codigo": "        if password is not None:",
+      "explicacion": "Comprueba `password is not None` antes de aceptar la identidad institucional o verificar su contraseña."
+    },
+    "71": {
+      "codigo": "            try:",
+      "explicacion": "Agrupa operaciones de `__call__` cuyos errores se traducen a una respuesta controlada."
+    },
+    "72": {
+      "codigo": "                verify_institutional_password(row['password_hash'],password)",
+      "explicacion": "Comprueba la contraseña institucional con el algoritmo que corresponde al hash almacenado."
+    },
+    "73": {
+      "codigo": "            except (VerificationError, InvalidHashError, InvalidkeyError, ValueError):",
+      "explicacion": "Captura `(VerificationError, InvalidHashError, InvalidkeyError, ValueError)` en `__call__` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "74": {
+      "codigo": "                raise AccessDenied() from None",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "75": {
+      "codigo": "        return Identity(self.username, row['id_usuario'], hashlib.sha256(row['password_hash'].encode()).hexdigest())",
+      "explicacion": "Devuelve Identity con usuario, ID y huella de credencial; no devuelve el hash original al consumidor."
+    },
+    "78": {
+      "codigo": "def verify_institutional_password(stored,password):",
+      "explicacion": "Define `verify_institutional_password`, que selecciona scrypt o Argon2 según el formato del hash institucional."
+    },
+    "79": {
+      "codigo": "    # R sodium::password_store genera scrypt ($7$); no confundir con Argon2.",
+      "explicacion": "Comentario del código: R sodium::password_store genera scrypt ($7$); no confundir con Argon2."
+    },
+    "80": {
+      "codigo": "    if stored.startswith('$7$'):",
+      "explicacion": "Comprueba `stored.startswith('$7$')` dentro de `verify_institutional_password`, que selecciona scrypt o Argon2 según el formato del hash institucional."
+    },
+    "81": {
+      "codigo": "        return pwhash.verify(stored.encode(),password.encode())",
+      "explicacion": "Devuelve el resultado de verificar la contraseña frente al formato del hash detectado."
+    },
+    "82": {
+      "codigo": "    return PasswordHasher().verify(stored,password)",
+      "explicacion": "Devuelve el resultado de verificar la contraseña frente al formato del hash detectado."
+    },
+    "85": {
+      "codigo": "class Gateway:",
+      "explicacion": "Declara `Gateway`: control del cliente API, identidad, SID, firma y fallos."
+    },
+    "86": {
+      "codigo": "    def __init__(self, client_user, client_hash, bridge_key, provider, username='PRESIDENCIA',",
+      "explicacion": "Define `__init__`, que prepara la instancia y sus valores de configuración."
+    },
+    "87": {
+      "codigo": "                 seconds=28800, clock=time.time):",
+      "explicacion": "Completa los parámetros de `__init__`: seconds=28800, clock=time.time):."
+    },
+    "88": {
+      "codigo": "        if not client_user or not client_hash.startswith('$argon2') or len(bridge_key) < 32:",
+      "explicacion": "Comprueba `not client_user or not client_hash.startswith('$argon2') or len(bridge_key) < 32` dentro de `__init__`, que prepara la instancia y sus valores de configuración."
+    },
+    "89": {
+      "codigo": "            raise RuntimeError('Configure el cliente API, su hash y la clave interna del puente.')",
+      "explicacion": "Detiene el arranque con un mensaje de configuración; evita servir una API mal configurada."
+    },
+    "90": {
+      "codigo": "        if not 60 <= seconds <= 86400:",
+      "explicacion": "Comprueba `not 60 <= seconds <= 86400` dentro de `__init__`, que prepara la instancia y sus valores de configuración."
+    },
+    "91": {
+      "codigo": "            raise RuntimeError('La sesión de visualización debe durar entre 60 y 86400 segundos.')",
+      "explicacion": "Detiene el arranque con un mensaje de configuración; evita servir una API mal configurada."
+    },
+    "92": {
+      "codigo": "        self.client_user, self.client_hash, self.bridge_key = client_user, client_hash, bridge_key",
+      "explicacion": "En `__init__`, asigna `(self.client_user, self.client_hash, self.bridge_key)` al resultado de la expresión mostrada."
+    },
+    "93": {
+      "codigo": "        self.provider, self.username, self.seconds, self.clock = provider, username.upper(), seconds, clock",
+      "explicacion": "En `__init__`, asigna `(self.provider, self.username, self.seconds, self.clock)` al resultado de la expresión mostrada."
+    },
+    "94": {
+      "codigo": "        self.sessions = {}",
+      "explicacion": "Actualiza `self.sessions`: el registro de SID y sesiones en memoria."
+    },
+    "95": {
+      "codigo": "        self.lock = Lock()",
+      "explicacion": "Actualiza `self.lock`: un bloqueo para proteger sesiones e intentos concurrentes."
+    },
+    "96": {
+      "codigo": "        self.failures = {}",
+      "explicacion": "Actualiza `self.failures`: el contador por origen usado al limitar intentos."
+    },
+    "98": {
+      "codigo": "    def verify_client(self, username, password):",
+      "explicacion": "Define `verify_client`, que comprueba el usuario del cliente API y verifica su contraseña contra el hash Argon2."
+    },
+    "99": {
+      "codigo": "        if not username or not password or not secrets.compare_digest(username.encode(), self.client_user.encode()):",
+      "explicacion": "Comprueba `not username or not password or (not secrets.compare_digest(username.encode(), self.client_user.encode()))` dentro de `verify_client`, que comprueba el usuario del cliente API y verifica su contraseña contra el hash Argon2."
+    },
+    "100": {
+      "codigo": "            raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "101": {
+      "codigo": "        try:",
+      "explicacion": "Agrupa operaciones de `verify_client` cuyos errores se traducen a una respuesta controlada."
+    },
+    "102": {
+      "codigo": "            PasswordHasher().verify(self.client_hash, password)",
+      "explicacion": "Verifica la contraseña contra el hash Argon2; no recupera una contraseña desde el hash."
+    },
+    "103": {
+      "codigo": "        except (VerificationError, InvalidHashError):",
+      "explicacion": "Captura `(VerificationError, InvalidHashError)` en `verify_client` para responder sin mostrar detalles internos ni credenciales."
+    },
+    "104": {
+      "codigo": "            raise AccessDenied() from None",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "106": {
+      "codigo": "    def principal(self):",
+      "explicacion": "Define `principal`, que revalida la identidad institucional configurada sin pedir su contraseña nuevamente."
+    },
+    "107": {
+      "codigo": "        return self.provider(self.username)",
+      "explicacion": "Solicita al proveedor comprobar la identidad configurada sin una contraseña nueva."
+    },
+    "109": {
+      "codigo": "    def issue(self, username, password, indicator):",
+      "explicacion": "Define `issue`, que crea una sesión temporal después de comprobar la contraseña institucional."
+    },
+    "110": {
+      "codigo": "        if username.upper() != self.username:",
+      "explicacion": "Comprueba `username.upper() != self.username` dentro de `issue`, que crea una sesión temporal después de comprobar la contraseña institucional."
+    },
+    "111": {
+      "codigo": "            raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "112": {
+      "codigo": "        identity = self.provider(username, password)",
+      "explicacion": "En `issue`, consulta la identidad institucional actual y su huella de credencial."
+    },
+    "113": {
+      "codigo": "        now = self.clock()",
+      "explicacion": "En `issue`, obtiene el instante actual del reloj configurado para vigencia, revalidación o intentos."
+    },
+    "114": {
+      "codigo": "        with self.lock:",
+      "explicacion": "Adquiere el bloqueo de memoria durante la comprobación o modificación; se libera al salir del bloque."
+    },
+    "115": {
+      "codigo": "            self.sessions = {key:value for key,value in self.sessions.items() if value['expires'] > now}",
+      "explicacion": "Actualiza `self.sessions`: el registro de SID y sesiones en memoria."
+    },
+    "116": {
+      "codigo": "            if len(self.sessions) >= 256:",
+      "explicacion": "Comprueba `len(self.sessions) >= 256` dentro de `issue`, que crea una sesión temporal después de comprobar la contraseña institucional."
+    },
+    "117": {
+      "codigo": "                raise IdentityUnavailable()",
+      "explicacion": "Señala que no es posible comprobar identidad o emitir otra sesión; no concede acceso por omisión."
+    },
+    "118": {
+      "codigo": "            sid = secrets.token_urlsafe(32)",
+      "explicacion": "En `issue`, genera o recibe el identificador aleatorio temporal de la sesión; no es el Bearer permanente."
+    },
+    "119": {
+      "codigo": "            self.sessions[sid] = dict(identity=identity, indicator=indicator, expires=now+self.seconds,",
+      "explicacion": "Actualiza `self.sessions[sid]`: la configuración de la instancia utilizada por issue."
+    },
+    "120": {
+      "codigo": "                                      checked=now)",
+      "explicacion": "Continuación de la instrucción de la línea 119: Actualiza `self.sessions[sid]`: la configuración de la instancia utilizada por issue."
+    },
+    "121": {
+      "codigo": "        return sid",
+      "explicacion": "Devuelve el SID que acaba de crearse; la contraseña no forma parte de ese identificador."
+    },
+    "123": {
+      "codigo": "    def resolve(self, sid):",
+      "explicacion": "Define `resolve`, que consulta una sesión, comprueba caducidad y revalida revocación o cambio de contraseña."
+    },
+    "124": {
+      "codigo": "        now = self.clock()",
+      "explicacion": "En `resolve`, obtiene el instante actual del reloj configurado para vigencia, revalidación o intentos."
+    },
+    "125": {
+      "codigo": "        with self.lock:",
+      "explicacion": "Adquiere el bloqueo de memoria durante la comprobación o modificación; se libera al salir del bloque."
+    },
+    "126": {
+      "codigo": "            session = self.sessions.get(sid)",
+      "explicacion": "En `resolve`, consulta la sesión actual del SID o recibe una copia de sus datos ya validados."
+    },
+    "127": {
+      "codigo": "            if not session or session['expires'] <= now:",
+      "explicacion": "Comprueba `not session or session['expires'] <= now` para rechazar vencimiento, revisar revocación o detectar cambio de credencial."
+    },
+    "128": {
+      "codigo": "                self.sessions.pop(sid, None)",
+      "explicacion": "Retira la sesión vencida/revocada del diccionario; si no existe, no añade un error secundario."
+    },
+    "129": {
+      "codigo": "                raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "130": {
+      "codigo": "            # Revisar revocación y cambio de contraseña sin consultar por cada asset.",
+      "explicacion": "Comentario del código: Revisar revocación y cambio de contraseña sin consultar por cada asset."
+    },
+    "131": {
+      "codigo": "            if now - session['checked'] >= 10:",
+      "explicacion": "Comprueba `now - session['checked'] >= 10` para rechazar vencimiento, revisar revocación o detectar cambio de credencial."
+    },
+    "132": {
+      "codigo": "                identity = self.provider(session['identity'].username)",
+      "explicacion": "En `resolve`, consulta la identidad institucional actual y su huella de credencial."
+    },
+    "133": {
+      "codigo": "                if identity != session['identity']:",
+      "explicacion": "Comprueba `identity != session['identity']` para rechazar vencimiento, revisar revocación o detectar cambio de credencial."
+    },
+    "134": {
+      "codigo": "                    self.sessions.pop(sid, None)",
+      "explicacion": "Retira la sesión vencida/revocada del diccionario; si no existe, no añade un error secundario."
+    },
+    "135": {
+      "codigo": "                    raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "136": {
+      "codigo": "                session['checked'] = now",
+      "explicacion": "Actualiza la marca de revalidación de esta sesión sin prolongar su vencimiento."
+    },
+    "137": {
+      "codigo": "            return dict(session)",
+      "explicacion": "Devuelve una copia de la sesión después de las comprobaciones de vigencia y revocación."
+    },
+    "139": {
+      "codigo": "    def revoke(self, sid):",
+      "explicacion": "Define `revoke`, que retira una sesión del registro en memoria."
+    },
+    "140": {
+      "codigo": "        with self.lock:",
+      "explicacion": "Adquiere el bloqueo de memoria durante la comprobación o modificación; se libera al salir del bloque."
+    },
+    "141": {
+      "codigo": "            self.sessions.pop(sid, None)",
+      "explicacion": "Retira la sesión vencida/revocada del diccionario; si no existe, no añade un error secundario."
+    },
+    "143": {
+      "codigo": "    def headers(self, sid):",
+      "explicacion": "Define `headers`, que firma el acceso interno al visualizador con HMAC-SHA256."
+    },
+    "144": {
+      "codigo": "        session = self.resolve(sid)",
+      "explicacion": "En `headers`, consulta la sesión actual del SID o recibe una copia de sus datos ya validados."
+    },
+    "145": {
+      "codigo": "        timestamp = str(int(self.clock()))",
+      "explicacion": "En `headers`, produce la marca temporal que forma parte de la firma interna."
+    },
+    "146": {
+      "codigo": "        username = session['identity'].username",
+      "explicacion": "En `headers`, recupera el usuario canónico de la sesión validada para firmar el acceso."
+    },
+    "147": {
+      "codigo": "        payload = '\\n'.join((username, 'PRESIDENCIA', timestamp, sid))",
+      "explicacion": "En `headers`, une usuario, módulo, marca temporal y SID en el mensaje a firmar."
+    },
+    "148": {
+      "codigo": "        signature = hmac.new(self.bridge_key.encode(), payload.encode(), hashlib.sha256).hexdigest()",
+      "explicacion": "En `headers`, calcula HMAC-SHA256 con la clave interna del puente sobre ese mensaje."
+    },
+    "149": {
+      "codigo": "        return {'X-Presidencia-Usuario':username, 'X-Presidencia-Modulo':'PRESIDENCIA',",
+      "explicacion": "Devuelve los cinco encabezados internos que R validará antes de renderizar el dashboard."
+    },
+    "150": {
+      "codigo": "                'X-Presidencia-Tiempo':timestamp, 'X-Presidencia-Sesion':sid,",
+      "explicacion": "Continuación de la instrucción de la línea 149: Devuelve los cinco encabezados internos que R validará antes de renderizar el dashboard."
+    },
+    "151": {
+      "codigo": "                'X-Presidencia-Firma':signature}",
+      "explicacion": "Continuación de la instrucción de la línea 149: Devuelve los cinco encabezados internos que R validará antes de renderizar el dashboard."
+    },
+    "153": {
+      "codigo": "    def throttle(self, peer, *, fail=False):",
+      "explicacion": "Define `throttle`, que limita fallos de acceso por origen dentro de una ventana de sesenta segundos."
+    },
+    "154": {
+      "codigo": "        now = self.clock()",
+      "explicacion": "En `throttle`, obtiene el instante actual del reloj configurado para vigencia, revalidación o intentos."
+    },
+    "155": {
+      "codigo": "        with self.lock:",
+      "explicacion": "Adquiere el bloqueo de memoria durante la comprobación o modificación; se libera al salir del bloque."
+    },
+    "156": {
+      "codigo": "            self.failures = {key:value for key,value in self.failures.items() if value[0]+60 > now}",
+      "explicacion": "Actualiza `self.failures`: el contador por origen usado al limitar intentos."
+    },
+    "157": {
+      "codigo": "            start, count = self.failures.get(peer,(now,0))",
+      "explicacion": "En `throttle`, asigna `(start, count)` al resultado de la expresión mostrada."
+    },
+    "158": {
+      "codigo": "            if count >= 10:",
+      "explicacion": "Comprueba `count >= 10` dentro de `throttle`, que limita fallos de acceso por origen dentro de una ventana de sesenta segundos."
+    },
+    "159": {
+      "codigo": "                raise AccessDenied()",
+      "explicacion": "Interrumpe la operación por acceso denegado; la ruta superior lo convierte en un rechazo de autenticación."
+    },
+    "160": {
+      "codigo": "            if fail:",
+      "explicacion": "Comprueba `fail` dentro de `throttle`, que limita fallos de acceso por origen dentro de una ventana de sesenta segundos."
+    },
+    "161": {
+      "codigo": "                self.failures[peer] = (start,count+1)",
+      "explicacion": "Actualiza `self.failures[peer]`: la configuración de la instancia utilizada por throttle."
+    }
+  },
+  "deploy/presidencia/linux/servidor.py": {
+    "1": {
+      "codigo": "\"\"\"Servidor de un trabajador; oculta capacidades temporales en los logs.\"\"\"",
+      "explicacion": "Texto descriptivo del componente; no ejecuta una operación de red ni abre un servicio."
+    },
+    "2": {
+      "codigo": "import logging",
+      "explicacion": "Importa logging para filtrado de mensajes antes de escribir registros."
+    },
+    "3": {
+      "codigo": "import re",
+      "explicacion": "Importa re para reconocimiento de rutas que contienen un SID."
+    },
+    "5": {
+      "codigo": "import uvicorn",
+      "explicacion": "Importa uvicorn para servidor ASGI que ejecuta la aplicación FastAPI."
+    },
+    "8": {
+      "codigo": "class OcultarSesion(logging.Filter):",
+      "explicacion": "Declara `OcultarSesion`: filtro de logging que oculta SID."
+    },
+    "9": {
+      "codigo": "    def filter(self, record):",
+      "explicacion": "Define `filter`, que oculta el SID de las rutas antes de escribir un mensaje de registro."
+    },
+    "10": {
+      "codigo": "        record.msg = re.sub(r'/vista/[A-Za-z0-9_-]{43}(?=/)',",
+      "explicacion": "Actualiza el registro de log para ocultar el SID y evitar un segundo formateo con argumentos originales."
+    },
+    "11": {
+      "codigo": "                            '/vista/[SESION]', record.getMessage())",
+      "explicacion": "Continuación de la instrucción de la línea 10: Actualiza el registro de log para ocultar el SID y evitar un segundo formateo con argumentos originales."
+    },
+    "12": {
+      "codigo": "        record.args = ()",
+      "explicacion": "Actualiza el registro de log para ocultar el SID y evitar un segundo formateo con argumentos originales."
+    },
+    "13": {
+      "codigo": "        return True",
+      "explicacion": "Permite procesar el registro después de ocultar el SID; no cambia la sesión real del navegador."
+    },
+    "16": {
+      "codigo": "if __name__ == '__main__':",
+      "explicacion": "Ejecuta el arranque de Uvicorn únicamente cuando servidor.py se invoca como programa principal."
+    },
+    "17": {
+      "codigo": "    config = uvicorn.config.LOGGING_CONFIG",
+      "explicacion": "En `módulo`, toma la configuración de registro de Uvicorn para instalar el filtro de SID."
+    },
+    "18": {
+      "codigo": "    config['filters'] = {'sesiones': {'()': OcultarSesion}}",
+      "explicacion": "Registra o aplica el filtro OcultarSesion en los manejadores de salida de Uvicorn."
+    },
+    "19": {
+      "codigo": "    for handler in config['handlers'].values():",
+      "explicacion": "Recorre `config['handlers'].values()` asignando cada elemento a `handler` dentro de `módulo`."
+    },
+    "20": {
+      "codigo": "        handler['filters'] = ['sesiones']",
+      "explicacion": "Registra o aplica el filtro OcultarSesion en los manejadores de salida de Uvicorn."
+    },
+    "21": {
+      "codigo": "    uvicorn.run('deploy.presidencia.api:create_app', factory=True,",
+      "explicacion": "Inicia Uvicorn con la fábrica create_app y las opciones de puerto, trabajador, proxy y registro del bloque."
+    },
+    "22": {
+      "codigo": "                host='127.0.0.1', port=8000, workers=1,",
+      "explicacion": "Continuación de la instrucción de la línea 21: Inicia Uvicorn con la fábrica create_app y las opciones de puerto, trabajador, proxy y registro del bloque."
+    },
+    "23": {
+      "codigo": "                access_log=False, log_config=config,",
+      "explicacion": "Continuación de la instrucción de la línea 21: Inicia Uvicorn con la fábrica create_app y las opciones de puerto, trabajador, proxy y registro del bloque."
+    },
+    "24": {
+      "codigo": "                proxy_headers=True, forwarded_allow_ips='127.0.0.1')",
+      "explicacion": "Continuación de la instrucción de la línea 21: Inicia Uvicorn con la fábrica create_app y las opciones de puerto, trabajador, proxy y registro del bloque."
+    }
+  }
+}

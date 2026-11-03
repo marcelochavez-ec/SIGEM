@@ -1,0 +1,57 @@
+{
+  "inicio_utc": "2026-10-26T12:11:12.882Z",
+  "zona_horaria": "America/Guayaquil",
+  "tipo": "real_197_desde_Windows",
+  "procedimiento": "Abrir ficha, observar CSP, esperar href de descarga habilitado y pulsar el botón real",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T12:11:15.060Z",
+      "estado": "pendiente",
+      "error": "apiRequestContext.get: Timeout 15000ms exceeded.\nCall log:\n  - → GET https://analiticadesalud.msp.gob.ec/fichas/atenciones_establecimientos_primer_nivel.pdf\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n  - ← 200 OK\n    - server: nginx/1.20.1\n    - date: Mon, 26 Oct 2026 12:11:33 GMT\n    - content-type: application/pdf\n    - content-length: 1227155\n    - connection: keep-alive\n    - expires: 0\n    - cache-control: no-cache, no-store, max-age=0, must-revalidate\n[CABECERA SENSIBLE OMITIDA]\n    - x-xss-protection: 0\n    - pragma: no-cache\n    - x-ua-compatible: IE=edge,chrome=1\n    - last-modified: Sun, 09 Aug 2026 14:53:19 GMT\n    - x-content-type-options: nosniff\n    - x-frame-options: SAMEORIGIN\n    - referrer-policy: strict-origin-when-cross-origin\n    - permissions-policy: geolocation=(), microphone=(), camera=()\n    - content-security-policy: frame-ancestors 'self';\n",
+      "fin_utc": "2026-10-26T12:11:45.681Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T12:11:45.682Z",
+      "estado": "pendiente",
+      "error": "locator.check: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('input[name=\"indicadores_presidencia-seccion\"][value=\"ficha\"]')\n",
+      "fin_utc": "2026-10-26T12:12:31.135Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T12:12:31.136Z",
+      "estado": "pendiente",
+      "error": "apiRequestContext.get: Timeout 15000ms exceeded.\nCall log:\n  - → GET https://analiticadesalud.msp.gob.ec/fichas/ninios_ninias_paquete_priorizado_edad.pdf\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n[CABECERA SENSIBLE OMITIDA]\n  - ← 200 OK\n    - server: nginx/1.20.1\n    - date: Mon, 26 Oct 2026 12:13:20 GMT\n    - content-type: application/pdf\n    - content-length: 931067\n    - connection: keep-alive\n    - expires: 0\n    - cache-control: no-cache, no-store, max-age=0, must-revalidate\n    - x-xss-protection: 0\n    - pragma: no-cache\n    - x-ua-compatible: IE=edge,chrome=1\n    - last-modified: Sun, 09 Aug 2026 14:53:19 GMT\n    - x-content-type-options: nosniff\n    - x-frame-options: SAMEORIGIN\n    - referrer-policy: strict-origin-when-cross-origin\n    - permissions-policy: geolocation=(), microphone=(), camera=()\n    - content-security-policy: frame-ancestors 'self';\n",
+      "fin_utc": "2026-10-26T12:13:28.942Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T12:13:28.943Z",
+      "estado": "pendiente",
+      "error": "locator.check: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('input[name=\"indicadores_presidencia-seccion\"][value=\"ficha\"]')\n",
+      "fin_utc": "2026-10-26T12:14:14.530Z"
+    }
+  ],
+  "fallos_red": [
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/embed/presidencia",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/fichas/atenciones_establecimientos_primer_nivel.pdf",
+      "error": "net::ERR_BLOCKED_BY_RESPONSE"
+    },
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/fichas/ninios_ninias_paquete_priorizado_edad.pdf",
+      "error": "net::ERR_BLOCKED_BY_RESPONSE"
+    }
+  ],
+  "consola": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Framing 'https://analiticadesalud.msp.gob.ec/' violates the following Content Security Policy directive: \"frame-ancestors 'self'\". The request has been blocked.\n",
+    "Framing 'https://analiticadesalud.msp.gob.ec/' violates the following Content Security Policy directive: \"frame-ancestors 'self'\". The request has been blocked.\n"
+  ],
+  "fin_utc": "2026-10-26T12:14:29.737Z",
+  "cierre_error": "apiRequestContext.post: Timeout 15000ms exceeded.\nCall log:\n  - → POST https://analiticadesalud.msp.gob.ec/vista/[SESION]/cerrar\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: https://analiticadesalud.msp.gob.ec\n[CABECERA SENSIBLE OMITIDA]\n"
+}

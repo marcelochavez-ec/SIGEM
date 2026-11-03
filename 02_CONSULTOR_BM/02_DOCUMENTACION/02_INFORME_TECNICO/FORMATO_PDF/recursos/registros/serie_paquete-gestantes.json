@@ -1,0 +1,111 @@
+{
+  "id": "paquete-gestantes",
+  "titulo": "Porcentaje de gestantes que cumplen el paquete priorizado según edad gestacional",
+  "objetivo": "Incrementar a 71,53% la cobertura del paquete priorizado en gestantes.",
+  "unidad": "Porcentaje",
+  "linea_base": 61.09,
+  "meta_2026": 71.53,
+  "datos": [
+    {
+      "fecha": "2026-01-01",
+      "mes": "ENERO",
+      "valor": 66.99,
+      "meta_mensual": 71.53,
+      "numerador": 9782,
+      "numerador_puntual": 9782,
+      "denominador": 14602,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-02-01",
+      "mes": "FEBRERO",
+      "valor": 66.85,
+      "meta_mensual": 71.53,
+      "numerador": 9356,
+      "numerador_puntual": 9356,
+      "denominador": 13995,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-03-01",
+      "mes": "MARZO",
+      "valor": 66.69,
+      "meta_mensual": 71.53,
+      "numerador": 11060,
+      "numerador_puntual": 11060,
+      "denominador": 16584,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-04-01",
+      "mes": "ABRIL",
+      "valor": 68.55,
+      "meta_mensual": 71.53,
+      "numerador": 10653,
+      "numerador_puntual": 10653,
+      "denominador": 15540,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-05-01",
+      "mes": "MAYO",
+      "valor": 67.57,
+      "meta_mensual": 71.53,
+      "numerador": 10508,
+      "numerador_puntual": 10508,
+      "denominador": 15551,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-06-01",
+      "mes": "JUNIO",
+      "valor": 66.83,
+      "meta_mensual": 71.53,
+      "numerador": 10710,
+      "numerador_puntual": 10710,
+      "denominador": 16025,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-07-01",
+      "mes": "JULIO",
+      "valor": 65.51,
+      "meta_mensual": 71.53,
+      "numerador": 11938,
+      "numerador_puntual": 11938,
+      "denominador": 18222,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-08-01",
+      "mes": "AGOSTO",
+      "valor": 57.32,
+      "meta_mensual": 71.53,
+      "numerador": 12584,
+      "numerador_puntual": 12584,
+      "denominador": 21955,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-09-01",
+      "mes": "SEPTIEMBRE",
+      "valor": 48.09,
+      "meta_mensual": 71.53,
+      "numerador": 37901,
+      "numerador_puntual": 37901,
+      "denominador": 78815,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    }
+  ],
+  "generado_en": "2026-10-26T11:07:27Z",
+  "origen": "PostgreSQL; consultas institucionales de solo lectura"
+}

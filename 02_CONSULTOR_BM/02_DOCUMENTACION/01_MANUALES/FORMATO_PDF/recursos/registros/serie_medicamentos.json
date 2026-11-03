@@ -1,0 +1,45 @@
+{
+  "id": "medicamentos",
+  "titulo": "Porcentaje de establecimientos de salud con abastecimiento de medicamentos contenidos en el Cuadro Nacional de Medicamentos Básicos (CNMB) en el Ministerio de Salud Pública",
+  "objetivo": "Monitorear mensualmente el abastecimiento nacional de medicamentos contenidos en el Cuadro Nacional de Medicamentos y Dispositivos (CNMD) en establecimientos del Ministerio de Salud Pública.",
+  "unidad": "Porcentaje",
+  "linea_base": 75,
+  "meta_2026": 80,
+  "datos": [
+    {
+      "fecha": "2026-06-01",
+      "mes": "JUNIO",
+      "valor": 47.9,
+      "meta_mensual": 50,
+      "numerador": null,
+      "numerador_puntual": null,
+      "denominador": null,
+      "fecha_corte": "2026-06-30",
+      "fecha_actualizacion": "2026-08-28T15:09:43"
+    },
+    {
+      "fecha": "2026-07-01",
+      "mes": "JULIO",
+      "valor": 51.3,
+      "meta_mensual": 55,
+      "numerador": null,
+      "numerador_puntual": null,
+      "denominador": null,
+      "fecha_corte": "2026-07-31",
+      "fecha_actualizacion": "2026-09-09T15:49:17"
+    },
+    {
+      "fecha": "2026-08-01",
+      "mes": "AGOSTO",
+      "valor": 44.8,
+      "meta_mensual": 60,
+      "numerador": null,
+      "numerador_puntual": null,
+      "denominador": null,
+      "fecha_corte": "2026-08-31",
+      "fecha_actualizacion": "2026-09-22T10:35:25"
+    }
+  ],
+  "generado_en": "2026-10-26T11:07:27Z",
+  "origen": "PostgreSQL; consultas institucionales de solo lectura"
+}

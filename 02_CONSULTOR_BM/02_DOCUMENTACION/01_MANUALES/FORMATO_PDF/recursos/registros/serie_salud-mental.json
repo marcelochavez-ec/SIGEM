@@ -1,0 +1,78 @@
+{
+  "id": "salud-mental",
+  "titulo": "Cobertura de atenciones en salud mental en establecimientos del primer nivel del MSP",
+  "objetivo": "Incrementar a 3,94% la cobertura de atenciones en salud mental en establecimientos del primer nivel del Ministerio de Salud Pública.",
+  "unidad": "Porcentaje",
+  "linea_base": 3.79,
+  "meta_2026": 3.94,
+  "datos": [
+    {
+      "fecha": "2026-01-01",
+      "mes": "ENERO",
+      "valor": 0.2198,
+      "meta_mensual": 0.34,
+      "numerador": 40109,
+      "numerador_puntual": 40109,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-02-01",
+      "mes": "FEBRERO",
+      "valor": 0.4089,
+      "meta_mensual": 0.68,
+      "numerador": 74596,
+      "numerador_puntual": 34487,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-03-01",
+      "mes": "MARZO",
+      "valor": 0.6391,
+      "meta_mensual": 0.98,
+      "numerador": 116605,
+      "numerador_puntual": 42009,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-04-01",
+      "mes": "ABRIL",
+      "valor": 0.8412,
+      "meta_mensual": 1.31,
+      "numerador": 153467,
+      "numerador_puntual": 36862,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-05-01",
+      "mes": "MAYO",
+      "valor": 1.0341,
+      "meta_mensual": 1.62,
+      "numerador": 188659,
+      "numerador_puntual": 35192,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-06-01",
+      "mes": "JUNIO",
+      "valor": 1.2462,
+      "meta_mensual": 1.95,
+      "numerador": 227355,
+      "numerador_puntual": 38696,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    }
+  ],
+  "generado_en": "2026-10-26T11:07:27Z",
+  "origen": "PostgreSQL; consultas institucionales de solo lectura"
+}

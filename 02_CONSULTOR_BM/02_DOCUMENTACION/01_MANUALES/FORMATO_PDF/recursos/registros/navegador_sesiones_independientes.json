@@ -1,0 +1,170 @@
+{
+  "inicio_utc": "2026-10-26T11:33:01.690Z",
+  "zona_horaria": "America/Guayaquil",
+  "tipo": "real_197_desde_Windows",
+  "procedimiento": "v2: una sesión por indicador; PDF aislado del recorrido principal; sin instalación ni cambios productivos",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T11:33:01.881Z",
+      "estado": "pendiente",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "marcos": 3,
+          "login_visible": 0,
+          "via": "Botón real de TEST_API.R y selección del indicador en el iframe."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 6,
+          "kpis_no_vacios": true,
+          "errores": [],
+          "series": [
+            {
+              "nombre": "Meta 2026",
+              "puntos": 12
+            },
+            {
+              "nombre": "Indicador",
+              "puntos": 6
+            }
+          ]
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 11,
+          "recibidos": 53
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "mensajes_recibidos_tras_control": 6
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6882,
+          "sha256": "2fffd7f2bf8ad124b9adb12dbcf8f3538445e5244cbbacc5cbbacd939f5401ce",
+          "validacion": "ZIP; comprobar celdas con validar_evidencia.py."
+        },
+        "direcciones": {
+          "estado": "no_aplicable",
+          "observado": "En construcción\n\nEsta sección queda reservada para el detalle operativo por direcciones provinciales."
+        },
+        "secciones": {
+          "estado": "aprobado",
+          "observado": "Cifras → Direcciones → Cifras; no existe filtro geográfico operativo en la sección En construcción."
+        },
+        "refrescar": {
+          "estado": "aprobado",
+          "observado": "Retorna al primer indicador."
+        },
+        "ficha": {
+          "estado": "pendiente",
+          "observado": "Se evalúa aparte: ruta de vista PDF bloqueada por respuesta; no contaminar la sesión del recorrido principal."
+        },
+        "cierre": {
+          "estado": "aprobado",
+          "post": 200,
+          "reutilizacion": 401
+        }
+      },
+      "fin_utc": "2026-10-26T11:33:11.592Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T11:33:11.593Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "locator.waitFor: Timeout 25000ms exceeded.\nCall log:\n  - waiting for locator('#indicadores_presidencia-grafico .highcharts-container') to be visible\n",
+      "limpieza_sesion": "apiRequestContext.post: Timeout 15000ms exceeded.\nCall log:\n  - → POST https://analiticadesalud.msp.gob.ec/vista/[SESION]/cerrar\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: https://analiticadesalud.msp.gob.ec\n",
+      "fin_utc": "2026-10-26T11:34:12.807Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T11:34:12.809Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#dashboard iframe') to be visible\n",
+      "fin_utc": "2026-10-26T11:34:43.239Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T11:34:43.240Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#dashboard iframe') to be visible\n",
+      "fin_utc": "2026-10-26T11:35:14.522Z"
+    },
+    {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T11:35:14.523Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#dashboard iframe') to be visible\n",
+      "fin_utc": "2026-10-26T11:35:44.889Z"
+    }
+  ],
+  "websockets": [
+    {
+      "indicador": "primer-nivel",
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "indicador": "primer-nivel",
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 44,
+      "recibidos": 97,
+      "cerrado": true
+    },
+    {
+      "indicador": "salud-mental",
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "indicador": "paquete-ninos",
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "indicador": "paquete-gestantes",
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "indicador": "medicamentos",
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    }
+  ],
+  "fallos_red": [
+    {
+      "indicador": "primer-nivel",
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/cerrar",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "errores_js": [],
+  "estados_http": [
+    {
+      "indicador": "primer-nivel",
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/?indicador=primer-nivel",
+      "estado": 401
+    }
+  ],
+  "navegador": "155.0.8059.86",
+  "fin_utc": "2026-10-26T11:35:45.099Z"
+}

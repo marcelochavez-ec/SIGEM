@@ -1,0 +1,63 @@
+---
+title: 'Inventario reproducible de SIGEM'
+format: html
+date: 2026-11-02
+---
+
+# Fuente
+
+La fecha de generación es `2026-11-02`. El inventario se deriva de archivos existentes en `C:\Users\MARCELO\OneDrive\Documentos\MSP\SIGEM` y no utiliza servicios de inteligencia artificial.
+
+# Archivos identificados
+
+- `02_SOFT/config_sigem/__init__.py`
+- `02_SOFT/config_sigem/asgi.py`
+- `02_SOFT/config_sigem/settings.py`
+- `02_SOFT/config_sigem/urls.py`
+- `02_SOFT/config_sigem/wsgi.py`
+- `02_SOFT/deploy_sigem.py`
+- `02_SOFT/manage.py`
+- `02_SOFT/sigem/__init__.py`
+- `02_SOFT/sigem/admin.py`
+- `02_SOFT/sigem/apps.py`
+- `02_SOFT/sigem/forms.py`
+- `02_SOFT/sigem/management/__init__.py`
+- `02_SOFT/sigem/management/commands/__init__.py`
+- `02_SOFT/sigem/management/commands/cargar_catalogos_sigem.py`
+- `02_SOFT/sigem/migrations/0001_initial.py`
+- `02_SOFT/sigem/migrations/0002_nivel_atencion_formulario.py`
+- `02_SOFT/sigem/migrations/0003_establecimientoingresado.py`
+- `02_SOFT/sigem/migrations/0004_actualiza_rango_tiempo_s02.py`
+- `02_SOFT/sigem/migrations/0005_normaliza_tiempo_s02.py`
+- `02_SOFT/sigem/migrations/0006_rellena_tiempo_normalizado_s02.py`
+- `02_SOFT/sigem/migrations/__init__.py`
+- `02_SOFT/sigem/models.py`
+- `02_SOFT/sigem/services.py`
+- `02_SOFT/sigem/tests.py`
+- `02_SOFT/sigem/urls.py`
+- `02_SOFT/sigem/views.py`
+- `02_SOFT/test_01/manage.py`
+- `02_SOFT/test_01/myapp/__init__.py`
+- `02_SOFT/test_01/myapp/admin.py`
+- `02_SOFT/test_01/myapp/apps.py`
+- `02_SOFT/test_01/myapp/migrations/0001_initial.py`
+- `02_SOFT/test_01/myapp/migrations/0002_task.py`
+- `02_SOFT/test_01/myapp/migrations/__init__.py`
+- `02_SOFT/test_01/myapp/models.py`
+- `02_SOFT/test_01/myapp/tests.py`
+- `02_SOFT/test_01/myapp/urls.py`
+- `02_SOFT/test_01/myapp/views.py`
+- `02_SOFT/test_01/mysite/__init__.py`
+- `02_SOFT/test_01/mysite/asgi.py`
+- `02_SOFT/test_01/mysite/settings.py`
+- `02_SOFT/test_01/mysite/urls.py`
+- `02_SOFT/test_01/mysite/wsgi.py`
+- `03_DEPLOYMENT/01_git_local.py`
+- `03_DEPLOYMENT/02_github.py`
+- `02_CONSULTOR_BM/04_DEPLOYMENT/03_validar_qa.py`
+- `02_CONSULTOR_BM/04_DEPLOYMENT/04_servidor_194_qa.py`
+- `03_DEPLOYMENT/tools/generar_manual.py`
+- `04_DOCUMENTACION/01_MANUALES/manual_tecnico.qmd`
+- `04_DOCUMENTACION/01_MANUALES/manual_usuario.qmd`
+- `05_REPRODUCIBILIDAD/README.md`
+- `05_REPRODUCIBILIDAD/environment.yml`

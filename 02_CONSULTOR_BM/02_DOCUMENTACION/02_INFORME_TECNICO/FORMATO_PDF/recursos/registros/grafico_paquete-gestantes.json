@@ -1,0 +1,107 @@
+{
+  "titulo": "Porcentaje de gestantes que cumplen el paquete priorizado según edad gestacional\nIncrementar a 71,53% la cobertura del paquete priorizado en gestantes.",
+  "graficos": 1,
+  "series": [
+    {
+      "nombre": "Meta 2026",
+      "puntos": 12,
+      "datos": [
+        {
+          "x": 1767225600000,
+          "y": 71.53
+        },
+        {
+          "x": 1769904000000,
+          "y": 71.53
+        },
+        {
+          "x": 1772323200000,
+          "y": 71.53
+        },
+        {
+          "x": 1775001600000,
+          "y": 71.53
+        },
+        {
+          "x": 1777593600000,
+          "y": 71.53
+        },
+        {
+          "x": 1780272000000,
+          "y": 71.53
+        },
+        {
+          "x": 1782864000000,
+          "y": 71.53
+        },
+        {
+          "x": 1785542400000,
+          "y": 71.53
+        },
+        {
+          "x": 1788220800000,
+          "y": 71.53
+        },
+        {
+          "x": 1790812800000,
+          "y": 71.53
+        },
+        {
+          "x": 1793491200000,
+          "y": 71.53
+        },
+        {
+          "x": 1796083200000,
+          "y": 71.53
+        }
+      ]
+    },
+    {
+      "nombre": "Indicador",
+      "puntos": 9,
+      "datos": [
+        {
+          "x": 1767225600000,
+          "y": 66.99
+        },
+        {
+          "x": 1769904000000,
+          "y": 66.85
+        },
+        {
+          "x": 1772323200000,
+          "y": 66.69
+        },
+        {
+          "x": 1775001600000,
+          "y": 68.55
+        },
+        {
+          "x": 1777593600000,
+          "y": 67.57
+        },
+        {
+          "x": 1780272000000,
+          "y": 66.83
+        },
+        {
+          "x": 1782864000000,
+          "y": 65.51
+        },
+        {
+          "x": 1785542400000,
+          "y": 57.32
+        },
+        {
+          "x": 1788220800000,
+          "y": 48.09
+        }
+      ]
+    }
+  ],
+  "kpis": "Línea base 2025\n61,09%\nLínea base\nMeta 2026\n71,53%\nMeta anual\nMeta alcanzada\nNo\nActual: 48,09%\nNumerador acumulado\n124.492\nCorte: Septiembre 2026\nNumerador mensual\n37.901\nCorte: Septiembre 2026\nDenominador mensual\n78.815\nCorte: Septiembre 2026",
+  "filas": 9,
+  "errores": [],
+  "loginVisible": false,
+  "conectado": true
+}

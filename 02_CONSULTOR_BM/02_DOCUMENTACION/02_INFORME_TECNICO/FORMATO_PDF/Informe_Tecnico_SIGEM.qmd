@@ -1,0 +1,87 @@
+---
+title: "INFORME TÉCNICO DE SIGEM"
+subtitle: "Arquitectura y estado de construcción del sistema"
+author: "Ministerio de Salud Pública"
+date: 2026-11-03
+lang: es
+output-file: Informe_Tecnico_SIGEM.pdf
+format:
+  pdf:
+    documentclass: scrreprt
+    classoption: [openany, oneside]
+    pdf-engine: xelatex
+    papersize: a4
+    fontsize: 10pt
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    linkcolor: MSPAzul
+    urlcolor: MSPAzul
+    include-in-header:
+      - latex/creditos.tex
+      - latex/estilo_informe_sigem.tex
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Resumen ejecutivo
+
+SIGEM es una aplicación institucional para gestionar y monitorear información de salud. La versión revisada está construida como una aplicación web Django, con separación entre presentación, lógica de negocio, persistencia y recursos estáticos.
+
+# Alcance
+
+El análisis comprende el código disponible en `01_MSP/02_SOFT`, sus plantillas, formularios, JavaScript, CSS, pruebas y documentación. No se modifican credenciales, variables de entorno ni configuraciones productivas.
+
+# Arquitectura por capas
+
+## Presentación
+
+Las plantillas HTML de Django definen formularios, mensajes, botones y áreas de construcción. Los estilos institucionales se cargan desde los recursos estáticos del módulo.
+
+## Interacción del navegador
+
+El JavaScript detecta cambios en los formularios y controla el estado de los controles. Para los niveles II y III muestra el aviso de construcción y desactiva las acciones restantes.
+
+## Aplicación y validación
+
+Los formularios Django concentran validaciones y reglas de negocio. La regla de niveles II y III se ejecuta en `clean()` antes de continuar o persistir información.
+
+## Persistencia
+
+La aplicación utiliza el modelo de datos y la conexión configurada por Django para el despliegue institucional. Las operaciones deben respetar modelos, permisos y transacciones existentes.
+
+## Recursos estáticos
+
+CSS, JavaScript e imágenes se organizan en `static/sigem`. El CSS comunica visualmente los estados deshabilitados y el aviso de construcción.
+
+# Flujo funcional
+
+1. El usuario abre el formulario de datos generales.
+2. Selecciona el nivel de atención.
+3. Para niveles implementados, se mantienen las acciones disponibles.
+4. Para niveles II o III, aparece el mensaje de construcción y se bloquean las demás acciones.
+5. El servidor rechaza la continuación si se intenta evadir el bloqueo visual.
+
+# Dependencias y operación
+
+1. Python y Django para la aplicación web.
+2. PostgreSQL como motor de datos institucional, según configuración.
+3. HTML y plantillas Django.
+4. JavaScript y CSS.
+5. Conda, usando el ambiente `msp_01`, para ejecutar las herramientas del proyecto.
+
+El intérprete Python utilizado para pruebas debe ser el del ambiente `msp_01`; no se asume un Python funcional en el `PATH` del sistema.
+
+# Validaciones realizadas
+
+1. Pruebas Django del formulario para niveles II y III: dos casos aprobados.
+2. Sintaxis del JavaScript: aprobada.
+3. Configuración Django: aprobada, sin errores del sistema.
+4. Correspondencia entre mensaje de construcción y controles deshabilitados: revisada en código y pruebas.
+
+# Limitaciones y conclusión
+
+Los niveles II y III permanecen explícitamente en construcción. La arquitectura mantiene separación entre interfaz, interacción, validación de aplicación, persistencia y recursos estáticos, y permite habilitar nuevas funcionalidades sin retirar las validaciones vigentes.

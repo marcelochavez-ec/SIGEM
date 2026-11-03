@@ -1,0 +1,97 @@
+{
+  "inicio_utc": "2026-10-26T12:01:27.567Z",
+  "zona_horaria": "America/Guayaquil",
+  "procedimiento": "Enlaces individuales, espera de conexión y counters, controles nativos sin PDF ni descarga",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T12:01:48.624Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        }
+      },
+      "error": "frame.waitForFunction: Timeout 10000ms exceeded.",
+      "estado": "pendiente",
+      "diagnostico": {
+        "conectado": true,
+        "inputs": {
+          "seccion": "cifras"
+        }
+      },
+      "fin_utc": "2026-10-26T12:02:13.975Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T12:02:13.977Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        }
+      },
+      "error": "frame.waitForFunction: Timeout 10000ms exceeded.",
+      "estado": "pendiente",
+      "diagnostico": {
+        "conectado": true,
+        "inputs": {
+          "seccion": "cifras"
+        }
+      },
+      "fin_utc": "2026-10-26T12:02:37.405Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T12:02:37.407Z",
+      "pruebas": {},
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n  - waiting for locator('.highcharts-container') to be visible\n",
+      "estado": "pendiente",
+      "diagnostico": {
+        "conectado": true,
+        "inputs": {}
+      },
+      "fin_utc": "2026-10-26T12:03:20.037Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T12:03:20.038Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        }
+      },
+      "error": "frame.waitForFunction: Timeout 10000ms exceeded.",
+      "estado": "pendiente",
+      "diagnostico": {
+        "conectado": true,
+        "inputs": {
+          "seccion": "cifras"
+        }
+      },
+      "fin_utc": "2026-10-26T12:03:42.935Z"
+    },
+    {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T12:03:42.936Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        }
+      },
+      "error": "frame.waitForFunction: Timeout 10000ms exceeded.",
+      "estado": "pendiente",
+      "diagnostico": {
+        "conectado": true,
+        "inputs": {
+          "seccion": "cifras"
+        }
+      },
+      "fin_utc": "2026-10-26T12:03:59.698Z"
+    }
+  ],
+  "cierre_http": 200,
+  "fin_utc": "2026-10-26T12:04:02.039Z"
+}

@@ -1,0 +1,76 @@
+{
+  "fecha_utc": "2026-10-26T11:51:55.270959+00:00",
+  "zona_horaria": "America/Guayaquil",
+  "equipo": "Windows local",
+  "python_pruebas": {
+    "version": "3.12.14",
+    "ejecutable": "C:\\Users\\MARCELO\\OneDrive\\Documentos\\MSP\\health_analytics_msp\\deploy\\presidencia\\.venv\\Scripts\\python.exe",
+    "paquetes": {
+      "fastapi": "0.159.1",
+      "uvicorn": "0.54.0",
+      "httpx": "0.28.1",
+      "starlette": "1.9.0",
+      "pydantic": "2.14.1",
+      "psycopg": "3.3.6",
+      "websockets": "16.1.1",
+      "pytest": "9.1.1"
+    }
+  },
+  "git": {
+    "inicio_utc": "2026-10-26T11:51:55.380807+00:00",
+    "fin_utc": "2026-10-26T11:51:55.411692+00:00",
+    "codigo": 0,
+    "salida": "e3c2e7094020ba6d49a88900b582d5e52c0e982c",
+    "avisos": ""
+  },
+  "git_rastreados_modificados": 39,
+  "conda_msp_01": {
+    "inicio_utc": "2026-10-26T11:51:55.450713+00:00",
+    "fin_utc": "2026-10-26T11:51:55.506450+00:00",
+    "codigo": 0,
+    "salida": "{\"version\": \"3.14.8\", \"ejecutable\": \"C:\\\\ProgramData\\\\anaconda3\\\\envs\\\\msp_01\\\\python.exe\"}",
+    "avisos": ""
+  },
+  "R": {
+    "inicio_utc": "2026-10-26T11:51:55.506450+00:00",
+    "fin_utc": "2026-10-26T11:51:55.670887+00:00",
+    "codigo": 1,
+    "salida": "",
+    "avisos": "During startup - Warning messages:\n1: Setting LC_COLLATE=C.UTF-8 failed \n2: Setting LC_CTYPE=C.UTF-8 failed \n3: Setting LC_MONETARY=C.UTF-8 failed \n4: Setting LC_TIME=C.UTF-8 failed \nError in packageVersion(p) : there is no package called 'sodium'\nCalls: cat ... <Anonymous> -> force -> sapply -> lapply -> FUN -> packageVersion\nExecution halted"
+  },
+  "cliente_R": {
+    "inicio_utc": "2026-10-26T11:51:55.670887+00:00",
+    "fin_utc": "2026-10-26T11:51:56.361332+00:00",
+    "codigo": 0,
+    "salida": "[1] \"Spanish_Ecuador.utf8\"\nCliente R/Shiny: URLs seguras, contrato de cinco indicadores, iframe, selección sin renovar, expiración y renovación manual correctos.",
+    "avisos": "During startup - Warning messages:\n1: Setting LC_COLLATE=C.UTF-8 failed \n2: Setting LC_CTYPE=C.UTF-8 failed \n3: Setting LC_MONETARY=C.UTF-8 failed \n4: Setting LC_TIME=C.UTF-8 failed \nLoading required package: shiny\nWarning message:\npackage 'shiny' was built under R version 4.6.1"
+  },
+  "puente_R": {
+    "inicio_utc": "2026-10-26T11:51:56.361332+00:00",
+    "fin_utc": "2026-10-26T11:51:56.633879+00:00",
+    "codigo": 0,
+    "salida": "[1] \"Spanish_Ecuador.utf8\"\nPuente firmado, firma alterada, firma vencida, acceso anónimo y contraseña sodium: correctos.",
+    "avisos": "During startup - Warning messages:\n1: Setting LC_COLLATE=C.UTF-8 failed \n2: Setting LC_CTYPE=C.UTF-8 failed \n3: Setting LC_MONETARY=C.UTF-8 failed \n4: Setting LC_TIME=C.UTF-8 failed"
+  },
+  "node": {
+    "inicio_utc": "2026-10-26T11:51:56.633879+00:00",
+    "fin_utc": "2026-10-26T11:51:56.666005+00:00",
+    "codigo": 0,
+    "salida": "v24.22.1",
+    "avisos": ""
+  },
+  "quarto": {
+    "inicio_utc": "2026-10-26T11:51:56.668038+00:00",
+    "fin_utc": "2026-10-26T11:51:56.680579+00:00",
+    "codigo": 0,
+    "salida": "1.9.37",
+    "avisos": ""
+  },
+  "ssh_197": {
+    "inicio_utc": "2026-10-26T11:51:56.680579+00:00",
+    "fin_utc": "2026-10-26T11:52:03.510793+00:00",
+    "codigo": 0,
+    "salida": "active\nactive",
+    "avisos": ""
+  }
+}

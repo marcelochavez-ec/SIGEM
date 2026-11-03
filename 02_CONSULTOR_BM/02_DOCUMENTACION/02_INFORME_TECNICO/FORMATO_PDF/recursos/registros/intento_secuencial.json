@@ -1,0 +1,289 @@
+{
+  "inicio_utc": "2026-10-26T11:45:02.090Z",
+  "zona_horaria": "America/Guayaquil",
+  "tipo": "real_197_desde_Windows",
+  "procedimiento": "v4: diagnóstico de carga y consola; una autenticación y sesión compartida para recorrer los cinco indicadores; PDF aislado; cierre al final",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T11:45:20.745Z",
+      "estado": "fallido",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "observado": "Acceso al indicador desde los selectores del módulo embebido, sin segundo login."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "kpis_no_vacios": true,
+          "filas_tabla": 6,
+          "series": [
+            {
+              "nombre": "Meta 2026",
+              "puntos": 12
+            },
+            {
+              "nombre": "Indicador",
+              "puntos": 6
+            }
+          ],
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 10,
+          "recibidos": 40
+        },
+        "consultar": {
+          "estado": "pendiente",
+          "respuestas": 0
+        }
+      },
+      "error": "page.waitForEvent: Timeout 15000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================",
+      "fin_utc": "2026-10-26T11:45:37.591Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T11:45:37.593Z",
+      "estado": "pendiente",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "observado": "Acceso al indicador desde los selectores del módulo embebido, sin segundo login."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "kpis_no_vacios": true,
+          "filas_tabla": 6,
+          "series": [
+            {
+              "nombre": "Meta 2026",
+              "puntos": 12
+            },
+            {
+              "nombre": "Indicador",
+              "puntos": 6
+            }
+          ],
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 14,
+          "recibidos": 98
+        },
+        "consultar": {
+          "estado": "pendiente",
+          "respuestas": 0
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6879,
+          "sha256": "2269e7cee189977a7a7b93c7339e7724d2b8c129c5915b6004c2e089b0b03d04"
+        },
+        "direcciones": {
+          "estado": "no_aplicable",
+          "observado": "En construcción\n\nEsta sección queda reservada para el detalle operativo por direcciones provinciales."
+        },
+        "secciones": {
+          "estado": "aprobado",
+          "observado": "Cifras → Direcciones → Cifras."
+        },
+        "ficha": {
+          "estado": "pendiente",
+          "observado": "PDF separado para no contaminar las pruebas del recorrido principal."
+        }
+      },
+      "fin_utc": "2026-10-26T11:46:03.024Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T11:46:03.025Z",
+      "estado": "pendiente",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "observado": "Acceso al indicador desde los selectores del módulo embebido, sin segundo login."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "kpis_no_vacios": true,
+          "filas_tabla": 9,
+          "series": [
+            {
+              "nombre": "Meta 2026",
+              "puntos": 12
+            },
+            {
+              "nombre": "Indicador",
+              "puntos": 9
+            }
+          ],
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 35,
+          "recibidos": 159
+        },
+        "consultar": {
+          "estado": "pendiente",
+          "respuestas": 0
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6996,
+          "sha256": "e0492df9a6970c51bac82557c48ed99384c1c6dcbaa3b04089f306a2a504ee32"
+        },
+        "direcciones": {
+          "estado": "no_aplicable",
+          "observado": "En construcción\n\nEsta sección queda reservada para el detalle operativo por direcciones provinciales."
+        },
+        "secciones": {
+          "estado": "aprobado",
+          "observado": "Cifras → Direcciones → Cifras."
+        },
+        "ficha": {
+          "estado": "pendiente",
+          "observado": "PDF separado para no contaminar las pruebas del recorrido principal."
+        }
+      },
+      "fin_utc": "2026-10-26T11:46:30.114Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T11:46:30.115Z",
+      "estado": "fallido",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "observado": "Acceso al indicador desde los selectores del módulo embebido, sin segundo login."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "kpis_no_vacios": true,
+          "filas_tabla": 9,
+          "series": [
+            {
+              "nombre": "Meta 2026",
+              "puntos": 12
+            },
+            {
+              "nombre": "Indicador",
+              "puntos": 9
+            }
+          ],
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 56,
+          "recibidos": 220
+        },
+        "consultar": {
+          "estado": "pendiente",
+          "respuestas": 0
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6997,
+          "sha256": "64595b001e8d1b3b22912421e61ee6d7d435897342974c9a5b67ac43e0d02da7"
+        }
+      },
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n  - waiting for locator('#indicadores_presidencia-pres_acc_establecimientos') to be visible\n    27 × locator resolved to hidden <div tabindex=\"-1\" role=\"tabpanel\" aria-hidden=\"true\" aria-expanded=\"false\" class=\"panel-collapse collapse\" aria-labelledby=\"ui-collapse-993\" id=\"indicadores_presidencia-pres_acc_establecimientos\">…</div>\n",
+      "fin_utc": "2026-10-26T11:46:54.793Z"
+    },
+    {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T11:46:54.794Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "frame.waitForFunction: Timeout 12000ms exceeded.",
+      "fin_utc": "2026-10-26T11:47:06.868Z"
+    }
+  ],
+  "websockets": [
+    {
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 80,
+      "recibidos": 323,
+      "cerrado": false
+    }
+  ],
+  "fallos_red": [],
+  "errores_js": [],
+  "http_errores": [],
+  "consola": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "respuestas_documento": [
+    {
+      "ruta": "http://127.0.0.1:5010/",
+      "http": 200,
+      "tipo": "text/html; charset=UTF-8"
+    },
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/embed/presidencia",
+      "http": 200,
+      "tipo": "text/html; charset=utf-8"
+    },
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/?indicador=primer-nivel",
+      "http": 200,
+      "tipo": "text/html; charset=UTF-8"
+    }
+  ],
+  "chrome": "155.0.8059.86",
+  "iframe": {
+    "estado": "aprobado",
+    "marcos": 3,
+    "login_visible": 0,
+    "via": "Botón real de TEST_API.R. Un POST autorizado habilita cinco selectores."
+  },
+  "fin_utc": "2026-10-26T11:47:34.137Z",
+  "error_general": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n  - waiting for locator('#indicadores_presidencia-indicador_1.active') to be visible\n",
+  "marcos_diagnostico": [
+    {
+      "ruta": "http://127.0.0.1:5010/",
+      "estado": {
+        "texto": "Comprobación API — Indicadores de Presidencia\nMostrar dashboard",
+        "elementos": 22,
+        "grafico": 0,
+        "conectado": true
+      }
+    },
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/embed/presidencia",
+      "estado": {
+        "texto": "",
+        "elementos": 8,
+        "grafico": 0,
+        "conectado": null
+      }
+    },
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/?indicador=primer-nivel",
+      "estado": {
+        "texto": "Indicadores estratégicos\nIndicador\nCobertura de atenciones en salud en establecimientos del primer nivel del MSP\nCobertura de atenciones en salud mental en esta",
+        "elementos": 391,
+        "grafico": 1,
+        "conectado": true
+      }
+    }
+  ],
+  "limpieza_sesion": "apiRequestContext.post: Timeout 15000ms exceeded.\nCall log:\n  - → POST https://analiticadesalud.msp.gob.ec/vista/[SESION]/cerrar\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: https://analiticadesalud.msp.gob.ec\n"
+}

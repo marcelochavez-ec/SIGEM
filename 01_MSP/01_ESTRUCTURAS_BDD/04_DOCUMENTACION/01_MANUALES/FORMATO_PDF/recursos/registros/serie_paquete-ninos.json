@@ -1,0 +1,111 @@
+{
+  "id": "paquete-ninos",
+  "titulo": "Porcentaje de menores de 24 meses que cumplen el paquete priorizado según edad",
+  "objetivo": "Incrementar a 37,65% la cobertura del paquete priorizado en menores de 24 meses.",
+  "unidad": "Porcentaje",
+  "linea_base": 27.09,
+  "meta_2026": 37.65,
+  "datos": [
+    {
+      "fecha": "2026-01-01",
+      "mes": "ENERO",
+      "valor": 38.6,
+      "meta_mensual": 37.65,
+      "numerador": 7055,
+      "numerador_puntual": 7055,
+      "denominador": 18277,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-02-01",
+      "mes": "FEBRERO",
+      "valor": 38.7,
+      "meta_mensual": 37.65,
+      "numerador": 7050,
+      "numerador_puntual": 7050,
+      "denominador": 18216,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-03-01",
+      "mes": "MARZO",
+      "valor": 36.82,
+      "meta_mensual": 37.65,
+      "numerador": 8468,
+      "numerador_puntual": 8468,
+      "denominador": 23001,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-04-01",
+      "mes": "ABRIL",
+      "valor": 38.17,
+      "meta_mensual": 37.65,
+      "numerador": 8409,
+      "numerador_puntual": 8409,
+      "denominador": 22029,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-05-01",
+      "mes": "MAYO",
+      "valor": 36.1,
+      "meta_mensual": 37.65,
+      "numerador": 8861,
+      "numerador_puntual": 8861,
+      "denominador": 24546,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-06-01",
+      "mes": "JUNIO",
+      "valor": 34.79,
+      "meta_mensual": 37.65,
+      "numerador": 10521,
+      "numerador_puntual": 10521,
+      "denominador": 30241,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-07-01",
+      "mes": "JULIO",
+      "valor": 36.41,
+      "meta_mensual": 37.65,
+      "numerador": 16604,
+      "numerador_puntual": 16604,
+      "denominador": 45607,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-08-01",
+      "mes": "AGOSTO",
+      "valor": 31.33,
+      "meta_mensual": 37.65,
+      "numerador": 21467,
+      "numerador_puntual": 21467,
+      "denominador": 68513,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-09-01",
+      "mes": "SEPTIEMBRE",
+      "valor": 23.78,
+      "meta_mensual": 37.65,
+      "numerador": 43240,
+      "numerador_puntual": 43240,
+      "denominador": 181820,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    }
+  ],
+  "generado_en": "2026-10-26T11:07:27Z",
+  "origen": "PostgreSQL; consultas institucionales de solo lectura"
+}

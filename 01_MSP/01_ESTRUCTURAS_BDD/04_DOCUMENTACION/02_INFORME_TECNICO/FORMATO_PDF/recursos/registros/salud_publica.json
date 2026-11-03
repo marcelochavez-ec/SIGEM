@@ -1,0 +1,30 @@
+{
+  "inicio_utc": "2026-10-26T12:09:36Z",
+  "rutas": {
+    "/presidencia-api/health/live": {
+      "http": 200,
+      "tipo": "application/json"
+    },
+    "/presidencia-api/health/ready": {
+      "http": 200,
+      "tipo": "application/json"
+    },
+    "/presidencia-api/health/shiny": {
+      "http": 200,
+      "tipo": "application/json"
+    },
+    "/presidencia-api/docs": {
+      "http": 200,
+      "tipo": "text/html; charset=utf-8"
+    },
+    "/presidencia-api/openapi.json": {
+      "http": 200,
+      "tipo": "application/json"
+    },
+    "/api/v1/presidencia": {
+      "http": 401,
+      "tipo": "application/json"
+    }
+  },
+  "fin_utc": "2026-10-26T12:09:37Z"
+}

@@ -1,0 +1,7 @@
+# Elaborado por Marcelo Chávez, consultor especialista en protección social.
+# Correo: marcelo_chavez_s@outlook.com | Móvil: 098 333 26 87
+# LinkedIn: https://www.linkedin.com/in/marcelochavezec
+project:
+  type: default
+  render:
+    - Manual_SIGEM.qmd

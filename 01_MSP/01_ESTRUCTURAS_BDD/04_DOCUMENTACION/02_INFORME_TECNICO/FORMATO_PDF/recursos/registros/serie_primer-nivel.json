@@ -1,0 +1,78 @@
+{
+  "id": "primer-nivel",
+  "titulo": "Cobertura de atenciones en salud en establecimientos del primer nivel del MSP",
+  "objetivo": "Incrementar a 73,46% la cobertura de atenciones en salud en establecimientos del primer nivel del Ministerio de Salud Pública.",
+  "unidad": "Porcentaje",
+  "linea_base": 71.84,
+  "meta_2026": 73.46,
+  "datos": [
+    {
+      "fecha": "2026-01-01",
+      "mes": "ENERO",
+      "valor": 6.5421,
+      "meta_mensual": 18.36,
+      "numerador": 1193535,
+      "numerador_puntual": 1193535,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-02-01",
+      "mes": "FEBRERO",
+      "valor": 12.4573,
+      "meta_mensual": 18.36,
+      "numerador": 2272688,
+      "numerador_puntual": 1079153,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-03-01",
+      "mes": "MARZO",
+      "valor": 19.3117,
+      "meta_mensual": 18.36,
+      "numerador": 3523182,
+      "numerador_puntual": 1250494,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-04-01",
+      "mes": "ABRIL",
+      "valor": 25.3966,
+      "meta_mensual": 36.72,
+      "numerador": 4633304,
+      "numerador_puntual": 1110122,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-05-01",
+      "mes": "MAYO",
+      "valor": 31.0905,
+      "meta_mensual": 36.72,
+      "numerador": 5672091,
+      "numerador_puntual": 1038787,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    },
+    {
+      "fecha": "2026-06-01",
+      "mes": "JUNIO",
+      "valor": 37.0255,
+      "meta_mensual": 36.72,
+      "numerador": 6754865,
+      "numerador_puntual": 1082774,
+      "denominador": 18243816,
+      "fecha_corte": null,
+      "fecha_actualizacion": null
+    }
+  ],
+  "generado_en": "2026-10-26T11:07:27Z",
+  "origen": "PostgreSQL; consultas institucionales de solo lectura"
+}

@@ -1,0 +1,128 @@
+{
+  "inicio_utc": "2026-10-26T11:26:01.894Z",
+  "zona_horaria": "America/Guayaquil",
+  "tipo": "real_197_desde_cliente_Windows",
+  "procedimiento": "TEST_API.R en 5010, botón real, dos iframes, cinco selectores, controles y descargas; sin cambios del servidor",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T11:26:07.839Z",
+      "estado": "fallido",
+      "pruebas": {
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 6,
+          "kpis_no_vacios": true,
+          "errores": [],
+          "series": [
+            {
+              "nombre": "Meta 2026",
+              "puntos": 12
+            },
+            {
+              "nombre": "Indicador",
+              "puntos": 6
+            }
+          ]
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 10,
+          "recibidos": 51
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "mensajes_recibidos_tras_control": 6
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6882,
+          "sha256": "868e995b7c61c5a52465a3bf8fafd5c395bd8b6ca03e8d1728fca05ec55a7d9a",
+          "validacion": "Contenedor ZIP; la lectura de celdas se verifica por separado."
+        },
+        "direcciones": {
+          "estado": "no_aplicable",
+          "observado": "En construcción\n\nEsta sección queda reservada para el detalle operativo por direcciones provinciales.",
+          "regla": "Sección En construcción; no se declara filtrado geográfico operativo."
+        }
+      },
+      "error": "download.saveAs: canceled",
+      "fin_utc": "2026-10-26T11:27:48.088Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T11:27:48.099Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "frame.waitForFunction: Timeout 20000ms exceeded.",
+      "fin_utc": "2026-10-26T11:28:08.268Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T11:28:08.269Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "frame.waitForFunction: Timeout 20000ms exceeded.",
+      "fin_utc": "2026-10-26T11:28:28.430Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T11:28:28.431Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "frame.waitForFunction: Timeout 20000ms exceeded.",
+      "fin_utc": "2026-10-26T11:28:48.561Z"
+    },
+    {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T11:28:48.562Z",
+      "estado": "fallido",
+      "pruebas": {},
+      "error": "frame.waitForFunction: Timeout 20000ms exceeded.",
+      "fin_utc": "2026-10-26T11:29:08.716Z"
+    }
+  ],
+  "websockets": [
+    {
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 26,
+      "recibidos": 86,
+      "cerrado": true
+    }
+  ],
+  "fallos_red": [
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/fichas/atenciones_establecimientos_primer_nivel.pdf",
+      "error": "net::ERR_BLOCKED_BY_RESPONSE"
+    }
+  ],
+  "errores_js": [],
+  "estados_http": [],
+  "cierre": {
+    "estado": "pendiente"
+  },
+  "navegador": "155.0.8059.86",
+  "iframe": {
+    "estado": "aprobado",
+    "marcos": 3,
+    "login_visible": 0,
+    "shiny_conectado": true
+  },
+  "fin_utc": "2026-10-26T11:29:26.574Z",
+  "refrescar": {
+    "estado": "aprobado",
+    "observado": "Retorna al primer indicador."
+  },
+  "error_general": "page.waitForResponse: Timeout 15000ms exceeded while waiting for event \"response\"",
+  "limpieza_sesion": {
+    "estado_http": 200
+  }
+}

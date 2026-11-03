@@ -1,0 +1,78 @@
+{
+  "fecha_local": "2026-10-26",
+  "zona_horaria": "America/Guayaquil",
+  "alcance": "Auditoría de solo lectura de implementación, API pública y servicios; sin publicación ni reinicios en el 197",
+  "base_publica": "https://analiticadesalud.msp.gob.ec",
+  "http": {
+    "/presidencia-api/health/live": 200,
+    "/presidencia-api/health/ready": 200,
+    "/presidencia-api/health/shiny": 200,
+    "/presidencia-api/docs": 200,
+    "/presidencia-api/openapi.json": 200
+  },
+  "catalogo_sin_credenciales": 401,
+  "post_con_dos_autenticaciones": "aprobado, cinco URLs recibidas; no se guardan SID ni secretos",
+  "series_y_vistas": {
+    "primer-nivel": {
+      "serie_json": 200,
+      "envoltura_html": 200
+    },
+    "salud-mental": {
+      "serie_json": 200,
+      "envoltura_html": 200
+    },
+    "paquete-ninos": {
+      "serie_json": 200,
+      "envoltura_html": 200
+    },
+    "paquete-gestantes": {
+      "serie_json": 200,
+      "envoltura_html": 200
+    },
+    "medicamentos": {
+      "serie_json": 200,
+      "envoltura_html": 200
+    }
+  },
+  "pruebas_python": {
+    "aprobadas": 32,
+    "avisos": "deprecación Starlette TestClient/httpx",
+    "interprete": "deploy/presidencia/.venv/Scripts/python.exe"
+  },
+  "pruebas_r": {
+    "cliente": "aprobado con datos controlados",
+    "puente": "aprobado con firma válida, alterada y vencida; rechazo anónimo; sodium"
+  },
+  "servicios_197": {
+    "sivas-presidencia-api": "active",
+    "sivas-presidencia-shiny": "active",
+    "sivas-presidencia-exportar.timer": "active",
+    "exportador_ultima_ejecucion": "success"
+  },
+  "sockets_197": [
+    "0.0.0.0:8595",
+    "127.0.0.1:8000",
+    "127.0.0.1:8001"
+  ],
+  "hashes_fuentes_197_sha256": {
+    "deploy/presidencia/api.py": "4fe17682b6c165133f168cb6f74f02f3f659c0c2bc6eaa92d054c3b2fcf23c35",
+    "deploy/presidencia/auth.py": "ef13cabd737c58426f76eb427a3c3c53ce4adaf55f6db57c7bd2033a299eaa3d",
+    "deploy/presidencia/shiny_app.R": "6ef9d72228f16855b13b1c09c2d7ac3577aff4ce87242459819e9584cd2cf1a3",
+    "deploy/presidencia/bridge.R": "e7ab14a11f68fd973f541b4d6c3ffd0a8f43ee60f3f47346edd79c7107bdb4cf",
+    "deploy/presidencia/bootstrap.R": "5d8046889c34272f07201bae3c30dff1a37a86724de419b6d2e673e87835801d",
+    "deploy/presidencia/linux/servidor.py": "9f699ff0f8be3b02ce565e5c8c4eff4acdb9e916188b158ffefb0e6d110c66bd",
+    "modulos/indicadores_presidencia/global.R": "6c3debab02c69aabe0f1cf78a9f4d4705cf441b37b752635706b0434c5a92a7f",
+    "modulos/indicadores_presidencia/indicadores_presidencia_ui.R": "15108cdd80ada9c937ab6c7462a23399888794e536c73c6f8917e1dd8961a5e1",
+    "modulos/indicadores_presidencia/indicadores_presidencia_server.R": "3b44da2112d743f418d8147212248e163bda59c4ef23dd1ae4818e78047df613"
+  },
+  "diferencia_semantica": "shiny_app.R: ruta de Roles y Usuarios anterior en el 197 frente a carpeta nueva en Windows; UI/server difieren solo en saltos de línea",
+  "navegador": "Cliente real en 5010, iframe exterior y envoltura remota comprobados. No se completó validación de gráficos interactivos; timeout al navegar vistas remotas.",
+  "no_verificado": [
+    "todas las descargas",
+    "interacción completa de cinco dashboards",
+    "prueba de carga",
+    "ocho horas de sesión",
+    "segunda red externa",
+    "configuración del equipo de terminación TLS"
+  ]
+}

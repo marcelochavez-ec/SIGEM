@@ -1,0 +1,95 @@
+{
+  "titulo": "Cobertura de atenciones en salud mental en establecimientos del primer nivel del MSP\nIncrementar a 3,94% la cobertura de atenciones en salud mental en establecimientos del primer nivel del Ministerio de Salud Pública.",
+  "graficos": 1,
+  "series": [
+    {
+      "nombre": "Meta 2026",
+      "puntos": 12,
+      "datos": [
+        {
+          "x": 1767225600000,
+          "y": 0.34
+        },
+        {
+          "x": 1769904000000,
+          "y": 0.68
+        },
+        {
+          "x": 1772323200000,
+          "y": 0.98
+        },
+        {
+          "x": 1775001600000,
+          "y": 1.31
+        },
+        {
+          "x": 1777593600000,
+          "y": 1.62
+        },
+        {
+          "x": 1780272000000,
+          "y": 1.95
+        },
+        {
+          "x": 1782864000000,
+          "y": 2.29
+        },
+        {
+          "x": 1785542400000,
+          "y": 2.62
+        },
+        {
+          "x": 1788220800000,
+          "y": 2.94
+        },
+        {
+          "x": 1790812800000,
+          "y": 3.27
+        },
+        {
+          "x": 1793491200000,
+          "y": 3.61
+        },
+        {
+          "x": 1796083200000,
+          "y": 3.94
+        }
+      ]
+    },
+    {
+      "nombre": "Indicador",
+      "puntos": 6,
+      "datos": [
+        {
+          "x": 1767225600000,
+          "y": 0.2198498384329244
+        },
+        {
+          "x": 1769904000000,
+          "y": 0.4088837554599323
+        },
+        {
+          "x": 1772323200000,
+          "y": 0.6391480817390396
+        },
+        {
+          "x": 1775001600000,
+          "y": 0.8412001085737765
+        },
+        {
+          "x": 1777593600000,
+          "y": 1.034098348722658
+        },
+        {
+          "x": 1780272000000,
+          "y": 1.246203096983657
+        }
+      ]
+    }
+  ],
+  "kpis": "Línea base 2025\n3,79%\nLínea base\nMeta 2026\n3,94%\nMeta anual\nMeta alcanzada\nNo\nActual: 1,25%\nNumerador acumulado\n227.355\nCorte: Junio 2026\nNumerador mensual\n38.696\nCorte: Junio 2026\nDenominador mensual\n18.243.816\nCorte: Junio 2026",
+  "filas": 6,
+  "errores": [],
+  "loginVisible": false,
+  "conectado": true
+}

@@ -1,0 +1,115 @@
+{
+  "inicio_utc": "2026-10-26T12:13:07.514734+00:00",
+  "tipo": "local_validacion_de_descargas_reales",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "estado": "aprobado",
+      "filas_excel": 6,
+      "columnas_excel": 7,
+      "filas_REST": 6,
+      "puntos_grafico_no_nulos": 6,
+      "filas_tabla": 6,
+      "meses_coinciden": true,
+      "desviacion_max_grafico_REST": 4.94111100373118e-05,
+      "desviacion_max_excel_REST": 0.0045000000000001705,
+      "tolerancia": 0.011,
+      "generado_en_REST": "2026-10-26T11:07:27Z",
+      "CRC_ZIP": "correcto",
+      "sha256_xlsx": "72ab0d6728c62fa0b7cae131bb04586966f41284445d68bb8e4bf9459d1b5cd7",
+      "ultimo_mes_REST": "2026-06-01"
+    },
+    {
+      "id": "salud-mental",
+      "estado": "aprobado",
+      "filas_excel": 6,
+      "columnas_excel": 7,
+      "filas_REST": 6,
+      "puntos_grafico_no_nulos": 6,
+      "filas_tabla": 6,
+      "meses_coinciden": true,
+      "desviacion_max_grafico_REST": 4.983843292441503e-05,
+      "desviacion_max_excel_REST": 0.0040999999999999925,
+      "tolerancia": 0.011,
+      "generado_en_REST": "2026-10-26T11:07:27Z",
+      "CRC_ZIP": "correcto",
+      "sha256_xlsx": "ac2ebbd4c6573d726683bbe0ec594b71c34995c05675d9c776cf6ce87579ab8d",
+      "ultimo_mes_REST": "2026-06-01"
+    },
+    {
+      "id": "paquete-ninos",
+      "estado": "aprobado",
+      "filas_excel": 9,
+      "columnas_excel": 7,
+      "filas_REST": 9,
+      "puntos_grafico_no_nulos": 9,
+      "filas_tabla": 9,
+      "meses_coinciden": true,
+      "desviacion_max_grafico_REST": 0.0,
+      "desviacion_max_excel_REST": 0.0,
+      "tolerancia": 0.011,
+      "generado_en_REST": "2026-10-26T11:07:27Z",
+      "CRC_ZIP": "correcto",
+      "sha256_xlsx": "5a4e2e0cf3bcc2facc915427d73b92f3c015b506c8f4b7f0b55cda85181ad635",
+      "ultimo_mes_REST": "2026-09-01"
+    },
+    {
+      "id": "paquete-gestantes",
+      "estado": "aprobado",
+      "filas_excel": 9,
+      "columnas_excel": 7,
+      "filas_REST": 9,
+      "puntos_grafico_no_nulos": 9,
+      "filas_tabla": 9,
+      "meses_coinciden": true,
+      "desviacion_max_grafico_REST": 0.0,
+      "desviacion_max_excel_REST": 0.0,
+      "tolerancia": 0.011,
+      "generado_en_REST": "2026-10-26T11:07:27Z",
+      "CRC_ZIP": "correcto",
+      "sha256_xlsx": "738108b29d9ecaaacf7a983002823c2c23bb7f12c40f8ed654fa587e56290236",
+      "ultimo_mes_REST": "2026-09-01"
+    },
+    {
+      "id": "medicamentos",
+      "estado": "aprobado",
+      "filas_excel": 3,
+      "columnas_excel": 4,
+      "filas_REST": 3,
+      "puntos_grafico_no_nulos": 3,
+      "filas_tabla": 3,
+      "meses_coinciden": true,
+      "desviacion_max_grafico_REST": 0.0,
+      "desviacion_max_excel_REST": 0.0,
+      "tolerancia": 0.011,
+      "generado_en_REST": "2026-10-26T11:07:27Z",
+      "CRC_ZIP": "correcto",
+      "sha256_xlsx": "254814a9cfcb4c09cc2f0018e00135f42869f24afc2ed7bed0c12953fd4fb06b",
+      "ultimo_mes_REST": "2026-08-01"
+    }
+  ],
+  "pdf_publicos": [
+    {
+      "archivo": "atenciones_establecimientos_primer_nivel.pdf",
+      "paginas": 6,
+      "sha256": "0ddeb1f61bb35915c714f2763a151ddcc86bba2e3b1067450657c65bc8ff3616"
+    },
+    {
+      "archivo": "atenciones_salud_mental.pdf",
+      "paginas": 6,
+      "sha256": "d316b9951f6cd887d3c45ce77f74e02db8d9bbf6a004a99a27d178926c9840ee"
+    },
+    {
+      "archivo": "ninios_ninias_paquete_priorizado_edad.pdf",
+      "paginas": 8,
+      "sha256": "2e07fa93c2cc0a59fb52461f9a742ec6ce44653ed05e061f38d4af687f07a977"
+    },
+    {
+      "archivo": "gestantes_paquete_priorizado_edad.pdf",
+      "paginas": 10,
+      "sha256": "2eb3d23b36b74969c78bc4df26ccd6d1dab573ccba9690d7706b7efc2dfcee34"
+    }
+  ],
+  "pdf_descargados_handler": [],
+  "fin_utc": "2026-10-26T12:13:07.691665+00:00"
+}

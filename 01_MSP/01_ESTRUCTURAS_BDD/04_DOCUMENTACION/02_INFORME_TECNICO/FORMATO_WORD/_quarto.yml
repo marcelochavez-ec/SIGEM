@@ -1,0 +1,10 @@
+format: docx
+
+project:
+  type: default
+  render:
+    - Manual_de_usuario_Indicadores_de_Presidencia.qmd
+  pre-render:
+    - powershell -NoProfile -ExecutionPolicy Bypass -File procesar_word.ps1 -Etapa preparar
+  post-render:
+    - powershell -NoProfile -ExecutionPolicy Bypass -File procesar_word.ps1 -Etapa finalizar

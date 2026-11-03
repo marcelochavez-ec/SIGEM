@@ -1,0 +1,12 @@
+# Copiar fuera del control de versiones y completar solo en el entorno autorizado.
+[qa]
+host = ""
+user = ""
+port = 22
+remote_dir = ""
+ssh_key = ""
+
+[policy]
+allow_production = false
+allow_real_deploy = false
+backup_dir = "02_CONSULTOR_BM/04_DEPLOYMENT/backups"

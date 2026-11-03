@@ -1,0 +1,10 @@
+format: docx
+
+project:
+  type: default
+  render:
+    - Informe_Tecnico_SIGEM.qmd
+  pre-render:
+    - powershell -NoProfile -ExecutionPolicy Bypass -File procesar_word_informe_sigem.ps1 -Etapa preparar
+  post-render:
+    - powershell -NoProfile -ExecutionPolicy Bypass -File procesar_word_informe_sigem.ps1 -Etapa finalizar

@@ -1,0 +1,78 @@
+---
+title: "MANUAL DE USUARIO DE SIGEM"
+subtitle: "Sistema Institucional de Gestión y Monitoreo"
+author: "Ministerio de Salud Pública"
+date: 2026-11-03
+lang: es
+output-file: Manual_SIGEM.pdf
+format:
+  pdf:
+    documentclass: scrreprt
+    classoption: [openany, oneside]
+    pdf-engine: xelatex
+    papersize: a4
+    fontsize: 10pt
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    linkcolor: MSPAzul
+    urlcolor: MSPAzul
+    include-in-header:
+      - latex/creditos.tex
+      - latex/estilo_manual_sigem.tex
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Presentación
+
+Este manual describe el uso de la versión actualmente implementada de SIGEM y cubre los módulos y validaciones disponibles en el sistema.
+
+## Acceso
+
+1. Abra la URL institucional de SIGEM.
+2. Ingrese sus credenciales habilitadas.
+3. Seleccione el módulo requerido desde el menú principal.
+4. Complete los campos obligatorios y lea los mensajes antes de avanzar.
+
+# Datos generales
+
+El formulario permite registrar la identificación, ubicación, contacto y clasificación del establecimiento. Antes de continuar, el sistema valida los campos obligatorios y la consistencia de los valores ingresados.
+
+## Flujo de registro
+
+1. Seleccione o registre el establecimiento.
+2. Complete la información general.
+3. Revise los datos.
+4. Presione la acción de continuación habilitada.
+5. Corrija cualquier mensaje de validación.
+
+## Niveles II y III en construcción
+
+Cuando se selecciona nivel II o nivel III de atención, SIGEM muestra dentro del área de construcción el mensaje:
+
+> En construcción. Este módulo estará disponible próximamente.
+
+En ese estado se desactivan los demás botones, enlaces y controles de avance. El selector de nivel permanece activo para poder elegir una opción implementada. La misma regla se valida en el servidor.
+
+# Validaciones
+
+1. Los campos obligatorios deben estar completos.
+2. Los formatos de datos se validan antes de guardar.
+3. Los errores se muestran en el campo o en el área de mensajes.
+4. La acción debe repetirse después de corregir la información.
+
+# Buenas prácticas
+
+1. Verifique la fuente de los datos.
+2. No comparta credenciales.
+3. Evite presionar varias veces una acción de guardado.
+4. Reporte el texto exacto del mensaje y la hora del incidente.
+5. Cierre la sesión al finalizar.
+
+# Estado de la versión
+
+Este documento refleja la implementación revisada en el código disponible: aplicación web Django, formulario de datos generales, validaciones de servidor y tratamiento visual de los niveles II y III como funcionalidades en construcción.

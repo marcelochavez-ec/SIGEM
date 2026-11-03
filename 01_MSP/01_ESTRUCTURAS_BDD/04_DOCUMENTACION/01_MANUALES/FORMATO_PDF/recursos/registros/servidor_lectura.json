@@ -1,0 +1,64 @@
+{
+  "utc": "2026-10-26T11:52:46.628527+00:00",
+  "equipo": "10.64.100.197",
+  "lectura": true,
+  "git": {
+    "codigo": 0,
+    "salida": "e3c2e7094020ba6d49a88900b582d5e52c0e982c"
+  },
+  "git_cambios_rastreados": 6,
+  "hashes": {
+    "deploy/presidencia/api.py": "4fe17682b6c165133f168cb6f74f02f3f659c0c2bc6eaa92d054c3b2fcf23c35",
+    "deploy/presidencia/auth.py": "ef13cabd737c58426f76eb427a3c3c53ce4adaf55f6db57c7bd2033a299eaa3d",
+    "deploy/presidencia/shiny_app.R": "6ef9d72228f16855b13b1c09c2d7ac3577aff4ce87242459819e9584cd2cf1a3",
+    "deploy/presidencia/bridge.R": "e7ab14a11f68fd973f541b4d6c3ffd0a8f43ee60f3f47346edd79c7107bdb4cf",
+    "deploy/presidencia/bootstrap.R": "5d8046889c34272f07201bae3c30dff1a37a86724de419b6d2e673e87835801d",
+    "deploy/presidencia/linux/servidor.py": "9f699ff0f8be3b02ce565e5c8c4eff4acdb9e916188b158ffefb0e6d110c66bd",
+    "modulos/indicadores_presidencia/global.R": "6c3debab02c69aabe0f1cf78a9f4d4705cf441b37b752635706b0434c5a92a7f",
+    "modulos/indicadores_presidencia/indicadores_presidencia_ui.R": "15108cdd80ada9c937ab6c7462a23399888794e536c73c6f8917e1dd8961a5e1",
+    "modulos/indicadores_presidencia/indicadores_presidencia_server.R": "3b44da2112d743f418d8147212248e163bda59c4ef23dd1ae4818e78047df613",
+    "modulos/indicadores_presidencia/indicadores_presidencia_assets.R": "1c5d2f13c73561246d5a24b027671ea210c486f894cde3bcd15ae4e90acc623d"
+  },
+  "hashes_lf": {
+    "deploy/presidencia/api.py": "4fe17682b6c165133f168cb6f74f02f3f659c0c2bc6eaa92d054c3b2fcf23c35",
+    "deploy/presidencia/auth.py": "ef13cabd737c58426f76eb427a3c3c53ce4adaf55f6db57c7bd2033a299eaa3d",
+    "deploy/presidencia/shiny_app.R": "6ef9d72228f16855b13b1c09c2d7ac3577aff4ce87242459819e9584cd2cf1a3",
+    "deploy/presidencia/bridge.R": "e7ab14a11f68fd973f541b4d6c3ffd0a8f43ee60f3f47346edd79c7107bdb4cf",
+    "deploy/presidencia/bootstrap.R": "5d8046889c34272f07201bae3c30dff1a37a86724de419b6d2e673e87835801d",
+    "deploy/presidencia/linux/servidor.py": "9f699ff0f8be3b02ce565e5c8c4eff4acdb9e916188b158ffefb0e6d110c66bd",
+    "modulos/indicadores_presidencia/global.R": "6c3debab02c69aabe0f1cf78a9f4d4705cf441b37b752635706b0434c5a92a7f",
+    "modulos/indicadores_presidencia/indicadores_presidencia_ui.R": "15108cdd80ada9c937ab6c7462a23399888794e536c73c6f8917e1dd8961a5e1",
+    "modulos/indicadores_presidencia/indicadores_presidencia_server.R": "3b44da2112d743f418d8147212248e163bda59c4ef23dd1ae4818e78047df613",
+    "modulos/indicadores_presidencia/indicadores_presidencia_assets.R": "1c5d2f13c73561246d5a24b027671ea210c486f894cde3bcd15ae4e90acc623d"
+  },
+  "python": {
+    "codigo": 0,
+    "salida": "{\"python\": \"3.12.15\", \"ejecutable\": \"/home/marcelo.chavez/.sivas-presidencia/venv/bin/python\", \"paquetes\": {\"fastapi\": \"0.159.1\", \"uvicorn\": \"0.54.0\", \"pydantic\": \"2.14.1\", \"starlette\": \"1.9.0\", \"httpx\": \"0.28.1\", \"psycopg\": \"3.3.6\", \"websockets\": \"16.1.1\", \"PyNaCl\": \"1.6.2\", \"argon2-cffi\": \"25.1.0\"}}"
+  },
+  "R": {
+    "codigo": 1,
+    "salida": ""
+  },
+  "servicios": {
+    "codigo": 0,
+    "salida": "Result=success\nId=sivas-presidencia-api.service\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/sivas-presidencia-api.service\n\nResult=success\nId=sivas-presidencia-shiny.service\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/sivas-presidencia-shiny.service\n\nResult=success\nId=sivas-presidencia-exportar.service\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/sivas-presidencia-exportar.service\n\nResult=success\nId=sivas-presidencia-exportar.timer\nActiveState=active\nSubState=waiting\nFragmentPath=/etc/systemd/system/sivas-presidencia-exportar.timer"
+  },
+  "puertos": {
+    "codigo": 0,
+    "salida": "State  Recv-Q Send-Q Local Address:Port  Peer Address:Port\nLISTEN 0      4096         0.0.0.0:8787       0.0.0.0:*   \nLISTEN 0      511          0.0.0.0:8595       0.0.0.0:*   \nLISTEN 0      4096         0.0.0.0:10050      0.0.0.0:*   \nLISTEN 0      128          0.0.0.0:22         0.0.0.0:*   \nLISTEN 0      511          0.0.0.0:80         0.0.0.0:*   \nLISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*   \nLISTEN 0      5            0.0.0.0:62354      0.0.0.0:*   \nLISTEN 0      2            0.0.0.0:33221      0.0.0.0:*   \nLISTEN 0      4096       127.0.0.1:631        0.0.0.0:*   \nLISTEN 0      128        127.0.0.1:8001       0.0.0.0:*   \nLISTEN 0      2048       127.0.0.1:8000       0.0.0.0:*   \nLISTEN 0      4096               *:9100             *:*   \nLISTEN 0      4096            [::]:10050         [::]:*   \nLISTEN 0      2                  *:3389             *:*   \nLISTEN 0      128             [::]:22            [::]:*   \nLISTEN 0      511             [::]:80            [::]:*   \nLISTEN 0      4096            [::]:8080          [::]:*   \nLISTEN 0      4096           [::1]:631           [::]:*"
+  },
+  "conexiones_pg": {
+    "codigo": 0,
+    "salida": "ESTAB    0      0               10.64.100.197:35018          10.64.100.191:5432 \nESTAB    0      0               10.64.100.197:35022          10.64.100.191:5432 "
+  },
+  "nginx_nginx-rutas.conf": {
+    "instalado": "/etc/nginx/sivas-presidencia-rutas.conf",
+    "sha256": "3db1bf1f478c7ce19a8c68aa41a555e9321fe6d04cede7e8dca6706c679a77db",
+    "contenido": "# Incluir dentro del server 8595, antes del location / existente.\nlocation = /api/v1/presidencia {\n    include /etc/nginx/sivas-presidencia-proxy.conf;\n}\nlocation ^~ /api/v1/presidencia/ {\n    include /etc/nginx/sivas-presidencia-proxy.conf;\n}\nlocation ^~ /vista/ {\n    include /etc/nginx/sivas-presidencia-proxy.conf;\n}\nlocation = /presidencia-api/docs {\n    include /etc/nginx/sivas-presidencia-proxy.conf;\n}\nlocation = /presidencia-api/openapi.json {\n    include /etc/nginx/sivas-presidencia-proxy.conf;\n}\nlocation ~ ^/presidencia-api/health/(live|ready|shiny)$ {\n    rewrite ^/presidencia-api/(.*)$ /$1 break;\n    include /etc/nginx/sivas-presidencia-proxy.conf;\n}\n"
+  },
+  "nginx_nginx-proxy.conf": {
+    "instalado": "/etc/nginx/sivas-presidencia-proxy.conf",
+    "sha256": "54862a5d20f1d5627f06f1a3188dd020c53df6a1ceb29fd97bb5970532591542",
+    "contenido": "# Incluir únicamente en los location de la integración.\nproxy_pass http://127.0.0.1:8000;\nproxy_http_version 1.1;\nproxy_set_header Host $host;\nproxy_set_header X-Forwarded-Proto https;\nproxy_set_header X-Forwarded-For $remote_addr;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header Connection $connection_upgrade_analytics_msp;\nproxy_read_timeout 3600s;\nproxy_send_timeout 3600s;\nproxy_buffering off;\nproxy_redirect off;\n# No registrar capacidades temporales de /vista/ ni claves de solicitudes.\naccess_log off;\nerror_log /var/log/nginx/sivas-presidencia-error.log crit;\n# Declarar headers aquí impide heredar X-Frame-Options SAMEORIGIN del sitio.\n# La API agrega su propia lista explícita CSP frame-ancestors.\nadd_header X-Content-Type-Options nosniff always;\nadd_header Referrer-Policy no-referrer always;\nadd_header X-Robots-Tag \"noindex, nofollow, noarchive\" always;\n"
+  }
+}

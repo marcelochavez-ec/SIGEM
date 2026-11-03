@@ -1,0 +1,88 @@
+---
+title: "MANUAL DE USUARIO DE SIGEM"
+subtitle: "Sistema Institucional de Gestión y Monitoreo"
+author: "Ministerio de Salud Pública"
+lang: es
+format:
+  docx:
+    reference-doc: Referencia_MSP_preparada.docx
+    toc: true
+    number-sections: true
+    highlight-style: none
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Presentación
+
+Este manual describe el uso de la versión actualmente implementada de SIGEM. Su alcance corresponde a los módulos disponibles en el sistema y a las validaciones que se encuentran activas en la aplicación.
+
+## Objetivo
+
+Orientar al usuario en el ingreso, consulta y seguimiento de la información institucional, explicando la navegación, los formularios, los filtros, las acciones disponibles y los mensajes de validación.
+
+## Requisitos de acceso
+
+1. Disponer de un navegador web actualizado.
+2. Contar con una cuenta habilitada por el administrador del sistema.
+3. Acceder a la URL institucional proporcionada por la organización.
+4. Utilizar únicamente información institucional autorizada.
+
+# Ingreso y navegación
+
+1. Abra la dirección de SIGEM.
+2. Ingrese sus credenciales cuando el sistema las solicite.
+3. Revise el menú principal y seleccione el módulo requerido.
+4. Complete los campos obligatorios y utilice los botones visibles para avanzar, guardar o regresar.
+
+Los mensajes que aparecen en pantalla deben leerse antes de continuar. Cuando una opción no está habilitada, el sistema la presenta desactivada para evitar registros incompletos o inconsistentes.
+
+# Módulo de datos generales
+
+## Registro de información
+
+El formulario de datos generales solicita la identificación del establecimiento, su ubicación, datos de contacto y la clasificación correspondiente. Los campos obligatorios se validan antes de continuar.
+
+Flujo de uso:
+
+1. Seleccione o registre el establecimiento.
+2. Complete la información general solicitada.
+3. Revise los datos ingresados.
+4. Presione el botón de continuación habilitado.
+5. Corrija los mensajes de validación, si aparecen.
+
+## Niveles de atención en construcción
+
+Cuando se selecciona **nivel II** o **nivel III de atención**, el sistema muestra el mensaje:
+
+> En construcción. Este módulo estará disponible próximamente.
+
+Durante ese estado, el mensaje se presenta dentro del área de construcción y el resto de botones, enlaces y controles de avance se desactiva. El selector del nivel permanece disponible para cambiar a una opción implementada.
+
+Esta regla se aplica tanto en la interfaz como en la validación del servidor; por ello no es posible avanzar mediante una manipulación del navegador.
+
+# Módulos disponibles
+
+La disponibilidad exacta depende del perfil y de la versión desplegada. Los módulos implementados se muestran en el menú y permiten consultar, registrar o continuar con los flujos habilitados. Las opciones que todavía no forman parte de la versión operativa se identifican con mensajes de construcción.
+
+# Validaciones y mensajes
+
+1. Los campos obligatorios deben tener un valor válido.
+2. Los formatos de fecha, correo, teléfono y códigos se validan antes de guardar.
+3. Las inconsistencias se muestran junto al campo o en el área de mensajes.
+4. Ante un error, corrija la información y vuelva a ejecutar la acción.
+5. No cierre la ventana mientras se procesa una operación.
+
+# Buenas prácticas de uso
+
+1. Verifique la fuente de los datos antes de registrarlos.
+2. No comparta credenciales.
+3. Evite duplicar registros por presionar varias veces un botón.
+4. Documente el mensaje exacto y la hora cuando reporte un incidente.
+5. Cierre la sesión al finalizar.
+
+# Estado de esta versión
+
+Este manual refleja la funcionalidad revisada en el código disponible del proyecto: aplicación web Django, formularios de datos generales, reglas de validación y tratamiento visual de los niveles II y III como funcionalidades en construcción. Las funcionalidades no implementadas se mantienen identificadas como pendientes de desarrollo.

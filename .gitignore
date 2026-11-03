@@ -29,8 +29,8 @@ Thumbs.db
 # Herramientas locales de asistencia/desarrollo
 .local_tools/
 .workspace/
-# 03_IA/
-# **/03_IA/
+03_IA/
+**/03_IA/
 # AGENT*.md
 # AGENTE*.md
 #**/AGENT*.md
@@ -39,3 +39,12 @@ Thumbs.db
 
 # Respaldos locales de repositorios anidados
 .nested_git_backups/
+
+# Operación local de deployment
+02_CONSULTOR_BM/04_DEPLOYMENT/logs/
+02_CONSULTOR_BM/04_DEPLOYMENT/backups/
+02_CONSULTOR_BM/04_DEPLOYMENT/config/*.toml
+!02_CONSULTOR_BM/04_DEPLOYMENT/config/*.example.toml
+
+# Configuración institucional local con credenciales; nunca versionar.
+**/01_ESTRUCTURAS_BDD/03_CONFIGURACIONES/config.yml

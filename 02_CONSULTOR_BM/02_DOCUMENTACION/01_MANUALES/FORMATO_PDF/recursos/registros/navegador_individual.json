@@ -1,0 +1,238 @@
+{
+  "inicio_utc": "2026-10-26T11:50:34.591Z",
+  "zona_horaria": "America/Guayaquil",
+  "procedimiento": "v5: enlaces individuales embebidos; espera de binding de descarga y datos; sin controles previos de consulta ni PDF",
+  "tipo": "real_197_desde_Windows",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T11:50:36.119Z",
+      "estado": "aprobado",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "marcos": 3,
+          "via": "src del iframe del cliente apuntando al enlace individual autorizado."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 6,
+          "kpis_no_vacios": true,
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 9,
+          "recibidos": 47
+        },
+        "enlace_excel": {
+          "estado": "aprobado",
+          "observado": "Binding de descarga listo antes de pulsar."
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6883,
+          "sha256": "72ab0d6728c62fa0b7cae131bb04586966f41284445d68bb8e4bf9459d1b5cd7"
+        }
+      },
+      "fin_utc": "2026-10-26T11:51:08.302Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T11:51:08.303Z",
+      "estado": "aprobado",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "marcos": 3,
+          "via": "src del iframe del cliente apuntando al enlace individual autorizado."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 6,
+          "kpis_no_vacios": true,
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 9,
+          "recibidos": 47
+        },
+        "enlace_excel": {
+          "estado": "aprobado",
+          "observado": "Binding de descarga listo antes de pulsar."
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6878,
+          "sha256": "ac2ebbd4c6573d726683bbe0ec594b71c34995c05675d9c776cf6ce87579ab8d"
+        }
+      },
+      "fin_utc": "2026-10-26T11:51:13.684Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T11:51:13.685Z",
+      "estado": "aprobado",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "marcos": 3,
+          "via": "src del iframe del cliente apuntando al enlace individual autorizado."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 9,
+          "kpis_no_vacios": true,
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 9,
+          "recibidos": 47
+        },
+        "enlace_excel": {
+          "estado": "aprobado",
+          "observado": "Binding de descarga listo antes de pulsar."
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6996,
+          "sha256": "5a4e2e0cf3bcc2facc915427d73b92f3c015b506c8f4b7f0b55cda85181ad635"
+        }
+      },
+      "fin_utc": "2026-10-26T11:51:20.098Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T11:51:20.100Z",
+      "estado": "aprobado",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "marcos": 3,
+          "via": "src del iframe del cliente apuntando al enlace individual autorizado."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 9,
+          "kpis_no_vacios": true,
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 9,
+          "recibidos": 40
+        },
+        "enlace_excel": {
+          "estado": "aprobado",
+          "observado": "Binding de descarga listo antes de pulsar."
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6997,
+          "sha256": "738108b29d9ecaaacf7a983002823c2c23bb7f12c40f8ed654fa587e56290236"
+        }
+      },
+      "fin_utc": "2026-10-26T11:51:25.316Z"
+    },
+    {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T11:51:25.317Z",
+      "estado": "aprobado",
+      "pruebas": {
+        "iframe": {
+          "estado": "aprobado",
+          "marcos": 3,
+          "via": "src del iframe del cliente apuntando al enlace individual autorizado."
+        },
+        "render": {
+          "estado": "aprobado",
+          "graficos": 1,
+          "filas_tabla": 3,
+          "kpis_no_vacios": true,
+          "errores": []
+        },
+        "websocket": {
+          "estado": "aprobado",
+          "conectado": true,
+          "enviados": 9,
+          "recibidos": 40
+        },
+        "enlace_excel": {
+          "estado": "aprobado",
+          "observado": "Binding de descarga listo antes de pulsar."
+        },
+        "excel": {
+          "estado": "aprobado",
+          "bytes": 6663,
+          "sha256": "254814a9cfcb4c09cc2f0018e00135f42869f24afc2ed7bed0c12953fd4fb06b"
+        }
+      },
+      "fin_utc": "2026-10-26T11:51:30.726Z"
+    }
+  ],
+  "websockets": [
+    {
+      "ruta": "ws://127.0.0.1:5010/websocket/",
+      "enviados": 2,
+      "recibidos": 12,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 9,
+      "recibidos": 49,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 9,
+      "recibidos": 49,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 9,
+      "recibidos": 49,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 9,
+      "recibidos": 49,
+      "cerrado": false
+    },
+    {
+      "ruta": "wss://analiticadesalud.msp.gob.ec/vista/[SESION]/shiny/websocket/",
+      "enviados": 9,
+      "recibidos": 49,
+      "cerrado": false
+    }
+  ],
+  "fallos_red": [
+    {
+      "ruta": "https://analiticadesalud.msp.gob.ec/vista/[SESION]/embed/presidencia",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "consola": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "http_errores": [],
+  "chrome": "155.0.8059.86",
+  "fin_utc": "2026-10-26T11:51:31.043Z",
+  "cierre": {
+    "estado": "aprobado",
+    "post": 200,
+    "reutilizacion": 401
+  }
+}

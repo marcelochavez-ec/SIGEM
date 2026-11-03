@@ -1,0 +1,15 @@
+# Elaborado por Marcelo Chávez | marcelo_chavez_s@outlook.com | 098 333 26 87
+# https://www.linkedin.com/in/marcelochavezec
+.quarto/
+*.aux
+*.log
+*.toc
+*.lof
+*.out
+*.bbl
+*.blg
+Manual_integral_API_Presidencia.tex
+!latex/*.tex
+
+/.quarto/
+**/*.quarto_ipynb

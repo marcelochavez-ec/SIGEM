@@ -1,0 +1,5 @@
+invisible(Sys.setlocale('LC_CTYPE','Spanish_Ecuador.utf8'))
+root<-'tmp/auditoria_api_20261026';names<-c('atenciones_establecimientos_primer_nivel.pdf','atenciones_salud_mental.pdf','ninios_ninias_paquete_priorizado_edad.pdf','gestantes_paquete_priorizado_edad.pdf')
+res<-list(inicio_utc=format(Sys.time(),tz='UTC',format='%Y-%m-%dT%H:%M:%SZ'),zona_horaria='America/Guayaquil',tipo='real_publico_lectura',fichas=list())
+for(n in names){r<-httr::GET(paste0('https://analiticadesalud.msp.gob.ec/fichas/',n),httr::timeout(25),httr::config(followlocation=0));h<-httr::headers(r);b<-httr::content(r,as='raw');writeBin(b,file.path(root,n));res$fichas[[n]]<-list(http=httr::status_code(r),tipo=h[['content-type']],x_frame_options=h[['x-frame-options']],csp=h[['content-security-policy']],bytes=length(b),sha256=digest::digest(b,algo='sha256',serialize=FALSE));cat(n,httr::status_code(r),'\n')}
+res$fin_utc<-format(Sys.time(),tz='UTC',format='%Y-%m-%dT%H:%M:%SZ');jsonlite::write_json(res,file.path(root,'fichas_publicas.json'),auto_unbox=TRUE,pretty=TRUE,null='null')

@@ -1,0 +1,43 @@
+{
+  "archivos": [
+    {
+      "solo_lectura": true,
+      "columnas": 7,
+      "filas": 7,
+      "id": "primer-nivel",
+      "estado": "aprobado"
+    },
+    {
+      "solo_lectura": true,
+      "columnas": 7,
+      "filas": 7,
+      "id": "salud-mental",
+      "estado": "aprobado"
+    },
+    {
+      "solo_lectura": true,
+      "columnas": 7,
+      "filas": 10,
+      "id": "paquete-ninos",
+      "estado": "aprobado"
+    },
+    {
+      "solo_lectura": true,
+      "columnas": 7,
+      "filas": 10,
+      "id": "paquete-gestantes",
+      "estado": "aprobado"
+    },
+    {
+      "solo_lectura": true,
+      "columnas": 4,
+      "filas": 4,
+      "id": "medicamentos",
+      "estado": "aprobado"
+    }
+  ],
+  "fin_utc": "2026-10-26T12:04:11.5674422Z",
+  "tipo": "local_lector_Excel",
+  "version_excel": "16.0",
+  "inicio_utc": "2026-10-26T12:04:02.7684948Z"
+}

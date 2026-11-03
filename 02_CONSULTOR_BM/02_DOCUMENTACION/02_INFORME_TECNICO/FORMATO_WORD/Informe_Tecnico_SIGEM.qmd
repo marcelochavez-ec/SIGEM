@@ -1,0 +1,85 @@
+---
+title: "INFORME TÉCNICO DE SIGEM"
+subtitle: "Arquitectura y estado de construcción del sistema"
+author: "Ministerio de Salud Pública"
+lang: es
+format:
+  docx:
+    reference-doc: Referencia_MSP_preparada.docx
+    toc: true
+    number-sections: true
+    highlight-style: none
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Resumen ejecutivo
+
+SIGEM es una aplicación institucional para gestionar y monitorear información de salud. La versión revisada está construida como una aplicación web Django, con separación entre presentación, lógica de negocio, persistencia y recursos estáticos.
+
+Este informe documenta la arquitectura observable en el repositorio, los componentes implementados, las reglas de negocio verificadas y los límites actuales de la versión.
+
+# Alcance técnico
+
+El análisis comprende el código fuente disponible en `01_MSP/02_SOFT`, sus plantillas, formularios, recursos JavaScript y CSS, pruebas automatizadas y documentación asociada. No se modifican credenciales, variables de entorno ni configuraciones productivas.
+
+# Arquitectura por capas
+
+## Capa de presentación
+
+Las plantillas HTML de Django definen la estructura de las pantallas, formularios, mensajes, botones y áreas de construcción. La interfaz usa recursos CSS institucionales y componentes de interacción específicos del módulo.
+
+## Capa de interacción del navegador
+
+El JavaScript de SIGEM detecta cambios en los formularios y controla el estado de los controles. Para los niveles II y III muestra el aviso de construcción y desactiva botones, enlaces y acciones restantes, dejando disponible el selector para escoger una opción implementada.
+
+## Capa de aplicación y validación
+
+Los formularios Django concentran validaciones de entrada y reglas de negocio. La regla de niveles II y III se ejecuta en `clean()` del formulario de datos generales, antes de cualquier continuación o persistencia.
+
+## Capa de persistencia
+
+La aplicación utiliza el modelo de datos configurado por Django y la conexión institucional definida para el despliegue. Las consultas y operaciones de persistencia deben ejecutarse mediante los modelos y servicios existentes, respetando permisos y transacciones.
+
+## Recursos estáticos
+
+CSS, JavaScript e imágenes se organizan en `static/sigem`. Los estilos definen el estado visual de controles desactivados y del mensaje de construcción sin sustituir la validación del servidor.
+
+# Flujo funcional verificado
+
+1. El usuario abre el formulario de datos generales.
+2. Selecciona el nivel de atención.
+3. Para niveles implementados, el formulario conserva las acciones habilitadas.
+4. Para nivel II o III, la interfaz muestra el mensaje de construcción y bloquea las demás acciones.
+5. El servidor rechaza la continuación con el mismo mensaje si se intenta evadir el bloqueo de la interfaz.
+
+# Regla de negocio de niveles en construcción
+
+La constante de niveles en construcción contiene los valores II y III. El mensaje funcional es: **En construcción. Este módulo estará disponible próximamente.** La regla se mantiene duplicada de forma controlada entre servidor y cliente para garantizar experiencia de usuario y seguridad funcional.
+
+# Dependencias y operación
+
+1. Python y Django para la aplicación web.
+2. PostgreSQL como motor de datos institucional, según la configuración del proyecto.
+3. HTML y plantillas Django para la presentación.
+4. JavaScript y CSS para la interacción y estilos.
+5. Conda, mediante el ambiente `msp_01`, para ejecutar las herramientas del proyecto.
+
+El intérprete Python utilizado para las pruebas debe ser el del ambiente `msp_01`; no se asume un Python funcional en el `PATH` del sistema.
+
+# Pruebas y validaciones realizadas
+
+1. Pruebas Django del formulario para niveles II y III: dos casos aprobados.
+2. Verificación de sintaxis del JavaScript del módulo: aprobada.
+3. Verificación de configuración Django: aprobada, sin errores del sistema.
+4. Revisión de separación entre mensaje de construcción y controles deshabilitados: realizada en código y pruebas.
+
+# Estado actual y limitaciones
+
+La versión revisada documenta los módulos que ya tienen implementación visible y las reglas de validación disponibles. Los niveles II y III permanecen explícitamente en construcción. La disponibilidad de módulos adicionales puede variar según perfil, configuración y despliegue.
+
+# Conclusión
+
+La arquitectura actual conserva una separación clara entre interfaz, interacción, validación de aplicación, persistencia y recursos estáticos. La regla de construcción está protegida en cliente y servidor, y queda lista para que una futura implementación habilite los niveles II y III sin retirar la validación existente.

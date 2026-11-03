@@ -1,0 +1,9 @@
+name: msp_01
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14
+  - quarto
+  - pip
+  - pip:
+      - -r ../02_SOFT/requirements.txt

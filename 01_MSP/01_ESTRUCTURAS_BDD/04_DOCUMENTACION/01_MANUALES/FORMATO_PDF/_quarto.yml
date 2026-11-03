@@ -1,0 +1,51 @@
+# Elaborado por Marcelo Chávez, consultor especialista en protección social.
+# Correo: marcelo_chavez_s@outlook.com | Móvil: 098 333 26 87
+# LinkedIn: https://www.linkedin.com/in/marcelochavezec
+project:
+  type: default
+  render:
+    - Manual_integral_API_Presidencia.qmd
+format:
+  pdf:
+    documentclass: scrreprt
+    top-level-division: chapter
+    classoption: [openany, oneside]
+    pdf-engine: xelatex
+    latex-auto-install: false
+    papersize: a4
+    fontsize: 10pt
+    mainfont: Latin Modern Roman
+    sansfont: Latin Modern Sans
+    monofont: Latin Modern Mono
+    mathfont: Latin Modern Math
+    geometry:
+      - top=26mm
+      - bottom=27mm
+      - left=23mm
+      - right=18mm
+      - headheight=36pt
+      - headsep=10pt
+      - footskip=44pt
+    toc: true
+    toc-depth: 2
+    lof: true
+    number-sections: true
+    colorlinks: true
+    linkcolor: MSPAzul
+    urlcolor: MSPAzul
+    citecolor: MSPAzul
+    keep-tex: false
+    include-in-header:
+      - latex/creditos.tex
+      - latex/estilo.tex
+lang: es
+bibliography: bibliography.bib
+csl: recursos/apa.csl
+citeproc: true
+link-citations: true
+filters:
+  - incluir_codigo.lua
+execute:
+  eval: false
+  echo: true
+editor: source

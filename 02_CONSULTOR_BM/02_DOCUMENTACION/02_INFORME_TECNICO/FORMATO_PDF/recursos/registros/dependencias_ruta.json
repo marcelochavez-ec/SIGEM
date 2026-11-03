@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-26T12:35:03.009173+00:00",
+  "dependencias": {
+    "modulos/dneaisns/roles_usuarios/roles_usuarios_global.R": true,
+    "modulos/roles_usuarios/roles_usuarios_global.R": false
+  },
+  "nginx_principal": "/etc/nginx/conf.d/analytics-shinyproxy-8595.conf",
+  "nginx_existe": true,
+  "lineas_de_enrutamiento": [
+    {
+      "linea": 7,
+      "texto": "listen 8595;"
+    },
+    {
+      "linea": 8,
+      "texto": "server_name analiticadesalud.msp.gob.ec www.analiticadesalud.msp.gob.ec _;"
+    },
+    {
+      "linea": 96,
+      "texto": "include /etc/nginx/sivas-presidencia-rutas.conf;"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "inicio_utc": "2026-10-26T11:51:45Z",
+  "zona_horaria": "America/Guayaquil",
+  "tipo": "real_publico_lectura",
+  "fichas": {
+    "atenciones_establecimientos_primer_nivel.pdf": {
+      "http": 200,
+      "tipo": "application/pdf",
+      "x_frame_options": "SAMEORIGIN",
+      "csp": "frame-ancestors 'self';",
+      "bytes": 1227155,
+      "sha256": "0ddeb1f61bb35915c714f2763a151ddcc86bba2e3b1067450657c65bc8ff3616"
+    },
+    "atenciones_salud_mental.pdf": {
+      "http": 200,
+      "tipo": "application/pdf",
+      "x_frame_options": "SAMEORIGIN",
+      "csp": "frame-ancestors 'self';",
+      "bytes": 1227754,
+      "sha256": "d316b9951f6cd887d3c45ce77f74e02db8d9bbf6a004a99a27d178926c9840ee"
+    },
+    "ninios_ninias_paquete_priorizado_edad.pdf": {
+      "http": 200,
+      "tipo": "application/pdf",
+      "x_frame_options": "SAMEORIGIN",
+      "csp": "frame-ancestors 'self';",
+      "bytes": 931067,
+      "sha256": "2e07fa93c2cc0a59fb52461f9a742ec6ce44653ed05e061f38d4af687f07a977"
+    },
+    "gestantes_paquete_priorizado_edad.pdf": {
+      "http": 200,
+      "tipo": "application/pdf",
+      "x_frame_options": "SAMEORIGIN",
+      "csp": "frame-ancestors 'self';",
+      "bytes": 836010,
+      "sha256": "2eb3d23b36b74969c78bc4df26ccd6d1dab573ccba9690d7706b7efc2dfcee34"
+    }
+  },
+  "fin_utc": "2026-10-26T11:52:12Z"
+}

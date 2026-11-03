@@ -1,0 +1,144 @@
+{
+  "inicio_utc": "2026-10-26T12:06:15.536Z",
+  "zona_horaria": "America/Guayaquil",
+  "procedimiento": "v2: contadores tipados de Shiny (id:shiny.action); enlaces individuales, espera de conexión y counters, controles nativos sin PDF ni descarga",
+  "indicadores": [
+    {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T12:06:17.345Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "contador_cliente": 1,
+          "respuestas_ws": 7
+        },
+        "seccion_direcciones": {
+          "estado": "aprobado",
+          "observado": "Panel En construcción visible; no implica geofiltro operativo."
+        },
+        "volver_cifras": {
+          "estado": "aprobado"
+        },
+        "refrescar": {
+          "estado": "aprobado",
+          "observado": "Selecciona el primer indicador."
+        }
+      },
+      "fin_utc": "2026-10-26T12:06:59.544Z"
+    },
+    {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T12:06:59.545Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "contador_cliente": 1,
+          "respuestas_ws": 10
+        },
+        "seccion_direcciones": {
+          "estado": "aprobado",
+          "observado": "Panel En construcción visible; no implica geofiltro operativo."
+        },
+        "volver_cifras": {
+          "estado": "aprobado"
+        },
+        "refrescar": {
+          "estado": "aprobado",
+          "observado": "Selecciona el primer indicador."
+        }
+      },
+      "fin_utc": "2026-10-26T12:07:36.397Z"
+    },
+    {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T12:07:36.398Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "contador_cliente": 1,
+          "respuestas_ws": 17
+        },
+        "seccion_direcciones": {
+          "estado": "aprobado",
+          "observado": "Panel En construcción visible; no implica geofiltro operativo."
+        },
+        "volver_cifras": {
+          "estado": "aprobado"
+        },
+        "refrescar": {
+          "estado": "aprobado",
+          "observado": "Selecciona el primer indicador."
+        }
+      },
+      "fin_utc": "2026-10-26T12:07:43.508Z"
+    },
+    {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T12:07:43.510Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "contador_cliente": 1,
+          "respuestas_ws": 4
+        },
+        "seccion_direcciones": {
+          "estado": "aprobado",
+          "observado": "Panel En construcción visible; no implica geofiltro operativo."
+        },
+        "volver_cifras": {
+          "estado": "aprobado"
+        },
+        "refrescar": {
+          "estado": "aprobado",
+          "observado": "Selecciona el primer indicador."
+        }
+      },
+      "fin_utc": "2026-10-26T12:07:50.386Z"
+    },
+    {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T12:07:50.387Z",
+      "pruebas": {
+        "selector": {
+          "estado": "aprobado",
+          "observado": "El botón del indicador mantiene el título esperado."
+        },
+        "consultar": {
+          "estado": "aprobado",
+          "contador_cliente": 1,
+          "respuestas_ws": 19
+        },
+        "seccion_direcciones": {
+          "estado": "aprobado",
+          "observado": "Panel En construcción visible; no implica geofiltro operativo."
+        },
+        "volver_cifras": {
+          "estado": "aprobado"
+        },
+        "refrescar": {
+          "estado": "aprobado",
+          "observado": "Selecciona el primer indicador."
+        }
+      },
+      "fin_utc": "2026-10-26T12:07:56.588Z"
+    }
+  ],
+  "cierre_http": 200,
+  "fin_utc": "2026-10-26T12:07:56.702Z"
+}

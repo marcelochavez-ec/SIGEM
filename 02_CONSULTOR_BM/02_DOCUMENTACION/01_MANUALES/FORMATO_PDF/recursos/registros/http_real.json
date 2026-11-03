@@ -1,0 +1,169 @@
+{
+  "inicio_utc": "2026-10-26T11:43:36Z",
+  "zona_horaria": "America/Guayaquil",
+  "tipo": "real_197_desde_R_Windows",
+  "base": "https://analiticadesalud.msp.gob.ec",
+  "indicadores": {
+    "primer-nivel": {
+      "id": "primer-nivel",
+      "inicio_utc": "2026-10-26T11:43:36Z",
+      "estado": "aprobado",
+      "autenticacion": {
+        "estado": "aprobado",
+        "enlaces": 5,
+        "vigencia_configurada_segundos": 28800
+      },
+      "rest": {
+        "estado": "aprobado",
+        "filas": 6,
+        "generado_en": "2026-10-26T11:07:27Z"
+      },
+      "envoltura": {
+        "http": 200,
+        "html": true
+      },
+      "html_shiny": {
+        "http": 200,
+        "segundos": 0.47,
+        "bytes": 489205,
+        "contenedor": true,
+        "login_eliminado": true
+      },
+      "cierre": {
+        "estado": "aprobado",
+        "respuesta": "cerrada",
+        "reutilizacion": 401
+      },
+      "fin_utc": "2026-10-26T11:43:37Z"
+    },
+    "salud-mental": {
+      "id": "salud-mental",
+      "inicio_utc": "2026-10-26T11:43:37Z",
+      "estado": "aprobado",
+      "autenticacion": {
+        "estado": "aprobado",
+        "enlaces": 5,
+        "vigencia_configurada_segundos": 28800
+      },
+      "rest": {
+        "estado": "aprobado",
+        "filas": 6,
+        "generado_en": "2026-10-26T11:07:27Z"
+      },
+      "envoltura": {
+        "http": 200,
+        "html": true
+      },
+      "html_shiny": {
+        "http": 200,
+        "segundos": 0.53,
+        "bytes": 489205,
+        "contenedor": true,
+        "login_eliminado": true
+      },
+      "cierre": {
+        "estado": "aprobado",
+        "respuesta": "cerrada",
+        "reutilizacion": 401
+      },
+      "fin_utc": "2026-10-26T11:43:38Z"
+    },
+    "paquete-ninos": {
+      "id": "paquete-ninos",
+      "inicio_utc": "2026-10-26T11:43:38Z",
+      "estado": "aprobado",
+      "autenticacion": {
+        "estado": "aprobado",
+        "enlaces": 5,
+        "vigencia_configurada_segundos": 28800
+      },
+      "rest": {
+        "estado": "aprobado",
+        "filas": 9,
+        "generado_en": "2026-10-26T11:07:27Z"
+      },
+      "envoltura": {
+        "http": 200,
+        "html": true
+      },
+      "html_shiny": {
+        "http": 200,
+        "segundos": 0.42,
+        "bytes": 489205,
+        "contenedor": true,
+        "login_eliminado": true
+      },
+      "cierre": {
+        "estado": "aprobado",
+        "respuesta": "cerrada",
+        "reutilizacion": 401
+      },
+      "fin_utc": "2026-10-26T11:43:39Z"
+    },
+    "paquete-gestantes": {
+      "id": "paquete-gestantes",
+      "inicio_utc": "2026-10-26T11:43:39Z",
+      "estado": "aprobado",
+      "autenticacion": {
+        "estado": "aprobado",
+        "enlaces": 5,
+        "vigencia_configurada_segundos": 28800
+      },
+      "rest": {
+        "estado": "aprobado",
+        "filas": 9,
+        "generado_en": "2026-10-26T11:07:27Z"
+      },
+      "envoltura": {
+        "http": 200,
+        "html": true
+      },
+      "html_shiny": {
+        "http": 200,
+        "segundos": 2.83,
+        "bytes": 489205,
+        "contenedor": true,
+        "login_eliminado": true
+      },
+      "cierre": {
+        "estado": "aprobado",
+        "respuesta": "cerrada",
+        "reutilizacion": 401
+      },
+      "fin_utc": "2026-10-26T11:43:44Z"
+    },
+    "medicamentos": {
+      "id": "medicamentos",
+      "inicio_utc": "2026-10-26T11:43:44Z",
+      "estado": "aprobado",
+      "autenticacion": {
+        "estado": "aprobado",
+        "enlaces": 5,
+        "vigencia_configurada_segundos": 28800
+      },
+      "rest": {
+        "estado": "aprobado",
+        "filas": 3,
+        "generado_en": "2026-10-26T11:07:27Z"
+      },
+      "envoltura": {
+        "http": 200,
+        "html": true
+      },
+      "html_shiny": {
+        "http": 200,
+        "segundos": 9.72,
+        "bytes": 489205,
+        "contenedor": true,
+        "login_eliminado": true
+      },
+      "cierre": {
+        "estado": "aprobado",
+        "respuesta": "cerrada",
+        "reutilizacion": 401
+      },
+      "fin_utc": "2026-10-26T11:43:57Z"
+    }
+  },
+  "fin_utc": "2026-10-26T11:43:57Z"
+}

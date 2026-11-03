@@ -1,0 +1,107 @@
+{
+  "titulo": "Porcentaje de menores de 24 meses que cumplen el paquete priorizado según edad\nIncrementar a 37,65% la cobertura del paquete priorizado en menores de 24 meses.",
+  "graficos": 1,
+  "series": [
+    {
+      "nombre": "Meta 2026",
+      "puntos": 12,
+      "datos": [
+        {
+          "x": 1767225600000,
+          "y": 37.65
+        },
+        {
+          "x": 1769904000000,
+          "y": 37.65
+        },
+        {
+          "x": 1772323200000,
+          "y": 37.65
+        },
+        {
+          "x": 1775001600000,
+          "y": 37.65
+        },
+        {
+          "x": 1777593600000,
+          "y": 37.65
+        },
+        {
+          "x": 1780272000000,
+          "y": 37.65
+        },
+        {
+          "x": 1782864000000,
+          "y": 37.65
+        },
+        {
+          "x": 1785542400000,
+          "y": 37.65
+        },
+        {
+          "x": 1788220800000,
+          "y": 37.65
+        },
+        {
+          "x": 1790812800000,
+          "y": 37.65
+        },
+        {
+          "x": 1793491200000,
+          "y": 37.65
+        },
+        {
+          "x": 1796083200000,
+          "y": 37.65
+        }
+      ]
+    },
+    {
+      "nombre": "Indicador",
+      "puntos": 9,
+      "datos": [
+        {
+          "x": 1767225600000,
+          "y": 38.6
+        },
+        {
+          "x": 1769904000000,
+          "y": 38.7
+        },
+        {
+          "x": 1772323200000,
+          "y": 36.82
+        },
+        {
+          "x": 1775001600000,
+          "y": 38.17
+        },
+        {
+          "x": 1777593600000,
+          "y": 36.1
+        },
+        {
+          "x": 1780272000000,
+          "y": 34.79
+        },
+        {
+          "x": 1782864000000,
+          "y": 36.41
+        },
+        {
+          "x": 1785542400000,
+          "y": 31.33
+        },
+        {
+          "x": 1788220800000,
+          "y": 23.78
+        }
+      ]
+    }
+  ],
+  "kpis": "Línea base 2025\n27,09%\nLínea base\nMeta 2026\n37,65%\nMeta anual\nMeta alcanzada\nNo\nActual: 23,78%\nNumerador acumulado\n131.675\nCorte: Septiembre 2026\nNumerador mensual\n43.240\nCorte: Septiembre 2026\nDenominador mensual\n181.820\nCorte: Septiembre 2026",
+  "filas": 9,
+  "errores": [],
+  "loginVisible": false,
+  "conectado": true
+}
